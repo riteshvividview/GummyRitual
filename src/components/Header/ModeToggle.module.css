@@ -1,0 +1,80 @@
+.toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* Sized as the header's own focal point rather than matching the icon
+     buttons — this is the one control everyone should notice first. */
+  height: clamp(2.5rem, 7vw, 3.125rem);
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(244, 134, 58, 0.35);
+  box-shadow:
+    0 10px 28px rgba(244, 134, 58, 0.22),
+    0 0 0 4px rgba(244, 134, 58, 0.08);
+  gap: 0.1875rem;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.option {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Fluid instead of a fixed size + a hide-the-label breakpoint — the
+     Kids/Adults toggle must always show its text at every viewport, so it
+     shrinks continuously with the viewport instead of ever dropping the
+     label. */
+  gap: clamp(0.3rem, 1vw, 0.4375rem);
+  /* Only horizontal — vertical centering now comes from .toggle's fixed
+     height + align-items: center, so this can't push the button taller
+     than its siblings and throw off the row's alignment. */
+  height: 100%;
+  padding: 0 clamp(0.75rem, 2.8vw, 1.125rem);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: clamp(0.8125rem, 2.2vw, 0.9375rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--kids-ink-muted);
+  transition: color var(--duration-default) var(--ease-default);
+  background: transparent;
+  white-space: nowrap;
+}
+
+.option svg {
+  width: clamp(14px, 3.4vw, 17px);
+  height: clamp(14px, 3.4vw, 17px);
+  flex-shrink: 0;
+}
+
+.optionLabel {
+  line-height: 1;
+}
+
+.optionActive {
+  color: var(--kids-surface);
+}
+
+.indicator {
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  left: 0.3rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--kids-accent-orange-light), var(--kids-accent-red));
+  box-shadow: 0 6px 14px rgba(225, 75, 42, 0.35);
+  transition:
+    transform 0.4s var(--ease-default),
+    width 0.4s var(--ease-default);
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option,
+  .indicator {
+    transition: none;
+  }
+}

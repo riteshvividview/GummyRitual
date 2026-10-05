@@ -1,0 +1,271 @@
+/* ---------------------------------------------------------------- */
+/* Floating wrapper — creates the margin from the viewport edges that */
+/* makes this read as a floating pill rather than a static top bar.   */
+/* ---------------------------------------------------------------- */
+
+.headerFloat {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 3vw, 1.5rem) 0;
+  transform: translateY(0);
+  transition: transform 0.4s var(--ease-default);
+}
+
+.headerHidden {
+  transform: translateY(-130%);
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.25rem);
+  max-width: 88rem;
+  margin: 0 auto;
+  padding: 0.875rem clamp(0.75rem, 2vw, 1.25rem);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 16px 40px rgba(43, 26, 18, 0.1);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition:
+    background-color 0.4s var(--ease-default),
+    box-shadow 0.4s var(--ease-default),
+    padding 0.4s var(--ease-default);
+}
+
+.headerScrolled {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 20px 48px rgba(43, 26, 18, 0.16);
+}
+
+/* ---------------------------------------------------------------- */
+/* Logo                                                               */
+/* ---------------------------------------------------------------- */
+
+.logo {
+  order: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  height: clamp(1.625rem, 4.6vw, 2.125rem);
+  width: auto;
+}
+
+/* ---------------------------------------------------------------- */
+/* Mode toggle slot — untouched ModeToggle component, just placed     */
+/* right after the logo on desktop (matches the reference) and        */
+/* re-homed to the centered grid column on mobile below.              */
+/* ---------------------------------------------------------------- */
+
+.modeToggleSlot {
+  order: 1;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Primary nav + dropdowns                                           */
+/* ---------------------------------------------------------------- */
+
+.nav {
+  order: 2;
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.navItemWrap {
+  position: relative;
+  display: flex;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--kids-ink-muted);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--kids-ink);
+}
+
+.navTrigger {
+  background: none;
+}
+
+.navChevron {
+  transition: transform 0.25s var(--ease-default);
+}
+
+.navTriggerOpen .navChevron {
+  transform: rotate(180deg);
+}
+
+.navTriggerOpen {
+  color: var(--kids-ink);
+}
+
+.menuPanel {
+  position: absolute;
+  top: calc(100% + 0.875rem);
+  left: 0;
+  z-index: 10;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--kids-border);
+  box-shadow: 0 32px 64px rgba(43, 26, 18, 0.18);
+}
+
+.menuPanelWide {
+  left: 50%;
+  transform: translateX(-38%);
+}
+
+/* ---------------------------------------------------------------- */
+/* Actions — icons + CTA                                             */
+/* ---------------------------------------------------------------- */
+
+.actions {
+  order: 3;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  flex-shrink: 0;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.125rem, 1vw, 0.75rem);
+}
+
+.iconButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(1.75rem, 6vw, 2.25rem);
+  height: clamp(1.75rem, 6vw, 2.25rem);
+  color: var(--kids-ink);
+  flex-shrink: 0;
+}
+
+.iconButton svg {
+  width: clamp(14px, 4vw, 18px);
+  height: clamp(14px, 4vw, 18px);
+}
+
+.cartCount {
+  position: absolute;
+  top: -0.125rem;
+  right: -0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.125rem;
+  height: 1.125rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--kids-ink);
+  color: var(--kids-surface);
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+
+.ctaButton {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--kids-accent-pink-light), var(--kids-accent-red));
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(225, 75, 42, 0.3);
+  transition: transform 0.2s var(--ease-default);
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Mobile hamburger — hidden on desktop                               */
+/* ---------------------------------------------------------------- */
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--kids-ink);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .menuButton {
+    display: flex;
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .logo,
+  .nav,
+  .ctaButton,
+  .searchButton,
+  .accountButton {
+    display: none;
+  }
+
+  .modeToggleSlot {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .actions {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headerFloat,
+  .header,
+  .navChevron,
+  .ctaButton {
+    transition: none;
+  }
+}

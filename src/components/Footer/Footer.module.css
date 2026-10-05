@@ -1,0 +1,434 @@
+.footer {
+  position: relative;
+  width: 100%;
+  /* Matches footer-background-image.png's own 1983x793 pixel dimensions —
+     keeping this ratio at every viewport width is what keeps the overlaid
+     text aligned with the bear/pouches baked into the image itself. */
+  aspect-ratio: 1983 / 793;
+  overflow: hidden;
+  background: var(--kids-surface-muted);
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 5.5% 4.5% 0.75%;
+}
+
+/* ---------------------------------------------------------------- */
+/* Top row — brand, link columns, newsletter card                    */
+/* ---------------------------------------------------------------- */
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.brandCol {
+  flex: 0 0 auto;
+  width: 20%;
+  min-width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: -1.75rem;
+}
+
+.logoImage {
+  height: clamp(2.75rem, 4.4vw, 3.5rem);
+  width: auto;
+  margin: 0 0 0.5rem;
+}
+
+.tagline {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.taglineLine {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.2;
+  color: var(--kids-ink);
+}
+
+.brandDescription {
+  font-family: var(--font-body);
+  font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  line-height: 1.45;
+  color: var(--kids-ink-muted);
+  margin: 0.125rem 0 0.25rem;
+  max-width: 16rem;
+}
+
+.socialList {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--kids-ink);
+  font-size: 0.8125rem;
+  box-shadow: 0 4px 10px rgba(43, 26, 18, 0.08);
+  transition:
+    transform 0.25s var(--ease-default),
+    background-color 0.25s var(--ease-default);
+}
+
+.socialLink:hover {
+  transform: translateY(-2px) scale(1.06);
+  background: var(--kids-surface);
+}
+
+.socialLink:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+}
+
+.linksGrid {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: space-evenly;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  padding-top: 0.25rem;
+}
+
+.linkCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-width: 6rem;
+}
+
+.linkColHeading {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: clamp(0.6875rem, 0.95vw, 0.8125rem);
+  color: var(--kids-ink-muted);
+  text-underline-offset: 0.1875rem;
+  transition: color 0.2s var(--ease-default);
+}
+
+.link:hover {
+  color: var(--kids-ink);
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Newsletter card                                                   */
+/* ---------------------------------------------------------------- */
+
+.newsletterCard {
+  flex: 0 0 auto;
+  width: 27%;
+  min-width: 13rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: clamp(0.875rem, 1.6vw, 1.5rem);
+  border-radius: 1.25rem;
+  background: rgba(255, 229, 229, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.newsletterHeading {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(1.0625rem, 1.6vw, 1.5rem);
+  line-height: 1.15;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.newsletterDescription {
+  font-family: var(--font-body);
+  font-size: clamp(0.6875rem, 0.95vw, 0.8125rem);
+  line-height: 1.4;
+  color: var(--kids-ink-muted);
+  margin: 0;
+}
+
+.newsletterField {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3125rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.newsletterInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  color: var(--kids-ink);
+}
+
+.newsletterInput::placeholder {
+  color: var(--kids-ink-muted);
+}
+
+.newsletterInput:focus {
+  outline: none;
+}
+
+.newsletterSubmit {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: var(--kids-accent-red, #e14b2a);
+  color: var(--kids-surface);
+  font-size: 0.75rem;
+  transition: transform 0.25s var(--ease-default);
+}
+
+.newsletterSubmit:hover {
+  transform: scale(1.08);
+}
+
+.newsletterSubmit:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Trust badges — sit in the gap between the bear and the product    */
+/* pouches that are baked into the background image.                 */
+/* ---------------------------------------------------------------- */
+
+.trustRow {
+  display: flex;
+  gap: clamp(0.1rem, 0.7vw, 0.60rem);
+  list-style: none;
+  margin: 0;
+  padding: 0 32% 0 26%;
+}
+
+.trustItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  text-align: center;
+  max-width: 7rem;
+}
+
+.trustIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.25rem, 3.2vw, 3rem);
+  height: clamp(2.25rem, 3.2vw, 3rem);
+  border-radius: 999px;
+  font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+}
+
+.tintOrange {
+  background: #fbe6c4;
+  color: #b56a1a;
+}
+
+.tintBlue {
+  background: #dbeafb;
+  color: #1f6ea8;
+}
+
+.tintGreen {
+  background: #ddf1dc;
+  color: #3f7a3a;
+}
+
+.tintPink {
+  background: #fbdce4;
+  color: #c23566;
+}
+
+.trustLabel {
+  font-family: "Poppins", var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+  line-height: 1.25;
+  color: var(--kids-ink);
+}
+
+/* ---------------------------------------------------------------- */
+/* Legal bar                                                         */
+/* ---------------------------------------------------------------- */
+
+.legalBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  border-top: 1px solid rgba(43, 26, 18, 0.1);
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+  color: var(--kids-ink-muted);
+  margin: 0;
+}
+
+.paymentRow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.paymentLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+  font-weight: 600;
+  color: var(--kids-ink-muted);
+}
+
+.paymentIcons {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+  color: var(--kids-ink-muted);
+}
+
+.upiMark {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(0.625rem, 0.9vw, 0.8125rem);
+  letter-spacing: 0.02em;
+  color: var(--kids-ink-muted);
+  border: 1.5px solid rgba(43, 26, 18, 0.25);
+  border-radius: 0.25rem;
+  padding: 0.0625rem 0.25rem;
+}
+
+@media (max-width: 1023px) {
+  .footer {
+    aspect-ratio: auto;
+  }
+
+  .content {
+    padding: 2.5rem var(--space-md) var(--space-md);
+  }
+
+  .topRow {
+    flex-wrap: wrap;
+    row-gap: var(--space-md);
+  }
+
+  .brandCol {
+    width: 100%;
+    max-width: 20rem;
+  }
+
+  .linksGrid {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .newsletterCard {
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .trustRow {
+    flex-wrap: wrap;
+    padding: 0;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .legalBar {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 639px) {
+  .linksGrid {
+    flex-wrap: wrap;
+    row-gap: var(--space-md);
+  }
+
+  .linkCol {
+    min-width: 40%;
+  }
+
+  .legalBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .paymentRow {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

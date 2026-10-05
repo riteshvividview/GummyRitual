@@ -1,0 +1,323 @@
+.section {
+  position: relative;
+  width: 100%;
+  background: var(--kids-surface-muted);
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
+  min-height: 34rem;
+  /* Full-bleed: no max-width, no margin, no rounded corners — just the
+     image as the section's background, with .scrimLeft below for extra
+     legibility over the copy column. */
+  overflow: hidden;
+}
+
+.scrimLeft {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.55) 20%,
+    rgba(255, 255, 255, 0.18) 38%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  /* Scaled up and anchored to the left edge — object-position: left is
+     already the photo's leftmost crop, so revealing more of its blurred
+     negative space (and pushing the pouches further right, out from under
+     the copy) means zooming in from that same left anchor rather than
+     shifting position any further. */
+  transform: scale(1.25);
+  /* Anchored a bit inside the left edge (not flush at 0%) — a pure left
+     anchor has zero overscan on that side, so any rightward cursor-
+     parallax pan immediately exposed a gap there. This keeps the same
+     "zoomed toward the left" composition while leaving a sliver of buffer
+     on both sides for the parallax in useCursorParallax to pan within. */
+  transform-origin: 18% center;
+  z-index: 0;
+}
+
+.copyColumn {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 34rem;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--kids-ink-muted);
+}
+
+.headline {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(1.875rem, 4vw, 3.5rem);
+  line-height: 0.98;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.accent {
+  background: linear-gradient(
+    90deg,
+    var(--kids-accent-orange-light),
+    var(--kids-accent-red)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--kids-ink-muted);
+  max-width: 28rem;
+  margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.benefitList {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+}
+
+.benefitItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.benefitIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  margin-bottom: 0.25rem;
+}
+
+.tintPink {
+  background: #fbdce4;
+  color: #c23566;
+}
+
+.tintOrange {
+  background: #fbe6c4;
+  color: #b56a1a;
+}
+
+.tintBlue {
+  background: #dbeafb;
+  color: #1f6ea8;
+}
+
+.tintGreen {
+  background: #ddf1dc;
+  color: #3f7a3a;
+}
+
+.benefitLabel {
+  font-family: var(--font-display-kids);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--kids-ink);
+  white-space: nowrap;
+}
+
+.benefitDescription {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--kids-ink-muted);
+}
+
+.trustStrip {
+  position: relative;
+  background: var(--kids-surface);
+  /* Top and bottom both kept small — the wave crest above already reads as
+     generous breathing room, and a large bottom padding here was stacking
+     with the next section's own top padding into one big white gap. */
+  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+}
+
+.trustWave {
+  position: absolute;
+  /* Flush against .trustStrip's own top edge (= -height) rather than the
+     previous top:-1px + translateY(-100%) combo, which left a 1px gap
+     revealing .section's cream background as a thin line across the seam. */
+  top: -3.5rem;
+  left: 0;
+  width: 100%;
+  height: 3.5rem;
+  color: var(--kids-surface);
+  display: block;
+}
+
+.trustList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.trustIcon {
+  flex-shrink: 0;
+  align-self: center;
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+}
+
+.trustText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.trustLabel {
+  font-family: var(--font-display-kids);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.trustDescription {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--kids-ink-muted);
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .content {
+    padding: var(--space-lg);
+    min-height: 40rem;
+  }
+
+  .copyColumn {
+    max-width: 100%;
+  }
+
+  .trustList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 639px) {
+  .content {
+    /* Much tighter than the tablet tier's uniform var(--space-lg) (64px) —
+       that was eating ~40% of a 325px-wide viewport in pure side padding.
+       Slightly more than var(--space-sm) though — flush against the edge
+       read as cramped. */
+    padding: var(--space-md) 1.25rem;
+    /* Content-driven height instead of the old 44rem — with
+       align-items: center on .content (set at the base rule above),
+       a min-height much taller than the actual content left a large gap
+       of empty background above "OUR GUMMIES" before the text appeared. */
+    min-height: 30rem;
+    align-items: flex-start;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+  }
+
+  .description {
+    font-size: 0.9375rem;
+  }
+
+  .benefitList {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .benefitItem {
+    width: calc(50% - var(--space-sm) / 2);
+  }
+
+  .benefitIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .benefitLabel {
+    /* Back to wrapping at the 2-column mobile width — the single-line
+       fix is for the desktop row, where there's room; a 50%-width mobile
+       column isn't wide enough for "Overall Health" on one line. */
+    white-space: normal;
+    font-size: 0.875rem;
+  }
+
+  .benefitDescription {
+    font-size: 0.75rem;
+  }
+
+  .trustStrip {
+    padding: var(--space-sm) var(--space-sm) var(--space-md);
+  }
+
+  .trustList {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .trustIcon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .trustLabel {
+    font-size: 0.9375rem;
+  }
+
+  .trustDescription {
+    font-size: 0.75rem;
+  }
+}

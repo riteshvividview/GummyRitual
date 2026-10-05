@@ -1,0 +1,501 @@
+.section {
+  position: relative;
+  width: 100%;
+  background: var(--kids-bg-fallback);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- */
+/* Photo area — background + floating overlays                       */
+/* ---------------------------------------------------------------- */
+
+.photoArea {
+  position: relative;
+  width: 100%;
+  min-height: 48rem;
+  overflow: hidden;
+}
+
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Two stacked layers so switching ingredients can crossfade (plain
+   opacity, see Ingredients.tsx) instead of a flat cut. */
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.scrimLeft {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.28) 16%,
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.scrimRight {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Two layered fades: a stronger right-edge horizontal one so the
+     title/subline/CTA column reads clearly, plus a vertical one that
+     strengthens further below the content, toward the ingredient row. */
+  background:
+    linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.4) 18%,
+      rgba(255, 255, 255, 0.12) 36%,
+      rgba(255, 255, 255, 0) 52%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0.45) 65%,
+      rgba(255, 255, 255, 0.78) 100%
+    );
+}
+
+.infoCard {
+  position: absolute;
+  z-index: 2;
+  top: 7rem;
+  left: var(--space-lg);
+  max-width: 16rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.125rem 1.375rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 16px 32px rgba(43, 26, 18, 0.12);
+}
+
+.infoCounter {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--kids-accent-orange);
+}
+
+.infoTitle {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.1;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.infoDescription {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--kids-ink-muted);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Right-side table panel — replaces the old title/subline/CTA with a   */
+/* per-ingredient stat + benefits table, so the section is informative  */
+/* rather than a dead-end "explore" link.                               */
+/* ---------------------------------------------------------------- */
+
+.rightPanelWrap {
+  position: absolute;
+  z-index: 2;
+  top: 6.5rem;
+  right: var(--space-lg);
+  max-width: 24rem;
+  width: 100%;
+}
+
+.infoPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: 1.5rem 1.75rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 48px rgba(43, 26, 18, 0.14);
+}
+
+.eyebrowPill {
+  display: inline-flex;
+  padding: 0.375rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(43, 26, 18, 0.18);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--kids-ink-muted);
+}
+
+.panelHeading {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.05;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.statBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  width: 100%;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid rgba(43, 26, 18, 0.1);
+}
+
+.statValue {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: 2.25rem;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--kids-accent-orange-light), var(--kids-accent-red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statLabel {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--kids-ink-muted);
+  max-width: 11rem;
+}
+
+.benefitsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.benefitRow {
+  border-top: 1px solid rgba(43, 26, 18, 0.08);
+}
+
+.benefitRow:first-child {
+  border-top: none;
+}
+
+.benefitRowTitle {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.75rem 0.75rem 0;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--kids-ink);
+  white-space: nowrap;
+}
+
+.benefitRowDesc {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--kids-ink-muted);
+}
+
+/* Decorative mascot reused from the hero (Hero/HeroDecor.tsx's bear
+   images) — peeks out from behind the table panel for a bit of
+   personality. Desktop only; see the ≤1023px block. */
+.mascot {
+  position: absolute;
+  z-index: 1;
+  top: 8rem;
+  right: 25rem;
+  width: 9.5rem;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 16px 20px rgba(43, 26, 18, 0.18));
+}
+
+.paginationControl {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-md);
+  right: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.paginationArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--kids-ink);
+  box-shadow: 0 8px 20px rgba(43, 26, 18, 0.1);
+  transition:
+    transform 0.25s var(--ease-default),
+    background-color 0.25s var(--ease-default);
+}
+
+.paginationArrow:hover {
+  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.paginationArrow:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+}
+
+.paginationCount {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--kids-ink);
+}
+
+/* ---------------------------------------------------------------- */
+/* Bottom ingredient selector row — overlays the photo directly (no    */
+/* separate block/background of its own), with the icons left fully   */
+/* transparent and only a drop-shadow for depth.                      */
+/* ---------------------------------------------------------------- */
+
+.ingredientRow {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-sm);
+  padding: var(--space-xl) var(--space-lg) var(--space-md);
+  list-style: none;
+  /* Soft legibility fade behind the row only — not a solid block —
+     since the photo underneath varies per ingredient. */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0.78) 100%
+  );
+}
+
+.ingredientItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.ingredientItem:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+  border-radius: 1rem;
+}
+
+.ingredientIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.ingredientIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 5px rgba(43, 26, 18, 0.28));
+  transition:
+    transform 0.4s var(--ease-default),
+    filter 0.4s var(--ease-default);
+}
+
+.ingredientLabel {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--kids-ink-muted);
+  text-align: center;
+  transition: color 0.3s var(--ease-default);
+}
+
+.ingredientDot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: var(--kids-border);
+  transition: background-color 0.3s var(--ease-default);
+}
+
+/* Active ingredient — zoomed, lifted, and dropped-shadowed, per the
+   "floating" treatment asked for. Applied to the icon image itself
+   (it's transparent, so a box-shadow wouldn't show) rather than a
+   wrapper box. */
+.ingredientItemActive .ingredientIcon {
+  transform: translateY(-1rem) scale(1.65);
+  /* Tight and sharp, not a soft spread — a small offset with a small blur
+     radius, rather than scaling the blur up with the icon. A big, diffuse
+     shadow here was bleeding down far enough to look like a halo behind
+     the label text below. */
+  filter: drop-shadow(0 6px 6px rgba(200, 26, 18, 0.4));
+}
+
+.ingredientItemActive .ingredientLabel {
+  color: var(--kids-accent-orange);
+}
+
+.ingredientItemActive .ingredientDot {
+  background: var(--kids-accent-orange);
+}
+
+@media (max-width: 1023px) {
+  .photoArea {
+    min-height: 56rem;
+  }
+
+  .infoCard {
+    top: 5.5rem;
+    left: var(--space-md);
+    max-width: 14rem;
+  }
+
+  .rightPanelWrap {
+    top: auto;
+    bottom: 24rem;
+    left: var(--space-md);
+    right: var(--space-md);
+    max-width: 100%;
+  }
+
+  .panelHeading {
+    font-size: 1.5rem;
+  }
+
+  .statValue {
+    font-size: 1.875rem;
+  }
+
+  .mascot {
+    display: none;
+  }
+
+  .paginationControl {
+    right: var(--space-md);
+  }
+
+  .ingredientRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-md) var(--space-sm);
+  }
+}
+
+@media (max-width: 639px) {
+  .photoArea {
+    min-height: 50rem;
+  }
+
+  .infoCard {
+    /* A bit lower than the tablet tier — .infoCard spans full width here
+       (left+right both var(--space-sm)), so it needs to clear
+       .paginationControl sitting in the top-right corner above it. */
+    top: 5.75rem;
+    left: var(--space-sm);
+    right: var(--space-sm);
+    max-width: none;
+    padding: 1rem 1.25rem;
+  }
+
+  .rightPanelWrap {
+    bottom: 20rem;
+    left: var(--space-sm);
+    right: var(--space-sm);
+  }
+
+  .infoPanel {
+    padding: 1.125rem 1.25rem;
+    gap: 0.625rem;
+  }
+
+  .panelHeading {
+    font-size: 1.25rem;
+  }
+
+  .statValue {
+    font-size: 1.625rem;
+  }
+
+  .benefitRowTitle,
+  .benefitRowDesc {
+    font-size: 0.75rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  .paginationControl {
+    right: var(--space-sm);
+  }
+
+  .ingredientRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-sm) var(--space-sm);
+  }
+
+  .ingredientIconWrap {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .ingredientLabel {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bgImage {
+    transition: none;
+  }
+
+  .ingredientIcon,
+  .ingredientLabel,
+  .ingredientDot,
+  .paginationArrow {
+    transition: none;
+  }
+}

@@ -1,0 +1,385 @@
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 38rem;
+  /* Canvas fallback color while the first frame is still decoding. */
+  background: var(--kids-bg-fallback);
+  overflow: hidden;
+}
+
+.backgroundCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+/* Legibility scrim for the copy column — the background is a busy scene
+   with no built-in negative space (unlike OurGummies's photo, which has a
+   naturally blurred left side), so the fade is a flat gradient here. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.72) 22%,
+    rgba(255, 255, 255, 0.32) 42%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Visible fade from the right — same idea as .scrim but mirrored, strong
+   enough to actually show up against the busy background rather than the
+   subtle pillList::before glow alone. */
+.scrimRight {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.45) 12%,
+    rgba(255, 255, 255, 0.15) 28%,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Mobile-only (see the max-width: 639px block) — darkens the bottom of
+   the photo once the pills relocate there in the stacked mobile layout,
+   leaving the upper portion (the child's face) untouched. Transparent by
+   default/hidden on desktop and tablet, where the pills sit beside the
+   copy instead. */
+.scrimBottom {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 12, 8, 0) 0%,
+    rgba(20, 12, 8, 0) 45%,
+    rgba(20, 12, 8, 0.55) 68%,
+    rgba(20, 12, 8, 0.82) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  max-width: 90rem;
+  margin: 0 auto;
+  /* Top kept modest — the previous var(--space-xl) (8rem) stacked with
+     OurGummies's own trust-strip bottom padding into one large white gap
+     between the two sections. */
+  padding: var(--space-lg) var(--space-lg) var(--space-xl);
+}
+
+.copyColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 28rem;
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--kids-ink-muted);
+}
+
+.headline {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(1.875rem, 4.5vw, 3.75rem);
+  line-height: 0.96;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.accent {
+  background: linear-gradient(90deg, var(--kids-accent-orange-light), var(--kids-accent-red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--kids-ink-muted);
+  max-width: 24rem;
+  margin: var(--space-xs) 0 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: var(--space-sm);
+  padding: 0.875rem 0.875rem 0.875rem 1.5rem;
+  border-radius: 999px;
+  background: var(--kids-ink);
+  color: var(--kids-surface);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  align-self: flex-start;
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+}
+
+.ctaIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pillList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 28rem;
+}
+
+/* Soft white glow sitting just behind the whole pill stack — a local
+   highlight rather than an edge-to-edge fade, so the tiles pop off the
+   busy background regardless of what's directly behind them. z-index: -1
+   is scoped to .pillList's own stacking context (position: relative
+   above), so it stays behind the pills without dropping behind .content
+   or the canvas. */
+.pillList::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem -2rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 75% 85% at 55% 50%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 78%
+  );
+  filter: blur(28px);
+}
+
+/* The parallax target — see useCursorParallaxGroup in WhyGummyRituals.tsx.
+   Plain wrapper around .pill with no visual styling of its own, just full
+   width so .pill's own width: 100% still resolves against the list's
+   width rather than shrinking to content (.pillList uses
+   align-items: flex-end). */
+.pillItem {
+  width: 100%;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 0.625rem;
+  border-radius: 999px;
+  border: 1px solid rgba(43, 26, 18, 0.08);
+  background: var(--kids-surface);
+  box-shadow: 0 12px 28px rgba(43, 26, 18, 0.08);
+}
+
+/* Small alternating offset — a gentle zigzag rather than a flat stack, to
+   echo the curved arch the pills follow in the reference photo (not wired
+   up yet; easy to retune once that background is in). */
+.pillOffset0 {
+  transform: translateX(0);
+}
+
+.pillOffset1 {
+  transform: translateX(-20px);
+}
+
+.tintOrange {
+  --tint-icon: var(--kids-accent-orange-dark);
+}
+
+.tintBlue {
+  --tint-icon: var(--kids-accent-blue-dark);
+}
+
+.tintGreen {
+  --tint-icon: var(--kids-accent-green-dark);
+}
+
+.tintPink {
+  --tint-icon: var(--kids-accent-pink-dark);
+}
+
+.tintNeutral {
+  --tint-icon: var(--kids-ink);
+}
+
+.pillIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--tint-icon);
+}
+
+.pillText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.pillLabel {
+  font-family: var(--font-display-kids);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--kids-ink);
+}
+
+.pillDescription {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--kids-ink-muted);
+}
+
+.pillArrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(43, 26, 18, 0.08);
+  color: var(--kids-ink);
+}
+
+@media (max-width: 1023px) {
+  .section {
+    min-height: 48rem;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+
+  .copyColumn {
+    max-width: 100%;
+  }
+
+  .pillList {
+    align-items: stretch;
+    max-width: 100%;
+  }
+
+  .pillOffset0,
+  .pillOffset1 {
+    transform: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .section {
+    min-height: 42rem;
+  }
+
+  .scrimBottom {
+    display: block;
+  }
+
+  .content {
+    /* Tighter than the tablet tier's uniform var(--space-lg) (64px) —
+       matches the same fix applied to OurGummies: that much side padding
+       eats a huge share of a ~325px-wide viewport. */
+    padding: var(--space-md) 1.25rem;
+    gap: var(--space-md);
+  }
+
+  .description {
+    font-size: 0.9375rem;
+  }
+
+  .ctaButton {
+    padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .pillList {
+    /* A real, fixed gap below the CTA rather than relying on leftover
+       flex space (which disappears once 5 stacked pills already exceed
+       the content's own height) — this is what actually clears room to
+       see the child's face between the copy and the pills. Dialed back
+       from an earlier, much larger value — that made the whole section
+       (and the scroll-synced video behind it) unnecessarily tall on
+       mobile just to create the gap. */
+    margin-top: 8rem;
+  }
+
+  .pillList::before {
+    /* Smaller glow footprint at this width — the desktop inset pushed
+       past the list's edges further than there's room for. */
+    inset: -1.25rem -0.75rem;
+  }
+
+  .pill {
+    padding: 0.625rem 0.625rem 0.625rem 0.5rem;
+  }
+
+  .pillIcon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .pillLabel {
+    font-size: 0.9375rem;
+  }
+
+  .pillDescription {
+    font-size: 0.75rem;
+  }
+}

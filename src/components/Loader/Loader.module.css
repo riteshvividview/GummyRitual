@@ -1,0 +1,85 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  background: var(--kids-bg-fallback, #eaf2fb);
+}
+
+.motif {
+  width: clamp(3rem, 8vw, 4rem);
+  height: clamp(3rem, 8vw, 4rem);
+  color: var(--kids-accent-orange, #f4863a);
+  animation: breathe 2.2s ease-in-out infinite;
+}
+
+.motifSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.wordmark {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
+  line-height: 1.15;
+  text-align: center;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: clamp(10rem, 40vw, 16rem);
+}
+
+.progressTrack {
+  position: relative;
+  width: 100%;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: rgba(43, 26, 18, 0.1);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--kids-accent-orange-light), var(--kids-accent-red));
+  transition: width 0.25s ease-out;
+}
+
+.progressLabel {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--kids-ink-muted);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motif {
+    animation: none;
+  }
+
+  .progressFill {
+    transition: none;
+  }
+}

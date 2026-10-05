@@ -1,0 +1,51 @@
+:root {
+  /* Breakpoints (referenced in JS via hooks/useMediaQuery, kept in sync manually) */
+  --breakpoint-mobile: 767px;
+  --breakpoint-tablet: 1024px;
+
+  /* Neutral placeholder palette — replaced per-experience (Kids / Adults) later */
+  --color-bg: #ffffff;
+  --color-fg: #111111;
+  --color-muted: #6b6b6b;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  /* Motion */
+  --ease-default: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-default: 0.8s;
+
+  /* Type families — Kids uses Mochibop (client-supplied display face,
+     src/assets/fonts/mochibop.demo.ttf, loaded in styles/fonts.css) for
+     the headline, Inter for UI/body. Fraunces is reserved for the future
+     Adults experience and intentionally unused by any Kids component. */
+  --font-display-kids: "Mochibop", "Fredoka", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display-adults: "Fraunces", Georgia, serif;
+
+  /* Kids experience palette, sampled from the client reference */
+  --kids-bg-fallback: #eaf2fb;
+  --kids-ink: #2b1a12;
+  --kids-ink-muted: #6b5a4f;
+  --kids-accent-orange: #f4863a;
+  --kids-accent-red: #e14b2a;
+  --kids-surface: #ffffff;
+  --kids-surface-muted: #faf6f0;
+  --kids-border: rgba(43, 26, 18, 0.12);
+
+  /* Headline accent pairs — swapped per active hero frame sequence (see
+     KidsHero.tsx / .headline.themeBlue). Each pair stays within one hue
+     family (light -> dark) rather than mixing hues. */
+  --kids-accent-orange-light: #f4863a;
+  --kids-accent-orange-dark: #a8500f;
+  --kids-accent-pink-light: #f4739a;
+  --kids-accent-pink-dark: #a3184a;
+  --kids-accent-green-light: #7cc142;
+  --kids-accent-green-dark: #3f7a17;
+  --kids-accent-blue-light: #6ec3f4;
+  --kids-accent-blue-dark: #145a94;
+}

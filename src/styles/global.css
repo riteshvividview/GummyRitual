@@ -1,0 +1,81 @@
+@import "./reset.css";
+@import "./variables.css";
+@import "./fonts.css";
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/*
+  Defensive safety net: several sections use transform: scale() on
+  full-bleed images/containers (DailyRoutine, TasteTexture, the floating
+  Header, etc.), any of which can tip a fraction of a pixel past the
+  viewport edge once the vertical scrollbar shows/hides (e.g. right as
+  the app loader's scroll-lock releases) and briefly expose a horizontal
+  scrollbar. Clipping at the root is the standard fix rather than chasing
+  the exact sub-pixel offender across every section.
+*/
+html,
+body {
+  overflow-x: hidden;
+}
+
+/*
+  Lenis-recommended overrides (see hooks/useLenis.ts). Lenis toggles these
+  classes on <html> itself: `.lenis` while active, `.lenis-smooth` during
+  smooth scrolling, `.lenis-stopped` when stopped. Without the height
+  override, our reset.css `html, body { height: 100% }` can fight Lenis's
+  own scroll-height measurement.
+*/
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/*
+  Global reduced-motion guard: interactive elements must stay fully usable
+  without animation. Component-level GSAP/Lenis logic also checks
+  prefers-reduced-motion (see hooks/useReducedMotion.ts) so scroll-driven
+  effects are skipped at the source, not just visually hidden here.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  Shared lazy-image fade-in (see hooks/useImageFadeIn.ts) — a safety net
+  for below-the-fold images in case the app preloader's per-image timeout
+  let the site reveal before everything finished. Images the preloader
+  already warmed just fade in near-instantly since they load from cache.
+*/
+.img-fade {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.img-fade-loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-fade {
+    transition: none;
+  }
+}

@@ -1,0 +1,274 @@
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  background: var(--kids-bg-fallback);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  /* flex-start (not center) + a fixed top padding below — guarantees the
+     copy clears the floating header (Header.module.css) by a fixed
+     amount on every viewport height, rather than drifting toward the
+     header on shorter windows the way align-items: center did. */
+  align-items: flex-start;
+  height: 100%;
+  /* Extra left padding shifts the copy block right, off the section's
+     leading edge — see kids/adults reference composition. */
+  padding: clamp(8rem, 13vw, 10rem) var(--space-lg) 0 calc(var(--space-lg) + 2.5rem);
+  /* This box spans the FULL section (not just the text column), so without
+     this it silently sits on top of — and blocks hover/click on — the
+     section indicator and benefit panel, which have no z-index of their
+     own. Re-enabled on .copy below for the actual interactive content. */
+  pointer-events: none;
+}
+
+/* Real element (not ::before) so heroScroll.ts can animate its opacity
+   directly on mobile — see the mobile override below and the scrimRef
+   wiring in KidsHero.tsx/heroScroll.ts. Desktop never touches its opacity,
+   so it just sits at this static gradient like the old pseudo-element did. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  /* Strong only over the text column; fully transparent by ~42% width so
+     the product/canvas stays clearly visible through the center and right
+     (where the side indicator already has its own card, needing no scrim). */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.6) 16%,
+    rgba(255, 255, 255, 0.22) 30%,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.copyColumn {
+  position: relative;
+  z-index: 1;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  pointer-events: auto;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--kids-ink-muted);
+}
+
+.headline {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 0.92;
+  color: var(--kids-ink);
+  margin: 0;
+  /* Safety net: "Possibilities" is long enough to overflow its own box at
+     narrow widths otherwise, which would run under the side indicator
+     rather than wrap. */
+  overflow-wrap: break-word;
+  /* Accent gradient theme — orange by default (Immune Support / orange-bear
+     sequence), swapped per active benefit via .themePink / .themeGreen /
+     .themeBlue. Both accent words always share one hue family so they
+     never mix, e.g. orange + blue. */
+  --headline-accent-start: var(--kids-accent-orange-light);
+  --headline-accent-end: var(--kids-accent-orange-dark);
+}
+
+.headline.themePink {
+  --headline-accent-start: var(--kids-accent-pink-light);
+  --headline-accent-end: var(--kids-accent-pink-dark);
+}
+
+.headline.themeGreen {
+  --headline-accent-start: var(--kids-accent-green-light);
+  --headline-accent-end: var(--kids-accent-green-dark);
+}
+
+.headline.themeBlue {
+  --headline-accent-start: var(--kids-accent-blue-light);
+  --headline-accent-end: var(--kids-accent-blue-dark);
+}
+
+.headlineLine {
+  display: block;
+}
+
+.accentOrange {
+  background: linear-gradient(90deg, var(--headline-accent-start), var(--headline-accent-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.accentRed {
+  /* Solid, not a gradient — only "for Big" gets the gradient treatment. */
+  color: var(--headline-accent-end);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--kids-ink-muted);
+  max-width: 26rem;
+  margin: 0;
+}
+
+.productBlock {
+  align-self: flex-start;
+}
+
+.productContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.productTitle {
+  font-family: var(--font-display-kids);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--kids-ink);
+  margin: 0;
+}
+
+.productCtaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.ctaPrimary {
+  gap: 0.625rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--kids-ink);
+  color: var(--kids-surface);
+}
+
+.ctaSecondary {
+  gap: var(--space-sm);
+  padding: 0.875rem 0.875rem 0.875rem 1.5rem;
+  border: 1.5px solid var(--kids-border);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--kids-ink);
+}
+
+.ctaIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(43, 26, 18, 0.08);
+}
+
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
+  outline: 2px solid var(--kids-ink);
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .content {
+    align-items: flex-start;
+    /* The section-indicator rail is hidden entirely on mobile (see
+       KidsHero.tsx), so there's no need to reserve its right-hand column
+       anymore — the copy gets the full width instead. */
+    padding: 11rem var(--space-md) var(--space-lg) var(--space-md);
+  }
+
+  /* Boosted vs. desktop — this is the "increase the white overlay on
+     mobile" scrim. heroScroll.ts fades its opacity to 0 in sync with the
+     copy/product content hiding on scroll (see COPY_FADE_THRESHOLD), so
+     the background frames are only ever dimmed while the text is actually
+     on screen, not for the rest of the scrub. */
+  .scrim {
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.93) 35%,
+      rgba(255, 255, 255, 0.85) 60%,
+      rgba(255, 255, 255, 0.72) 82%,
+      rgba(255, 255, 255, 0.55) 100%
+    );
+  }
+
+  .headline {
+    font-size: clamp(1.875rem, 8vw, 2.5rem);
+  }
+
+  .copyColumn {
+    max-width: 100%;
+    gap: var(--space-md);
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  /* Product title + CTAs are forced onto one compact line each so the
+     settled block stays short enough to never run into the bottom-center
+     compact BenefitPanel below it (see HeroDecor.module.css). */
+  .productTitle {
+    font-size: 1.3125rem;
+  }
+
+  .productCtaRow {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    font-size: 0.75rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .ctaSecondary {
+    padding: 0.625rem 0.625rem 0.625rem 0.875rem;
+  }
+
+  .ctaIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .ctaPrimary svg,
+  .ctaSecondary svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+

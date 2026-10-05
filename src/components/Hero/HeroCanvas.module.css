@@ -1,0 +1,47 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--kids-bg-fallback);
+  opacity: 1;
+  filter: blur(0px);
+  transition:
+    opacity 0.5s var(--ease-default),
+    filter 0.5s var(--ease-default);
+}
+
+/*
+  Blur-to-focus cut (see KidsHero.tsx switchToSequence): the outgoing frame
+  racks out of focus and fades like a camera pulling focus away, the new
+  frame is then snapped (no transition) to a blurred/invisible starting
+  point (canvasEnterStart) and eased back to sharp focus (canvasEnterEnd) —
+  a two-shot cut rather than a dissolve.
+
+  NOTE: this replaced a plain crossfade version — see git history / prior
+  session notes if reverting. That version just toggled opacity between 1
+  and 0 on a single .canvasTransitioning class with a 0.5s/0.6s transition,
+  no filter and no scale.
+*/
+.canvasExit {
+  transition:
+    opacity 0.3s ease-in,
+    filter 0.32s ease-in;
+  filter: blur(22px);
+  opacity: 0.1;
+}
+
+.canvasEnterStart {
+  transition: none;
+  filter: blur(22px);
+  opacity: 0;
+}
+
+.canvasEnterEnd {
+  transition:
+    opacity 0.5s ease-out,
+    filter 0.55s ease-out;
+  filter: blur(0px);
+  opacity: 1;
+}

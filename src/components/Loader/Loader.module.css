@@ -1,85 +1,274 @@
-.overlay {
+.root {
   position: fixed;
   inset: 0;
   z-index: 200;
+  overflow: hidden;
+  background: #fffaf3;
+  /* Exit is a circular iris — GSAP sets the real covering radius in JS
+     (viewport diagonal) right before animating it down to 0; this is just
+     a safe default in case anything reads it before that. */
+  clip-path: circle(150% at 50% 50%);
+  will-change: clip-path;
+}
+
+/* ---------------------------------------------------------------- */
+/* Aurora — one soft ambient glow, single orange family (not a multi-  */
+/* color wash) — a dim wide wash plus a smaller warmer core.           */
+/* ---------------------------------------------------------------- */
+
+.aurora {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(34rem, 70vw, 54rem);
+  height: clamp(34rem, 70vw, 54rem);
+  margin-left: calc(clamp(34rem, 70vw, 54rem) / -2);
+  margin-top: calc(clamp(34rem, 70vw, 54rem) / -2);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 134, 58, 0.16) 0%, transparent 68%);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: breathe 7s ease-in-out infinite;
+}
+
+.auroraSecondary {
+  width: clamp(16rem, 32vw, 24rem);
+  height: clamp(16rem, 32vw, 24rem);
+  margin-left: calc(clamp(16rem, 32vw, 24rem) / -2);
+  margin-top: calc(clamp(16rem, 32vw, 24rem) / -2);
+  background: radial-gradient(circle, rgba(225, 75, 42, 0.22) 0%, transparent 70%);
+  filter: blur(40px);
+  animation-duration: 5s;
+  animation-direction: reverse;
+}
+
+/* ---------------------------------------------------------------- */
+/* Particles — many small, single-hue elements scattered around the   */
+/* ring; idle position set inline (see Loader.tsx), burst outward on   */
+/* exit via GSAP.                                                     */
+/* ---------------------------------------------------------------- */
+
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--kids-accent-orange-light, #f4863a);
+  animation: particleTwinkle 2.4s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------- */
+/* Content                                                            */
+/* ---------------------------------------------------------------- */
+
+.content {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-md);
-  background: var(--kids-bg-fallback, #eaf2fb);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  pointer-events: none;
 }
 
-.motif {
-  width: clamp(3rem, 8vw, 4rem);
-  height: clamp(3rem, 8vw, 4rem);
-  color: var(--kids-accent-orange, #f4863a);
-  animation: breathe 2.2s ease-in-out infinite;
+/* ---------------------------------------------------------------- */
+/* Ring — large circular progress indicator with the logo inside it,  */
+/* the loader's single centerpiece, plus two faint static decorator   */
+/* rings around it for extra depth without adding more color.         */
+/* ---------------------------------------------------------------- */
+
+.ringWrap {
+  position: relative;
+  width: clamp(14rem, 28vw, 20rem);
+  height: clamp(14rem, 28vw, 20rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.motifSvg {
+.ringGlow {
+  position: absolute;
+  inset: -16%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(244, 134, 58, 0.4) 0%,
+    rgba(225, 75, 42, 0.18) 48%,
+    rgba(225, 75, 42, 0) 72%
+  );
+  filter: blur(20px);
+  opacity: 0.7;
+  animation: pulseGlow 2.6s ease-in-out infinite;
+}
+
+.decoRing {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 134, 58, 0.18);
+}
+
+.decoRingOuter {
+  inset: -9%;
+  animation: spin 22s linear infinite;
+}
+
+.decoRingInner {
+  inset: -3%;
+  border-color: rgba(225, 75, 42, 0.14);
+  animation: spin 16s linear infinite reverse;
+}
+
+.ringSvg {
+  position: relative;
   width: 100%;
   height: 100%;
+  transform: rotate(-90deg);
 }
 
-.wordmark {
-  font-family: var(--font-display-kids);
-  font-weight: 600;
-  font-size: clamp(1.125rem, 3vw, 1.5rem);
-  line-height: 1.15;
-  text-align: center;
-  color: var(--kids-ink);
-  margin: 0;
+.ringTrack {
+  fill: none;
+  stroke: rgba(43, 26, 18, 0.08);
+  stroke-width: 6;
 }
 
-.progress {
+.ringProgress {
+  fill: none;
+  stroke: url(#loaderRingGradient);
+  stroke-width: 6;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 14px rgba(225, 75, 42, 0.5));
+  transition: stroke-dashoffset 0.3s ease-out;
+}
+
+.ringCenter {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  width: clamp(10rem, 40vw, 16rem);
+  justify-content: center;
+  gap: 0.625rem;
 }
 
-.progressTrack {
-  position: relative;
-  width: 100%;
-  height: 0.375rem;
-  border-radius: 999px;
-  background: rgba(43, 26, 18, 0.1);
-  overflow: hidden;
+.ringLogo {
+  width: clamp(5.5rem, 12vw, 7.5rem);
+  height: auto;
 }
 
-.progressFill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--kids-accent-orange-light), var(--kids-accent-red));
-  transition: width 0.25s ease-out;
-}
-
-.progressLabel {
+.percent {
   font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: clamp(0.8125rem, 1.6vw, 0.9375rem);
   letter-spacing: 0.04em;
   color: var(--kids-ink-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* Subtitle                                                           */
+/* ---------------------------------------------------------------- */
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.6vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--kids-ink-muted);
+  margin: 0;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.1875rem;
+}
+
+.dots span {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.25;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 @keyframes breathe {
   0%,
   100% {
+    opacity: 0.7;
     transform: scale(1);
   }
   50% {
-    transform: scale(1.08);
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.07);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particleTwinkle {
+  0%,
+  100% {
+    transform: scale(0.75);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .motif {
+  .aurora,
+  .ringGlow,
+  .decoRing,
+  .particle,
+  .dots span {
     animation: none;
   }
 
-  .progressFill {
+  .ringProgress {
     transition: none;
   }
 }

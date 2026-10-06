@@ -1,11 +1,14 @@
-import { useRef, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, gsap } from "./gsap/gsapConfig";
+import { getFrameLoader, type FrameLoader } from "./frameLoader";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
 const MAX_DPR = 2;
-/** How many frames ahead of the current one to kick off loading, so normal
- * scroll speed doesn't outrun decoding. */
+/** How many frames ahead of the current one to kick off loading during
+ * active scroll, on top of whatever preloadRemaining has already warmed
+ * in the background — so even a frame outside that window never waits on
+ * a cold request. */
 const PREFETCH_AHEAD = 8;
 
 export interface UseBenefitsFrameSequenceOptions {
@@ -22,6 +25,12 @@ export interface UseBenefitsFrameSequenceOptions {
  * frame index is simply mapped to how far the section has scrolled through
  * the viewport (scroll progress -> ScrollTrigger -> frame index -> canvas
  * draw, same architecture as the hero, just without the pin/spacer).
+ *
+ * Uses the same shared FrameLoader as the hero (see animations/frameLoader.ts)
+ * so this sequence gets the same background preloadRemaining() behavior —
+ * started as soon as this component mounts (not gated on scrolling into
+ * view), which is what gives the first scroll through this section a real
+ * head start instead of loading frames cold, one scroll-tick at a time.
  */
 export function useBenefitsFrameSequence({
   sectionRef,
@@ -30,8 +39,21 @@ export function useBenefitsFrameSequence({
   aspectRatio,
 }: UseBenefitsFrameSequenceOptions) {
   const prefersReducedMotion = useReducedMotion();
-  const imagesRef = useRef<(HTMLImageElement | undefined)[]>([]);
-  const loadedRef = useRef<boolean[]>([]);
+  const loaderRef = useRef<FrameLoader | null>(null);
+  const urlsKey = frameUrls.join("|");
+
+  // Starts background preloading immediately on mount, independent of the
+  // ScrollTrigger/canvas effect below — mirrors heroScroll.ts's own
+  // useEffect for the same reason (never gate the background fetch behind
+  // scroll-into-view; the whole point is a head start before the user gets
+  // there).
+  useEffect(() => {
+    if (frameUrls.length === 0 || prefersReducedMotion) return;
+    const loader = getFrameLoader(frameUrls);
+    loaderRef.current = loader;
+    loader.preloadRemaining();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlsKey, prefersReducedMotion]);
 
   useGSAP(
     () => {
@@ -42,50 +64,22 @@ export function useBenefitsFrameSequence({
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      imagesRef.current = new Array(frameUrls.length);
-      loadedRef.current = new Array(frameUrls.length).fill(false);
-
-      const getImage = (index: number) => {
-        const existing = imagesRef.current[index];
-        if (existing) return existing;
-        const img = new Image();
-        img.decoding = "async";
-        img.src = frameUrls[index];
-        img.addEventListener(
-          "load",
-          () => {
-            loadedRef.current[index] = true;
-          },
-          { once: true }
-        );
-        imagesRef.current[index] = img;
-        return img;
-      };
-
-      const nearestLoaded = (index: number) => {
-        if (loadedRef.current[index]) return index;
-        for (let offset = 1; offset < frameUrls.length; offset++) {
-          const down = index - offset;
-          if (down >= 0 && loadedRef.current[down]) return down;
-          const up = index + offset;
-          if (up < frameUrls.length && loadedRef.current[up]) return up;
-        }
-        return -1;
-      };
+      const loader = getFrameLoader(frameUrls);
+      loaderRef.current = loader;
 
       let currentIndex = 0;
 
       const drawFrame = (index: number) => {
         currentIndex = index;
         let sourceIndex = index;
-        if (!loadedRef.current[index]) {
-          getImage(index); // kick off loading even if we can't show it yet
-          const nearest = nearestLoaded(index);
+        if (!loader.isLoaded(index)) {
+          loader.get(index); // kick off loading even if we can't show it yet
+          const nearest = loader.nearestLoaded(index);
           if (nearest === -1) return;
           sourceIndex = nearest;
         }
 
-        const img = getImage(sourceIndex);
+        const img = loader.get(sourceIndex);
         const cw = canvas.width;
         const ch = canvas.height;
         const canvasRatio = cw / ch;
@@ -124,18 +118,14 @@ export function useBenefitsFrameSequence({
 
       const prefetchAhead = (index: number) => {
         for (let i = index + 1; i <= index + PREFETCH_AHEAD && i < frameUrls.length; i++) {
-          getImage(i);
+          loader.get(i);
         }
       };
-
-      const firstImage = getImage(0);
 
       if (prefersReducedMotion) {
         // Static, representative frame — no scroll-driven scrubbing.
         const targetFrame = Math.floor((frameUrls.length - 1) * 0.4);
-        const draw = () => drawFrame(targetFrame);
-        if (firstImage.complete) draw();
-        else firstImage.addEventListener("load", draw, { once: true });
+        loader.ready().then(() => drawFrame(targetFrame));
         return () => resizeObserver.disconnect();
       }
 

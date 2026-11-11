@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adults Visual Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f3eee6; --paper:#fbf8f3; --ink:#2b2420; --muted:#7a6f66; --line:#ddd3c6;
+    --skin:#d9a99a; --hair:#9fae8f; --multi:#e6d3b4; --sleep:#a99bc4; --gut:#8fb0b3;
+    --accent:#3c2f28; --code:#efe8dd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.65 Jost,system-ui,sans-serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:56px 16px 120px}
+  .eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:var(--muted);font-weight:400}
+  h1,h2,h3{font-family:Gloock,Georgia,serif;font-weight:400;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(44px,8vw,88px);line-height:.98;margin:14px 0 22px}
+  h2{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 14px}
+  h3{font-size:22px;margin:0 0 6px}
+  p{margin:0 0 12px;max-width:68ch}
+  .lead{font-size:18px;color:var(--muted)}
+  hr{border:0;border-top:1px solid var(--line);margin:64px 0}
+  .swatches{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+  .swatches span{flex:1 1 120px;padding:28px 12px 10px;border-radius:4px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2b2420}
+  nav.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 24px;margin:28px 0}
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
+  nav.toc a span{color:var(--muted);margin-right:10px;font-size:12px;letter-spacing:.2em}
+  .concept{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;margin:18px 0}
+  .concept b{font-weight:500}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:3px 10px;color:var(--muted)}
+  .asset{border-top:1px solid var(--line);padding:22px 0}
+  .asset-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+  .fname{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:500;word-break:break-all}
+  .kind{font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:var(--accent);color:var(--bg)}
+  .kind.video{background:#6d5a8a;color:#fff}
+  .kind.png{background:#5d7a62;color:#fff}
+  .spec{font-size:13px;color:var(--muted);margin:6px 0 10px}
+  .prompt{position:relative;background:var(--code);border-radius:6px;padding:16px;font:400 14px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-wrap:break-word}
+  .copy{position:absolute;top:8px;right:8px;font:500 11px Jost,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 10px;cursor:pointer}
+  .prompt .label{display:block;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  ul{padding-left:20px} li{margin:4px 0}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .path{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--muted)}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow">Gummy Rituals — Adults Experience · Visual Brief</div>
+<h1>Daily Wellbeing.<br/>Shot in the studio, not rendered.</h1>
+<p class="lead">Section plan and every image and video prompt for the Adults homepage. Every prompt includes its exact size and aspect ratio, and every visual is shot in a closed studio — no windows, no outdoors, no plants. Rename each file exactly as listed and drop it into <span class="path">src/assets/adults/NN-section/{images,videos}/</span>.</p>
+
+<div class="swatches">
+  <span style="background:var(--skin)">Skin · Strawberry</span>
+  <span style="background:var(--hair)">Hair · Blueberry</span>
+  <span style="background:var(--multi)">Multi · Mixed fruit</span>
+  <span style="background:var(--sleep)">Sleep · Mango</span>
+  <span style="background:var(--gut)">Gut · Litchi</span>
+</div>
+
+<h2>How Adults differs from Kids</h2>
+<div class="grid2">
+  <div class="concept"><h3>Kids (existing)</h3><p>Bright, saturated, playful bears, 4 scroll-synced frame-sequence videos in the hero, bouncy motion, Mochibop display face, orange and pink gradients.</p></div>
+  <div class="concept"><h3>Adults (new)</h3><p>Same closed-studio photography, but a different world: stone, paper, ceramic and glass on muted seamless backdrops. <b>Studio light is the motion.</b> The hero changes lighting colour per product instead of playing video sequences. Gloock serif with spaced Jost capitals. Slower, fewer elements, more air.</p></div>
+</div>
+
+<h2>Typography</h2>
+<div class="concept">
+  <p><b>Display:</b> <span style="font-family:Gloock;font-size:22px">Gloock</span> (Google Fonts, free) — the closest match to “Better Habits. A Healthier You.” in your reference. Tight tracking (-0.02em), line-height around 0.95.</p>
+  <p><b>Eyebrows / labels:</b> Jost 400, uppercase, letter-spacing 0.3em. <b>Body:</b> Jost 300.</p>
+</div>
+
+<h2>Studio rules (already written into every prompt)</h2>
+<div class="concept">
+<ul>
+  <li><b>Closed studio only.</b> Seamless paper sweeps, plaster flats, stone and ceramic props. No windows, rooms, sky or outdoors.</li>
+  <li><b>No plants of any kind.</b> No leaves, sprigs, flowers, branches or leaf shadows. Fruit appears only as clean cut pieces with no stems or leaves.</li>
+  <li><b>No light effects.</b> No sun rays, light beams, window shadows, gobos, haze, lens flare or glowing rims. Light comes from large softboxes, so shadows are soft and grounded.</li>
+  <li><b>Real camera, real material:</b> medium-format digital, true-to-life colour, fine stone pores, paper fibre, tiny dust specks, slight imperfections in the gummies.</li>
+  <li><b>Gummies are sugar-free:</b> matte, lightly powdered, never glossy or glassy.</li>
+  <li><b>Never let the model write label text.</b> Attach the product crop (see below).</li>
+</ul>
+<p><b>Negative prompt (paste in every time if your tool has a field for it):</b></p>
+<div class="prompt">plants, leaves, foliage, flowers, branches, herbs, leaf shadows, window, window light, window shadow, sun rays, light beams, god rays, haze, fog, lens flare, glow, bokeh balls, outdoors, sky, landscape, text, letters, watermark, logo, cgi, 3d render, plastic, glossy, oversaturated, hdr, gradient background, floating objects, levitation, clutter, symmetrical face, extra fingers, cartoon<button class="copy">Copy</button></div>
+</div>
+
+<h2>Getting clean transparent PNGs</h2>
+<div class="concept"><ul><li>Generators can't output real transparency. Every PNG prompt renders on flat light grey (#d9d9d9) — it separates far more cleanly than white, especially around powder, crystals and glass.</li><li>Remove the background with <b>Photoshop → Remove Background</b> (best), or Higgsfield / remove.bg on the highest quality setting.</li><li>Check the edges at 200% on a dark and a coloured background. Red, yellow or grey fringing = re-run the removal, or in Photoshop use <b>Select and Mask → Decontaminate Colors</b>.</li><li>Export PNG-24 with transparency, at the size in the prompt. Clear (glass, gel) objects: keep their soft shadow off — I add shadows in CSS.</li></ul></div>
+
+<h2>What to attach as reference</h2>
+<div class="concept">
+  <p><b>Don't attach the full product sheet.</b> It has 5 tins, 5 sachets, fruit, icons and a headline, so the model copies that layout and mixes up products. Attach only the crop for the product in the shot, from <span class="path">reference-crops/</span>:</p>
+  <ul>
+    <li><span class="path">ref-tin-skin.png · ref-tin-hair.png · ref-tin-multivitamin.png · ref-tin-sleep.png · ref-tin-gut.png</span> — one tin each</li>
+    <li><span class="path">ref-sachet-skin.png · ref-sachet-hair.png · ref-sachet-multivitamin.png · ref-sachet-sleep.png · ref-sachet-gut.png</span> — one sachet each</li>
+    <li><span class="path">ref-lineup.png</span> — all five, used only for the final lineup shot</li>
+  </ul>
+  <p>Each asset below has an <b>Attach:</b> line. <b>None</b> means a plain text prompt.</p>
+</div>
+
+<nav class="toc">
+  <a href="#s1"><span>01</span>Hero — The Light Dial</a>
+  <a href="#s2"><span>02</span>The Edit — Collection</a>
+  <a href="#s3"><span>03</span>What Your Body Asks For</a>
+  <a href="#s4"><span>04</span>Inside Every Gummy</a>
+  <a href="#s5"><span>05</span>A Day, Held Lightly</a>
+  <a href="#s6"><span>06</span>Up Close — Texture</a>
+  <a href="#s7"><span>07</span>Formulated With Care</a>
+  <a href="#s8"><span>08</span>Final CTA — The Lineup</a>
+  <a href="#s0"><span>00</span>Shared textures</a>
+</nav>
+
+<!-- ===================== 01 HERO ===================== -->
+<hr id="s1"/>
+<div class="eyebrow">Section 01 · Hero</div>
+<h2>The Light Dial</h2>
+<div class="concept">
+  <p><b>Concept:</b> One studio set, one camera position, five lighting setups. A single tin stands on a travertine block in front of a plaster flat. As you scroll, the studio light changes colour and direction, and each light belongs to one product: warm sand → Multivitamin, blush → Skin, cool sage → Hair, soft teal → Gut Health, deep lavender → Sleep.</p>
+  <p><b>Build:</b> 5 photographs from the exact same camera position, each with its own product in the shot, crossfaded by scroll (pinned, GSAP). The tin lifts slightly as it swaps. A small circular dial (06:00 → 22:00) shows progress and is the hero's signature interaction. Headline in Gloock: <i>“Better habits. A healthier you.”</i></p>
+  <p><b>Mobile:</b> no pin; plates crossfade every 4 s, tap the dial to change. <b>Reduced motion:</b> the first plate only.</p>
+  <div class="meta"><span class="tag">0 frame sequences</span><span class="tag">5 plates</span><span class="tag">pinned scroll · desktop only</span></div>
+</div>
+<p class="path">src/assets/adults/01-hero/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-01-multivitamin.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · left 40% kept empty for the headline. Generate this first; plates 02–05 are built from it.</div>
+<div class="spec"><b>Attach:</b> <span class="path">reference-crops/ref-tin-multivitamin.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed photo studio, no windows. A warm sand-coloured seamless plaster flat fills the background, hand-troweled with subtle uneven texture and one faint hairline crack. A low, honed travertine block sits on the floor right of centre, with chipped corners and natural pores. The sand MULTIVITAMIN paper tin from the reference image stands on the block, label facing camera. The left 40% of the frame is calm, empty plaster. Lighting: one large softbox high on the left, warm 3200K, plus a white bounce card on the right. Soft, grounded contact shadow under the tin and block, gentle falloff into slightly darker corners. Camera at block height, 80mm lens, f/8, Phase One medium format, true-to-life colour, fine detail in the stone and paper, tiny dust specks on the block. The tin must match the reference exactly — same colour, label layout and text. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-02-skin.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · same set and camera as plate 01.</div>
+<div class="spec"><b>Attach:</b> 2 images — your finished <span class="path">hero-plate-01-multivitamin.jpg</span> (scene) + <span class="path">reference-crops/ref-tin-skin.png</span> (product)</div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the dusty-rose SKIN tin from image 2, same size and position, label matching exactly. Change only the lighting: the softbox is now gelled a soft blush pink, so the plaster and stone take on a warm rosy tone; shadows stay soft and grounded. Place one cleanly halved strawberry (no stem, no leaves) on the block beside the tin. Phase One medium format, true-to-life colour, fine stone texture. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-03-hair.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · same set and camera.</div>
+<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-hair.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the sage-green HAIR tin from image 2, same size and position, label matching exactly. Change only the lighting: neutral 5600K softbox from the upper right instead of the left, with a pale sage-green fill from the opposite side, giving the plaster a cool muted green cast; shadows fall to the left, soft and grounded. Three blueberries with natural bloom on the skin rest on the block. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-04-gut.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · same set and camera.</div>
+<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-gut.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the muted-teal GUT HEALTH tin from image 2, same size and position, label matching exactly. Change only the lighting: very soft, flat overhead light with a faint blue-teal gel, low contrast, calm and cool; a shallow handmade ceramic dish of still water sits on the block beside the tin, one peeled litchi in it showing translucent flesh. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-05-sleep.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · same set and camera · the headline turns cream on this plate, so the left side stays dark and even.</div>
+<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-sleep.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the lavender SLEEP tin from image 2, same size and position, label matching exactly. Change only the lighting: low-key night mood. The studio is dim and lavender-blue, with a single small, tightly controlled warm spot from the front-right lighting only the tin and the top of the block; the plaster falls off into deep violet shadow. A small stone dish holds two matte mango-coloured gummies. Phase One medium format, slight natural noise in the shadows. No plants, no window light, no rays, no haze, no candle glow.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">tin-skin-front.png · tin-hair-front.png · tin-multivitamin-front.png · tin-sleep-front.png · tin-gut-front.png</span><span class="kind png">transparent png ×5</span></div>
+<div class="spec">2000 × 3000 px · 2:3 · straight-on cutouts, used in the collection side sheet, cart and section 05.</div>
+<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-tin-*.png</span> (one per run)</div>
+<div class="prompt"><span class="label">Prompt (run once per product, swap the bracket)</span>Studio packshot, 2:3 portrait, 2000 × 3000 px. The [SKIN dusty-rose / HAIR sage-green / MULTIVITAMIN warm-sand / SLEEP lavender / GUT HEALTH muted-teal] paper-board cylinder tin from the reference image, straight-on at eye level, centred, filling about 75% of the frame height. Label preserved exactly. One large softbox from the left, white bounce on the right, gentle shading around the curve of the cylinder, matte paper texture visible. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. 120mm macro lens, f/11, medium format, true-to-life colour. No props, no plants, no reflections.<button class="copy">Copy</button></div>
+<p class="spec">Then run background removal to get the transparent PNG.</p></div>
+
+<!-- ===================== 02 COLLECTION ===================== -->
+<hr id="s2"/>
+<div class="eyebrow">Section 02 · Collection</div>
+<h2>The Edit</h2>
+<div class="concept">
+  <p><b>Concept:</b> A magazine-style horizontal shelf. Each product gets a tall “colour room”: a full-height studio photograph on a seamless sweep in its tint, with the tin on its own stone and the sachet and two gummies at its foot. Scroll sideways (drag on mobile). Tapping a panel opens a side sheet with ingredients and Add to Cart.</p>
+  <div class="meta"><span class="tag">horizontal scroll</span></div>
+</div>
+<p class="path">src/assets/adults/02-collection/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">room-skin.jpg · room-hair.jpg · room-multivitamin.jpg · room-sleep.jpg · room-gut.jpg</span><span class="kind">image ×5</span></div>
+<div class="spec">2400 × 3600 px · 2:3 portrait · top 35% kept clean for the title.</div>
+<div class="spec"><b>Attach:</b> the matching <span class="path">ref-tin-*.png</span> + <span class="path">ref-sachet-*.png</span> (2 images, same product)</div>
+<div class="prompt"><span class="label">Prompt (per product, swap the brackets)</span>Studio product photograph, 2:3 portrait, 2400 × 3600 px. Closed studio, seamless paper sweep and floor in one muted [dusty rose / sage / warm sand / lavender / muted teal] tone, faint natural creases in the paper. In the lower half, the [SKIN / HAIR / MULTIVITAMIN / SLEEP / GUT HEALTH] tin from image 1 stands on a small irregular block of honed travertine. At its foot: the matching sachet from image 2 lying flat at an angle, and two matte, lightly powdered gummies in [strawberry red / deep blueberry / amber / mango yellow / pale litchi pink]. One clean-cut [strawberry half / three blueberries / orange segment / mango cube / peeled litchi] beside them, no stems or leaves. The top 35% of the frame is empty paper. One large softbox from the upper left, crisp but soft-edged shadows falling right, white bounce fill. 80mm lens, f/8, medium format, true-to-life colour. Tin and sachet must match the references exactly. No plants, no window light, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">sachet-skin.png · sachet-hair.png · sachet-multivitamin.png · sachet-sleep.png · sachet-gut.png</span><span class="kind png">transparent png ×5</span></div>
+<div class="spec">1600 × 1600 px · 1:1.</div>
+<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-sachet-*.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio packshot, 1:1 square, 1600 × 1600 px. The single [SKIN / HAIR / MULTIVITAMIN / SLEEP / GUT HEALTH] foil sachet from the reference image, lying flat, shot from directly above with a slight 10° rotation, centred, filling about 70% of the frame. Soft-matte foil with small natural crinkles at the crimped edges. One overhead softbox, short soft shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. Label preserved exactly. No props, no plants.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">gummy-pair-skin.png · gummy-pair-hair.png · gummy-pair-multivitamin.png · gummy-pair-sleep.png · gummy-pair-gut.png</span><span class="kind png">transparent png ×5</span></div>
+<div class="spec">1600 × 1200 px · 4:3.</div>
+<div class="spec"><b>Attach:</b> None (if the colour drifts, attach that product's tin crop for colour only)</div>
+<div class="prompt"><span class="label">Prompt</span>Studio macro photograph, 4:3 landscape, 1600 × 1200 px. Two dome-shaped soft gummies in [strawberry red / deep blueberry purple / amber orange / mango yellow / pale litchi pink], matte surface with a faint dusting of fine powder, tiny air bubbles and slight irregularities in shape, one leaning against the other, centred. 120mm macro, f/16, one softbox from the side, real contact shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. Not glossy, not glassy, no plants.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 03 NEEDS ===================== -->
+<hr id="s3"/>
+<div class="eyebrow">Section 03 · Benefits</div>
+<h2>What does your body ask for?</h2>
+<div class="concept">
+  <p><b>Concept:</b> A large typographic index — five words in Gloock: <i>Glow. Strength. Energy. Rest. Balance.</i> Hover (desktop) or tap (mobile) a word and a tall studio portrait fades in beside it while the page background shifts to that product's tint. No icons, no cards — words and photographs only.</p>
+</div>
+<p class="path">src/assets/adults/03-needs/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">need-glow.jpg</span><span class="kind">image</span></div>
+<div class="spec">2000 × 2800 px · 5:7 portrait · no face.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio beauty photograph, 5:7 portrait, 2000 × 2800 px. Closed studio, seamless dusty-rose paper background. Close crop of a woman's shoulder, collarbone and the side of her neck, head turned out of frame so no face is visible. Bare skin with real pores, a few freckles and fine peach fuzz, no retouching. Large soft beauty dish from the front-left, white bounce below, warm skin tones. 100mm lens, f/5.6, medium format, true-to-life colour. No jewellery, no plants, no window light, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">need-strength.jpg</span><span class="kind">image</span></div>
+<div class="spec">2000 × 2800 px · 5:7 portrait · no face.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio hair photograph, 5:7 portrait, 2000 × 2800 px. Closed studio, seamless muted sage paper background. Back view of a person with thick, slightly wavy dark-brown hair loosely twisted into a low knot, a few strands falling free, wearing a sage linen shirt, framed from the mid-back up. Natural flyaways and frizz visible, real hair texture. One large softbox from the upper right, gentle shine on the hair, soft shadow. 85mm lens, f/5.6, medium format. No face, no plants, no window light, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">need-energy.jpg</span><span class="kind">image</span></div>
+<div class="spec">2000 × 2800 px · 5:7 portrait.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio still life, 5:7 portrait, 2000 × 2800 px, shot from directly above. A warm-sand seamless paper surface. A hand entering from the top right reaches for a short glass of water. Beside it, a half-peeled orange with real pith and peel scraps, a handmade ceramic cup of black coffee and a few crumbs. One large softbox from the left, crisp but soft-edged shadows. 80mm lens, f/8, medium format, true-to-life colour, slightly warm. No plants, no window light, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">need-rest.jpg</span><span class="kind">image</span></div>
+<div class="spec">2000 × 2800 px · 5:7 portrait · no face.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio photograph, 5:7 portrait, 2000 × 2800 px. Closed studio set, low-key. Rumpled lavender-grey linen sheets fill the frame, softly creased, with a relaxed hand resting on a pillow and the edge of a sleeve. Dim lavender-blue light overall, with one small warm spot from the side catching the hand and folds. Deep but not black shadows, slight natural noise. 85mm lens, f/4, medium format. No face, no lamp in frame, no plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">need-balance.jpg</span><span class="kind">image</span></div>
+<div class="spec">2000 × 2800 px · 5:7 portrait.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio photograph, 5:7 portrait, 2000 × 2800 px. Closed studio, seamless muted-teal paper background. Two hands holding a handmade stoneware bowl of plain yogurt topped with sliced peeled litchi and a thin drizzle of honey, framed at chest height against cream linen clothing. Gentle glaze imperfections on the bowl. Soft, even softbox light from the front-left, low contrast, cool calm tones. 80mm lens, f/8, medium format, true-to-life colour. No face, no plants, no window light, no rays.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 04 INGREDIENTS ===================== -->
+<hr id="s4"/>
+<div class="eyebrow">Section 04 · Ingredients</div>
+<h2>Inside Every Gummy</h2>
+<div class="concept">
+  <p><b>Concept:</b> The same interaction as the Kids “Inside Every Gummy” section, in the Adults look. Each active gets a full-bleed studio scene: a matte dome gummy on travertine, in its product's colour, with the ingredient as a sculptural hero element. A row of 9 ingredient objects sits below as the selector. Tap one to change the scene; the info card and stat come from HTML. Richer than the rest of the page, but no glow, bears or plants.</p>
+</div>
+<p class="path">src/assets/adults/04-archive/images/</p>
+
+<div class="spec" style="margin-top:14px"><b>Note:</b> unlike the rest of the page, this section uses one frozen-motion element (a pour, a drop, a splash) per scene, like the Kids ingredient images. For these 18 prompts, remove “floating objects, levitation” from the negative prompt.</div>
+<h3 style="margin-top:28px">A · Background scenes (9)</h3><p class="spec"><b>Not transparent</b> — these are full-bleed backgrounds (16:9 on desktop; on mobile the same image is cropped to the subject, which is why it sits centre-left). Shown behind the ingredient info card, one per active. Same role as the Kids <span class="path">Golden Gummy Bear Real fruits.png</span>.</p>
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-collagen.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Skin</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless dusty-rose seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in muted strawberry-rose, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A silky stream of fine ivory collagen powder is pouring from above onto the top of the gummy, frozen mid-fall, settling into a soft little heap on the plinth with a few grains scattered. One cleanly halved strawberry (no stem, no leaves) rests beside it. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-hyaluronic.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Skin</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless pale blush seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in muted strawberry-rose, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A large, perfectly clear droplet of hyaluronic gel sits on top of the gummy like a glass dome, with a few tiny suspended bubbles inside, a thin clear trail running down one side onto the stone. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-vitamin-c.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Multivitamin</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless warm sand seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in warm amber-orange, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. Behind the gummy, a fresh orange cut in half shows juicy translucent segments; a few drops of juice are frozen mid-air in a short arc and a small bead of juice sits on the stone. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-zinc.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Hair</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless sage-green seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in deep blueberry purple, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. The gummy rests against a sculptural raw block of pale grey zinc mineral ore with a faceted metallic sheen on its broken faces; a little fine grey mineral dust is scattered on the plinth. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-biotin.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Hair</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless pale sage seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in deep blueberry purple, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A cluster of fine white needle-like crystals grows from the plinth beside the gummy, sparkling crisply; three fresh blueberries with natural bloom sit at its base. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-magnesium.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Sleep</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless soft lavender seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in mango yellow-orange, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A cluster of large clear-white magnesium crystals with sharp geometric facets stands beside the gummy, cool lavender light passing through them onto the stone; a few loose crystal flakes on the plinth. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-melatonin.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Sleep</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless deep dusk-lavender seamless paper, low-key and moody background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in mango yellow-orange, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A thin, polished disc of translucent alabaster stands upright behind the gummy like a quiet moon, lit softly from behind so it reads pale and luminous against the dark lavender; the scene is calm and low-key with deep shadows. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-probiotic.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Gut Health</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless muted teal seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in pale litchi pink, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A small handmade ceramic spoon holds a thick, glossy swirl of cultured yogurt beside the gummy; a peeled litchi with translucent pearly flesh rests in front. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">ingredient-fiber.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 2160 px · 16:9 · Gut Health</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Premium studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed studio, seamless soft blue-teal seamless paper background with a soft tonal falloff. Subject placed centre-left, the right 35% of the frame kept calm and empty for text. A low honed travertine plinth with chipped edges and natural pores sits on a matching floor. On it, one large dome-shaped sugar-free gummy in pale litchi pink, matte with a fine dusting of powder, tiny air bubbles and slight irregularities in shape. A fine stream of golden prebiotic fibre granules is pouring from above, frozen mid-fall, forming a small textured mound beside the gummy on the plinth. Lighting: one large softbox from the upper left plus a rim strip light behind, giving crisp sculpted highlights on the gummy edge but no glow or bloom. Real contact shadows. 100mm macro, f/8, Phase One medium format, rich true-to-life colour, high material detail. Elegant, minimal, luxury skincare-campaign feel. No bear shape, no plants, no leaves, no window light, no rays, no haze, no text.<button class="copy">Copy</button></div></div>
+
+<h3 style="margin-top:28px">B · Selector icons (9)</h3><p class="spec">The small objects in the selector row under the scene. Same role as the Kids <span class="path">below-ingredient-*.png</span>. <b>These are the transparent ones.</b> Generators can't output real transparency, so they render on pure white and you remove the background afterwards (Higgsfield / Photoshop / remove.bg).</p>
+<div class="asset"><div class="asset-head"><span class="fname">icon-collagen.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A neat, peaked mound of very fine ivory collagen powder, soft and silky, with a clean crisp cone silhouette and a few loose grains scattered around it, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-hyaluronic.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A single large, perfectly clear droplet of hyaluronic gel holding a smooth dome shape with a few tiny suspended air bubbles inside and crisp refraction, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-vitamin-c.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A single thick cross-section slice of fresh orange standing upright, juicy translucent segments, bright rind, a few tiny juice beads on the cut surface, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-zinc.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A single raw chunk of pale grey zinc mineral, rough on one side and crisply faceted on the other with a soft metallic crystalline sheen, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-biotin.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A small cluster of fine translucent white needle-like crystals radiating upward from a common base, crisp sparkle on the tips, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-magnesium.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A single cluster of large clear-to-milky white magnesium crystals with sharp geometric facets and cool translucent edges, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-melatonin.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A thin polished disc of translucent white alabaster with soft natural veining, standing upright on its edge, pale and luminous like a moon, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-probiotic.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A small handmade cream ceramic spoon lying flat, holding a thick, glossy, sculpted swirl of cultured yogurt with a soft peak, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">icon-fiber.png</span><span class="kind png">transparent png</span></div>
+<div class="spec">1200 × 1200 px · 1:1</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A neat, peaked mound of golden-beige prebiotic fibre granules with a crisp, slightly crystalline texture and a few loose granules around it, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 05 DAY ===================== -->
+<hr id="s5"/>
+<div class="eyebrow">Section 05 · Daily Routine</div>
+<h2>A Day, Held Lightly</h2>
+<div class="concept">
+  <p><b>Concept:</b> Echoes the hero dial. A slim 24-hour line runs across the section; three studio vignettes sit on it at 07:00, 13:00 and 22:00, each a small built set (vanity top, desk top, bedside top) shot in the studio. A thin marker travels along the line as you scroll — the only scroll animation here. Copy: <i>“Morning: Multivitamin + Skin. Midday: Hair. Evening: Gut. Night: Sleep.”</i></p>
+</div>
+<p class="path">src/assets/adults/05-day/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">day-0700-vanity.jpg</span><span class="kind">image</span></div>
+<div class="spec">2400 × 3000 px · 4:5 portrait.</div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-tin-multivitamin.png</span> + <span class="path">ref-tin-skin.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, warm-sand plaster flat behind a slab of honed limestone acting as a bathroom vanity top. On it: the sand MULTIVITAMIN tin from image 1 and the rose SKIN tin from image 2, a handmade ceramic soap dish, a folded white waffle towel, a short glass of water with a few drops on the stone. A hand just entering the frame from the right. One large warm softbox from the left, soft grounded shadows. 80mm lens, f/8, medium format, true-to-life colour. Tins must match the references exactly. No plants, no window, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">day-1300-desk.jpg</span><span class="kind">image</span></div>
+<div class="spec">2400 × 3000 px · 4:5 portrait.</div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-tin-hair.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, pale sage plaster flat behind a light oak desk top. On it: the sage HAIR tin from the reference image, an open notebook with faint pencil marks (no readable text), a pair of reading glasses, a linen napkin with half a pear. Neutral 5600K softbox from the upper right, clean soft shadows. 80mm lens, f/8, medium format, true-to-life colour. Tin must match the reference exactly. No plants, no window, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">day-2200-bedside.jpg</span><span class="kind">image</span></div>
+<div class="spec">2400 × 3000 px · 4:5 portrait.</div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-tin-sleep.png</span> + <span class="path">ref-tin-gut.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, low-key, deep lavender plaster flat behind a dark walnut bedside top. On it: the lavender SLEEP tin from image 1 and the teal GUT HEALTH tin from image 2, a small travertine dish with two matte mango gummies, two worn paperback books stacked (no readable text), a ceramic cup of tea. One small warm spot from the front-right lights the objects; the background falls into soft violet shadow. 80mm lens, f/5.6, medium format, slight natural noise. Tins must match the references exactly. No plants, no candle, no lamp glow, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 06 TEXTURE ===================== -->
+<hr id="s6"/>
+<div class="eyebrow">Section 06 · Taste &amp; Texture</div>
+<h2>Up Close</h2>
+<div class="concept">
+  <p><b>Concept:</b> The one place we use video — a single full-bleed, slow macro loop of a gummy being gently pressed and pulled apart in the studio. Below it, five cross-section cutouts (one per flavour) you can tap to switch the loop's colour grade. Sound off, seamless loop. Quiet and sensory.</p>
+</div>
+<p class="path">src/assets/adults/06-texture/{images,videos}/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">texture-start-frame.jpg</span><span class="kind">image</span></div>
+<div class="spec">1920 × 1080 px · 16:9 · generate first; it becomes the video's start and end frame.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio macro photograph, 16:9 landscape, 1920 × 1080 px. A single matte, lightly powdered strawberry-red dome gummy sits centred on a honed travertine surface, with a soft blush seamless background falling out of focus behind. Fine powder, tiny surface irregularities, real stone pores. One softbox from the left, soft contact shadow. 120mm macro, f/8, shallow depth of field, medium format, true-to-life colour. No plants, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">texture-tear-loop.mp4</span><span class="kind video">video</span></div>
+<div class="spec">1920 × 1080 px · 16:9 · 24 fps · 8 s · seamless loop · no audio (export a 1080 × 1350 crop for mobile).</div>
+<div class="spec"><b>Attach:</b> <span class="path">texture-start-frame.jpg</span> as both start frame and end frame</div>
+<div class="prompt"><span class="label">Video prompt</span>16:9, 1920 × 1080, 8 seconds, 24 fps, no audio. Closed studio, extreme macro, locked-off camera, no camera movement. Two fingertips with natural skin texture and short unpolished nails enter the frame, gently press into the matte strawberry-red gummy on travertine, then slowly pull it apart, revealing a soft, slightly translucent interior that stretches before separating. A little powder falls onto the stone. The fingers then press the halves back together and withdraw, returning to the opening frame for a seamless loop. Slow, tactile movement. One soft studio light from the left, true-to-life colour. No plants, no rays, no haze, no lens flare.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">cross-section-skin.png · cross-section-hair.png · cross-section-multivitamin.png · cross-section-sleep.png · cross-section-gut.png</span><span class="kind png">transparent png ×5</span></div>
+<div class="spec">1600 × 1200 px · 4:3.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio macro photograph, 4:3 landscape, 1600 × 1200 px. A dome-shaped gummy cut cleanly in half with a knife, side view, showing the dense, slightly translucent [strawberry red / blueberry purple / amber / mango yellow / litchi pink] interior with a few tiny suspended air bubbles and a matte powdered outer edge, centred. 120mm macro, f/16, one softbox, soft contact shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No plants.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 07 TRUST ===================== -->
+<hr id="s7"/>
+<div class="eyebrow">Section 07 · Science &amp; Quality</div>
+<h2>Formulated With Care</h2>
+<div class="concept">
+  <p><b>Concept:</b> Split screen. Left: one large “lab meets spa” studio still life. Right: four numbered statements that count up on scroll — <i>01 Plant based · 02 No added sugar · 03 No artificial colours · 04 Third-party tested</i>. The four icons from your product sheet are redrawn as thin line SVGs (no generation needed).</p>
+</div>
+<p class="path">src/assets/adults/07-trust/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">trust-lab-still-life.jpg</span><span class="kind">image</span></div>
+<div class="spec">2400 × 3000 px · 4:5 portrait.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio still life, 4:5 portrait, 2400 × 3000 px. Closed studio, pale warm-grey plaster flat behind a honed travertine bench. On it: a clear borosilicate beaker with a little water, a glass petri dish holding three matte gummies in rose, amber and lavender, a small brass precision scale with a spoonful of ivory powder, a stainless spatula. Faint fingerprints and smudges on the glass. Clean, soft 5600K softbox from the left, white bounce right, crisp but gentle shadows. 80mm lens, f/8, medium format, true-to-life colour. No plants, no text, no window, no rays.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">trust-hands-detail.jpg</span><span class="kind">image</span></div>
+<div class="spec">2400 × 1600 px · 3:2 landscape · optional secondary image.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Studio close-up, 3:2 landscape, 2400 × 1600 px. Gloved hands in pale nitrile gloves hold a single matte amber gummy with fine stainless tweezers above a glass dish, against a plain warm-grey seamless background. Real wrinkles in the gloves, shallow depth of field. One soft overhead softbox. 100mm lens, f/4, medium format, muted true-to-life colour. No plants, no rays.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 08 CTA ===================== -->
+<hr id="s8"/>
+<div class="eyebrow">Section 08 · Final CTA</div>
+<h2>The Lineup</h2>
+<div class="concept">
+  <p><b>Concept:</b> The page closes on the whole family. A wide studio shot of all five tins on one long travertine ledge, each lit with a faint pool of its own colour — a quiet callback to the hero's five lights. A short slow turntable loop sits behind it on desktop. Headline: <i>“Small habits. A brighter you.”</i> + one CTA, “Explore the Ritual”.</p>
+</div>
+<p class="path">src/assets/adults/08-final-cta/{images,videos}/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">cta-lineup.jpg</span><span class="kind">image</span></div>
+<div class="spec">3840 × 1800 px · 32:15 wide (use 21:9 if your tool has no custom ratio) · top 40% clean. Also generate a 1200 × 1800 px (2:3) version for mobile.</div>
+<div class="spec"><b>Attach:</b> <span class="path">reference-crops/ref-lineup.png</span> (the one place the multi-product image is correct)</div>
+<div class="prompt"><span class="label">Prompt</span>Wide studio product photograph, 21:9 panoramic, 3840 × 1800 px. Closed studio, warm off-white plaster flat behind a long, rough-edged travertine ledge running across the lower third. The five tins from the reference image — Skin, Hair, Multivitamin, Sleep, Gut Health, in that order — stand in a loose, slightly uneven row on the ledge, each with its matching sachet lying at its foot. Each tin sits in a faint, soft pool of light tinted to its own colour (rose, sage, sand, lavender, teal) blending gently into the neutral plaster. Top 40% of the frame is empty plaster. 45mm lens, f/11, medium format, true-to-life colour, fine stone pores. Tins and sachets must match the reference exactly. No plants, no fruit, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">cta-turntable-loop.mp4</span><span class="kind video">video</span></div>
+<div class="spec">1920 × 1080 px · 16:9 · 24 fps · 10 s · seamless loop · no audio · desktop only.</div>
+<div class="spec"><b>Attach:</b> your finished <span class="path">tin-multivitamin-front.png</span> (or the product crop) as the start frame</div>
+<div class="prompt"><span class="label">Video prompt</span>16:9, 1920 × 1080, 10 seconds, 24 fps, no audio. Closed studio, warm-sand seamless background. The sand MULTIVITAMIN tin from the reference stands on a small round travertine turntable that rotates very slowly, exactly one half turn over 10 seconds, so the label turns away and the plain back of the tin comes round, then the loop restarts. Locked-off camera at tin height, 100mm lens. One large softbox from the left, the soft highlight sliding naturally across the curve of the tin. Label stays accurate. No plants, no rays, no haze, no lens flare.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== SHARED ===================== -->
+<hr id="s0"/>
+<div class="eyebrow">Shared</div>
+<h2>Textures</h2>
+<p class="path">src/assets/adults/shared/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">grain-overlay.png</span><span class="kind png">png</span></div>
+<div class="spec">1024 × 1024 px · 1:1 tileable · laid over the whole page at 4–6% opacity.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Seamless tileable texture, 1:1 square, 1024 × 1024 px. Fine, even photographic film grain on a flat neutral mid-grey. Uniform, no vignette, no dust, no shapes.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">plaster-texture.jpg</span><span class="kind">image</span></div>
+<div class="spec">3000 × 3000 px · 1:1 tileable · backgrounds for text-only blocks.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Seamless tileable flat photograph, 1:1 square, 3000 × 3000 px. Hand-troweled warm off-white lime plaster, subtle tonal variation and fine trowel marks, perfectly even studio lighting, no shadows, no cracks, no objects.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">linen-texture.jpg</span><span class="kind">image</span></div>
+<div class="spec">3000 × 3000 px · 1:1 tileable.</div>
+<div class="spec"><b>Attach:</b> None</div>
+<div class="prompt"><span class="label">Prompt</span>Seamless tileable flat photograph, 1:1 square, 3000 × 3000 px. Natural undyed oatmeal linen fabric, visible slub weave, very subtle creases, perfectly even studio lighting, no shadows, no objects.<button class="copy">Copy</button></div></div>
+
+<hr/>
+<h2>Checklist</h2>
+<div class="concept">
+<ul>
+  <li><b>01 Hero:</b> 5 plates + 5 tin cutouts</li>
+  <li><b>02 Edit:</b> 5 rooms, 5 sachets, 5 gummy pairs</li>
+  <li><b>03 Needs:</b> 5 photos</li>
+  <li><b>04 Ingredients:</b> 9 scenes + 9 icons</li>
+  <li><b>05 Day:</b> 3 vignettes</li>
+  <li><b>06 Texture:</b> 1 start frame, 1 video, 5 cross-sections</li>
+  <li><b>07 Trust:</b> 1–2 photos</li>
+  <li><b>08 CTA:</b> 1 wide + 1 mobile lineup, 1 turntable video</li>
+  <li><b>Shared:</b> grain, plaster, linen</li>
+</ul>
+<p><b>Total:</b> about 64 images + 2 videos. Order: hero plate 01 → plates 02–05 → tins → lineup → the rest.</p>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.parentElement.cloneNode(true);t.querySelectorAll('.copy,.label').forEach(function(n){n.remove()});
+    var s=t.textContent.trim();
+    try{navigator.clipboard.writeText(s).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1400)})}catch(e){}
+  });
+});
+</script>
+</body>
+</html>

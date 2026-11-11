@@ -1,0 +1,450 @@
+/* 06 · Up close ------------------------------------------------------ */
+
+.section {
+  --gutter: clamp(1rem, 6vw, 6.5rem);
+  position: relative;
+  background: #e9dfd3;
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+}
+
+/* Pinned scrub stage ---------------------------------------------------- */
+
+.stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: #d8cbbb;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Soft paper light from the top-left so type reads over the travertine. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(240, 232, 222, 0.9) 0%, rgba(240, 232, 222, 0.55) 26%, rgba(240, 232, 222, 0) 50%),
+    linear-gradient(90deg, rgba(240, 232, 222, 0.5) 0%, rgba(240, 232, 222, 0) 38%);
+}
+
+/* Opening title card: the still dissolves into the footage. */
+.intro {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 60%;
+  will-change: opacity, transform;
+}
+
+.introImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heading {
+  position: absolute;
+  z-index: 2;
+  top: clamp(6rem, 15vh, 9rem);
+  left: var(--gutter);
+  max-width: 32rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.eyebrowIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--adults-ink);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(3.2rem, min(7vw, 12vh), 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.introLine {
+  margin: 0.9rem 0 0;
+  font-size: 1.02rem;
+  font-weight: 300;
+  color: var(--adults-ink-muted);
+}
+
+/* Chapters — one at a time, bottom-left */
+.chapters {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  bottom: clamp(2rem, 8vh, 5rem);
+  width: min(26rem, 40vw);
+  min-height: 9rem;
+}
+
+.chapter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.25rem 1.4rem 1.35rem;
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--adults-cream) 80%, transparent);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.7s var(--ease-adults-out),
+    transform 0.9s var(--ease-adults-out);
+  pointer-events: none;
+}
+
+.chapterActive {
+  opacity: 1;
+  transform: none;
+}
+
+.chapterIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  color: var(--adults-ink-muted);
+}
+
+.chapterTitle {
+  margin: 0.35rem 0 0.4rem;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.chapterText {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--adults-ink-muted);
+}
+
+/* Progress rail on the right */
+.rail {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1.25rem, 3vw, 3rem);
+  top: 22%;
+  bottom: 14%;
+  width: 2.5rem;
+}
+
+.railTrack {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(42, 33, 28, 0.2);
+}
+
+.railBar {
+  position: absolute;
+  inset: 0;
+  background: var(--adults-ink);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+.railTick {
+  position: absolute;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--adults-cream) 72%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  line-height: 1.2;
+  font-family: var(--font-display-adults);
+  font-size: 0.85rem;
+  color: rgba(42, 33, 28, 0.4);
+  transition: color 0.5s var(--ease-adults-out);
+}
+
+.railTick::after {
+  content: "";
+  position: absolute;
+  right: -1.2rem;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: #e9dfd3;
+  border: 1px solid rgba(42, 33, 28, 0.4);
+  transition:
+    background-color 0.5s var(--ease-adults-out),
+    border-color 0.5s var(--ease-adults-out);
+}
+
+.railTickOn {
+  color: var(--adults-ink);
+}
+
+.railTickOn::after {
+  background: var(--adults-ink);
+  border-color: var(--adults-ink);
+}
+
+/* Mobile / reduced motion ------------------------------------------------ */
+
+.mobile {
+  padding: 5rem 0 1rem;
+}
+
+.mobileHeading {
+  padding: 0 var(--gutter) 1.5rem;
+}
+
+.videoWrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #d8cbbb;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.replay {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--adults-cream) 85%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.replay:focus-visible,
+.flavour:focus-visible {
+  outline: 2px solid var(--adults-ink);
+  outline-offset: 4px;
+}
+
+.mobileChapters {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 2rem var(--gutter) 1rem;
+  list-style: none;
+}
+
+.mobileChapters li {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--adults-line);
+}
+
+/* Flavour row ------------------------------------------------------------- */
+
+.flavours {
+  position: relative;
+  padding: clamp(5rem, 14vh, 8rem) var(--gutter) clamp(5rem, 14vh, 8rem);
+  background:
+    radial-gradient(55% 60% at 50% 62%, color-mix(in srgb, var(--tint) 30%, var(--wash)) 0%, var(--wash) 70%);
+  transition: background 1s var(--ease-adults);
+  overflow: hidden;
+}
+
+.flavoursHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.flavoursHead .eyebrow {
+  justify-content: center;
+}
+
+.flavoursTitle {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.2vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.flavourStage {
+  max-width: 82rem;
+  margin: 0 auto;
+}
+
+.flavourRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flavour {
+  appearance: none;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.flavourImgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: end center;
+}
+
+/* Contact shadow on an invisible surface */
+.flavourImgWrap::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: -4%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(40, 25, 15, 0.28), transparent);
+  filter: blur(4px);
+  transition: transform 0.9s var(--ease-adults-out), opacity 0.9s var(--ease-adults-out);
+  opacity: 0.7;
+}
+
+.flavourImg {
+  position: relative;
+  z-index: 1;
+  width: 82%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 100%;
+  transform: scale(0.86);
+  filter: saturate(0.85);
+  transition:
+    transform 0.9s var(--ease-adults-out),
+    filter 0.9s var(--ease-adults-out);
+}
+
+.flavour:hover .flavourImg,
+.flavourOn .flavourImg {
+  transform: scale(1.04) translateY(-4%);
+  filter: saturate(1.05);
+}
+
+.flavourOn .flavourImgWrap::after {
+  transform: scaleX(1.15);
+  opacity: 1;
+}
+
+.flavourName {
+  margin-top: 0.6rem;
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  line-height: 1.1;
+}
+
+.flavourProduct {
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+  transition: color 0.6s var(--ease-adults-out);
+}
+
+.flavourOn .flavourProduct {
+  color: var(--deep);
+}
+
+.flavourNote {
+  margin: clamp(2rem, 5vh, 3rem) auto 0;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--adults-ink-muted);
+  animation: note-in 0.8s var(--ease-adults-out) both;
+}
+
+.flavourNoteName {
+  font-family: var(--font-display-adults);
+  color: var(--adults-ink);
+}
+
+@keyframes note-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .flavourRow {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 1rem;
+  }
+
+  .flavourRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .flavourRow li {
+    flex: 0 0 44vw;
+    scroll-snap-align: center;
+  }
+}

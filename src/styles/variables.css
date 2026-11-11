@@ -25,7 +25,24 @@
      Adults experience and intentionally unused by any Kids component. */
   --font-display-kids: "Mochibop", "Fredoka", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display-adults: "Fraunces", Georgia, serif;
+  --font-display-adults: "Gloock", "Fraunces", Georgia, serif;
+  --font-body-adults: "Jost", "Inter", system-ui, sans-serif;
+
+  /* Adults experience — studio stone, plaster and paper. Product tints are
+     sampled from the client's packaging. */
+  --adults-paper: #f3eee6;
+  --adults-paper-deep: #e9e1d4;
+  --adults-ink: #2a211c;
+  --adults-ink-muted: #75685e;
+  --adults-line: rgba(42, 33, 28, 0.14);
+  --adults-cream: #f6efe4;
+  --adults-skin: #c9918a;
+  --adults-hair: #8f9d7f;
+  --adults-multi: #cdb08f;
+  --adults-sleep: #9a8bb5;
+  --adults-gut: #7fa3a4;
+  --ease-adults: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-adults-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Kids experience palette, sampled from the client reference */
   --kids-bg-fallback: #eaf2fb;

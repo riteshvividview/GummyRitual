@@ -22,6 +22,16 @@ body {
   overflow-x: hidden;
 }
 
+/* `clip` clips identically but, unlike `hidden`, doesn't turn html/body
+   into scroll containers — which is what silently breaks position: sticky
+   (used by the Adults sections). Browsers without `clip` keep `hidden`. */
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
 /*
   Lenis-recommended overrides (see hooks/useLenis.ts). Lenis toggles these
   classes on <html> itself: `.lenis` while active, `.lenis-smooth` during

@@ -1,2 +1,2 @@
-export { gsap, ScrollTrigger, registerGsapPlugins } from "./gsapConfig";
+export { gsap, ScrollTrigger, SplitText, registerGsapPlugins } from "./gsapConfig";
 export * from "./scrollAnimations";

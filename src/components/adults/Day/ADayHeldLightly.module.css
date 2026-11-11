@@ -1,0 +1,353 @@
+/* 05 · A day, held lightly ------------------------------------------ */
+
+.section {
+  --gutter: clamp(1rem, 6vw, 6.5rem);
+  --sun: 2%;
+  --night: 0;
+  position: relative;
+  padding: clamp(6rem, 15vh, 9rem) var(--gutter) clamp(6rem, 16vh, 10rem);
+  /* One quiet stone tone — the photographs carry the colour. */
+  background: #ece6dd;
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+}
+
+/* Header ---------------------------------------------------------------- */
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-bottom: clamp(4rem, 11vh, 7rem);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.eyebrowIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--adults-ink);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.4vw, 5.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.headline span,
+.headline em {
+  display: block;
+}
+
+.headline em {
+  font-style: normal;
+  color: #8a6a47;
+}
+
+.description {
+  max-width: 24rem;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--adults-ink-muted);
+}
+
+/* Day line -------------------------------------------------------------- */
+
+.axis {
+  position: relative;
+  height: 6.5rem;
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+  height: 1px;
+  background: rgba(42, 33, 28, 0.22);
+}
+
+/* Fine hour hatching along the line */
+.rail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -3px;
+  height: 7px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(42, 33, 28, 0.18) 0 1px,
+    transparent 1px calc(100% / 36)
+  );
+}
+
+.node {
+  position: absolute;
+  bottom: 1rem;
+  display: grid;
+  justify-items: center;
+  /* hour labels sit well above the line so the gummy can pass beneath */
+  gap: 2.4rem;
+  /* the dot (0.7rem) is the node's last row: centre it on the line */
+  transform: translate(-50%, calc(0.35rem - 0.5px));
+}
+
+.nodeTime {
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  line-height: 1;
+  color: rgba(42, 33, 28, 0.3);
+  transition: color 0.8s var(--ease-adults-out);
+}
+
+.nodeDot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #ece6dd;
+  border: 1px solid rgba(42, 33, 28, 0.35);
+  transition:
+    background-color 0.6s var(--ease-adults-out),
+    border-color 0.6s var(--ease-adults-out),
+    transform 0.6s var(--ease-adults-out);
+}
+
+.nodeLit .nodeTime {
+  color: var(--adults-ink);
+}
+
+.nodeLit .nodeDot {
+  background: var(--adults-ink);
+  border-color: var(--adults-ink);
+  transform: scale(1.15);
+}
+
+/* The travelling sun — warm by day, a pale moon after dusk */
+.sun {
+  position: absolute;
+  z-index: 2;
+  left: var(--sun);
+  bottom: 1rem;
+  transform: translate(-50%, 50%);
+  display: grid;
+  justify-items: center;
+}
+
+/* A real gummy rides the line — it changes with the moment it's nearest */
+.sunGummy {
+  position: relative;
+  display: block;
+  width: 3rem;
+  height: 2.25rem;
+  transform: translateY(-38%) rotate(var(--tilt, 0deg));
+  filter: drop-shadow(0 6px 6px rgba(40, 25, 15, 0.22));
+}
+
+.sunGummy img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sunTime {
+  position: absolute;
+  top: calc(100% + 0.1rem);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--adults-ink-muted);
+}
+
+/* Moments --------------------------------------------------------------- */
+
+.moments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.6vw, 2.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.moment {
+  display: grid;
+  gap: 1.4rem;
+  align-content: start;
+  transform: translateY(0.75rem);
+  transition: transform 1s var(--ease-adults-out);
+}
+
+.momentLit {
+  transform: none;
+}
+
+.photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #ddd5ca;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 1.6s var(--ease-adults-out);
+}
+
+/* Moments the sun hasn't reached yet wait under a soft stone veil. */
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ece6dd;
+  opacity: 0.45;
+  transition: opacity 1s var(--ease-adults-out);
+  pointer-events: none;
+}
+
+.momentLit .photo::after {
+  opacity: 0;
+}
+
+.momentLit .photo img {
+  transform: scale(1);
+}
+
+.moment:hover .photo img {
+  transform: scale(1.025);
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+/* The day line shows times on desktop; cards carry them on mobile. */
+.labelTime {
+  display: none;
+}
+
+.index {
+  font-family: var(--font-display-adults);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  color: var(--adults-ink);
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.6rem;
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.productName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.productName i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.plus {
+  font-family: var(--font-body-adults);
+  font-size: 0.9rem;
+  color: var(--adults-ink-muted);
+  margin-right: 0.15rem;
+}
+
+.text {
+  margin: 0.7rem 0 0;
+  max-width: 24rem;
+  font-size: 0.97rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--adults-ink-muted);
+}
+
+/* Tablet ---------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile: the day runs top → bottom ------------------------------------- */
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .axis {
+    display: none;
+  }
+
+  .moments {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .moment {
+    transform: none;
+  }
+
+  .photo::after {
+    display: none;
+  }
+
+  .labelTime {
+    display: inline;
+  }
+
+  .photo img {
+    transform: none;
+  }
+}

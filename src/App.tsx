@@ -5,8 +5,9 @@ import { Header } from "./components/Header/Header";
 import { Loader } from "./components/Loader/Loader";
 import { useAppPreloader } from "./hooks/useAppPreloader";
 import { hasLoaderRunThisSession, markLoaderRunThisSession } from "./lib/preloaderSession";
+import { markSiteRevealed } from "./lib/siteReveal";
 import { KidsHero } from "./components/Hero/KidsHero";
-import { AdultHero } from "./components/Hero/AdultHero";
+import { AdultsHome } from "./components/adults/AdultsHome";
 import { OurGummies } from "./components/OurGummies/OurGummies";
 import { WhyGummyRituals } from "./components/WhyGummyRituals/WhyGummyRituals";
 import { FeaturedCollection } from "./components/FeaturedCollection/FeaturedCollection";
@@ -19,7 +20,7 @@ function HomeHero() {
   const { mode } = useExperience();
   return (
     <>
-      {mode === "kids" ? <KidsHero /> : <AdultHero />}
+      {mode === "kids" ? <KidsHero /> : <AdultsHome />}
       {mode === "kids" && (
         <>
           <FeaturedCollection />
@@ -40,6 +41,10 @@ function App() {
   const [showLoader] = useState(() => !hasLoaderRunThisSession());
   const { progress, isComplete } = useAppPreloader({ skip: !showLoader });
   const [siteRevealed, setSiteRevealed] = useState(() => !showLoader);
+
+  useEffect(() => {
+    if (siteRevealed) markSiteRevealed();
+  }, [siteRevealed]);
 
   // Lock page scroll while the loader overlay is up.
   useEffect(() => {

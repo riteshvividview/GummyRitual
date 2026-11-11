@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw client media uploads (optimized copies live in src/assets/adults)
+Organize-adult-section/
+
+# Reference-only art used during asset preparation, not by the website
+reference-crops/
+/Daily Wellness Gummy Ritual.png
+/adult product images.jpg

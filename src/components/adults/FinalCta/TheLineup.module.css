@@ -1,0 +1,475 @@
+/* 08 · The lineup ---------------------------------------------------- */
+
+.section {
+  --gutter: clamp(1rem, 6vw, 6.5rem);
+  --wall: #f6eee7;
+  --accent: #6f5a44;
+  position: relative;
+  /* Wall colour sampled from the top of the photograph, so the shelf
+     sits in the page rather than on it. */
+  background: var(--wall);
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+  padding-top: clamp(6rem, 15vh, 9rem);
+  overflow: hidden;
+}
+
+
+/* Header ------------------------------------------------------------------ */
+
+.head {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: 0 var(--gutter);
+}
+
+.headText {
+  display: grid;
+  justify-items: start;
+  padding-bottom: clamp(2rem, 5.5vw, 5.5rem);
+}
+
+/* Turntable portrait --------------------------------------------------- */
+
+.turntable {
+  margin: 0 0 calc(clamp(3rem, 7vw, 7rem) * -1);
+  width: clamp(13rem, 20vw, 21rem);
+}
+
+.turntableFrame {
+  position: relative;
+  aspect-ratio: 460 / 640;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #8c6844;
+  box-shadow: 0 50px 70px -45px rgba(40, 25, 15, 0.6);
+}
+
+.turntableMedia {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Diagonal warm light in the clip's own wall colour (sampled), laid along
+   the edge of a studio softbox that sits in the source's corner. */
+.turntableVeil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgb(140, 104, 70) 0%, rgb(140, 104, 70) 15%, rgba(140, 104, 70, 0) 30%),
+    radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(60, 40, 25, 0.28) 100%);
+}
+
+.turntableCaption {
+  margin-top: 1rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.eyebrowIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--adults-ink);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.8rem, min(7vw, 12vh), 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.line > span {
+  display: block;
+}
+
+.lineAccent {
+  color: var(--accent);
+  transition: color 0.8s var(--ease-adults-out);
+}
+
+.description {
+  margin: 1.4rem 0 0;
+  max-width: 26rem;
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--adults-ink-muted);
+}
+
+/* Shelf -------------------------------------------------------------------- */
+
+.shop {
+  position: relative;
+}
+
+.shelfScroller {
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+}
+
+.shelf {
+  position: relative;
+  width: 100%;
+  /* Exact photo aspect: the WebGL cover-fit is then a perfect fit, so
+     the hotspot percentages always land on the tins. */
+  aspect-ratio: 1914 / 822;
+  will-change: clip-path;
+}
+
+/* Soften the photo's top edge into the wall above it. */
+.shelf::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 22%;
+  background: linear-gradient(var(--wall), transparent);
+  pointer-events: none;
+}
+
+/* Torch beam ------------------------------------------------------------ */
+
+.beam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-adults);
+}
+
+.beamOn {
+  opacity: 1;
+}
+
+/* Each tin's light fades on/off in place */
+.beamShape {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-adults);
+}
+
+.beamShapeOn {
+  opacity: 1;
+}
+
+/* Hotspots — a column over each tin, with its gummies floating above */
+.spot {
+  position: absolute;
+  z-index: 2;
+  top: 26%;
+  bottom: 8%;
+  width: 14%;
+  transform: translateX(-50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.spot:focus-visible {
+  outline: 2px solid var(--adults-cream);
+  outline-offset: -4px;
+  border-radius: 1rem;
+}
+
+.spotGummy {
+  position: absolute;
+  left: 50%;
+  top: -3.6rem;
+  width: clamp(2.6rem, 3.6vw, 3.4rem);
+  height: auto;
+  margin-left: calc(clamp(2.6rem, 3.6vw, 3.4rem) / -2);
+  opacity: 0.92;
+  animation: float 3.6s var(--ease-adults) infinite;
+  animation-delay: calc(var(--i) * -0.7s);
+  transition:
+    scale 0.6s var(--ease-adults-out),
+    opacity 0.6s var(--ease-adults-out);
+}
+
+.spot:hover .spotGummy,
+.spotOn .spotGummy {
+  scale: 1.22;
+  opacity: 1;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+/* Purchase bar ------------------------------------------------------------ */
+
+.bar {
+  position: relative;
+  margin: 0 var(--gutter);
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.barInner {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: 1.1rem 1.1rem 1.1rem 1.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--adults-cream) 86%, transparent);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  box-shadow: 0 30px 60px -36px rgba(30, 20, 15, 0.55);
+  animation: bar-in 0.7s var(--ease-adults-out) both;
+}
+
+.barInfo {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.barName {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.1;
+}
+
+.barDot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.barDetail {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barPrice {
+  display: grid;
+  justify-items: end;
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1;
+}
+
+.barSaving {
+  margin-top: 0.3rem;
+  font-family: var(--font-body-adults);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.barActions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.primary,
+.secondary {
+  appearance: none;
+  cursor: pointer;
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-body-adults);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 0.4s var(--ease-adults-out),
+    color 0.4s var(--ease-adults-out),
+    transform 0.4s var(--ease-adults-out);
+}
+
+.primary {
+  border: 0;
+  background: var(--adults-ink);
+  color: var(--adults-cream);
+}
+
+.primary:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.secondary {
+  border: 1px solid color-mix(in srgb, var(--adults-ink) 25%, transparent);
+  background: transparent;
+  color: var(--adults-ink);
+}
+
+.secondary:hover {
+  background: color-mix(in srgb, var(--adults-ink) 6%, transparent);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid var(--adults-ink);
+  outline-offset: 3px;
+}
+
+.hint {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+@keyframes bar-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+/* Sign-off ------------------------------------------------------------------ */
+
+.signoff {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: clamp(0.5rem, 3vh, 2rem) var(--gutter) clamp(3rem, 8vh, 5rem);
+  font-family: var(--font-display-adults);
+  font-size: clamp(2.5rem, 7vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--adults-ink) 13%, transparent);
+  user-select: none;
+}
+
+.signoff span {
+  display: block;
+}
+
+/* Tablet ------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .barInner {
+    grid-template-columns: 1fr auto;
+    border-radius: 1.75rem;
+  }
+
+  .barActions {
+    grid-column: 1 / -1;
+  }
+
+  .barActions > * {
+    flex: 1;
+  }
+}
+
+/* Mobile: slide along the shelf ----------------------------------------- */
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 5rem;
+  }
+
+  .head {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .headText {
+    padding-bottom: 0;
+  }
+
+  .turntable {
+    justify-self: center;
+    width: min(62vw, 15rem);
+    margin-bottom: 0;
+  }
+
+  .shelfScroller {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shelfScroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shelf {
+    --h: max(52svh, 20rem);
+    height: var(--h);
+    width: calc(var(--h) * 1914 / 822);
+  }
+
+  .spot {
+    scroll-snap-align: center;
+    width: 18%;
+  }
+
+  .bar {
+    transform: none;
+    margin-top: 1.25rem;
+  }
+
+  .barInner {
+    padding: 1.1rem;
+  }
+
+  .barActions {
+    flex-direction: column;
+  }
+
+  .signoff {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+}

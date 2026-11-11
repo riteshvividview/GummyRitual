@@ -1,0 +1,576 @@
+/* 02 · The Edit ------------------------------------------------------- */
+
+.section {
+  --wash: #efe4d4;
+  --gutter: clamp(1rem, 6vw, 6.5rem);
+  position: relative;
+  background: var(--wash);
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+}
+
+.pin {
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: clamp(5.5rem, 13vh, 8rem) 0 clamp(1.5rem, 5vh, 3rem);
+  overflow: hidden;
+}
+
+/* Intro --------------------------------------------------------------- */
+
+.intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 var(--gutter) clamp(1.25rem, 4vh, 2.75rem);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.eyebrowIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--adults-ink);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.4rem, min(5vw, 8.5vh), 5.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+
+.headline span,
+.headline em {
+  display: block;
+}
+
+.headline em {
+  font-style: normal;
+  color: color-mix(in srgb, var(--adults-ink) 55%, var(--wash));
+}
+
+.introSide {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: end;
+  max-width: 22rem;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--adults-ink-muted);
+  text-align: right;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.progressCount {
+  font-family: var(--font-display-adults);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.progressCount i {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--adults-ink-muted);
+}
+
+.progressTrack {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--adults-line);
+}
+
+.progressBar {
+  position: absolute;
+  inset: 0;
+  background: var(--adults-ink);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* Shelf ---------------------------------------------------------------- */
+
+.viewport {
+  position: relative;
+  min-height: 0;
+}
+
+.track {
+  display: flex;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  height: 100%;
+  padding: 0 var(--gutter);
+  width: max-content;
+  will-change: transform;
+}
+
+.panel {
+  appearance: none;
+  position: relative;
+  height: 100%;
+  /* Portrait by default; the vw floor guarantees five rooms overflow
+     the viewport so the shelf always has somewhere to travel. */
+  aspect-ratio: 2 / 3;
+  min-width: 23vw;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--adults-ink);
+  font: inherit;
+}
+
+.panelFrame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--tint);
+}
+
+.panelDrift {
+  position: absolute;
+  top: 0;
+  left: -12%;
+  width: 124%;
+  height: 100%;
+  will-change: transform;
+}
+
+.panelImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+  transition:
+    transform 1.4s var(--ease-adults-out),
+    filter 1s var(--ease-adults-out);
+  transform: scale(1.02);
+  filter: saturate(0.92);
+}
+
+.panel:hover .panelImg,
+.panel:focus-visible .panelImg,
+.panelActive .panelImg {
+  transform: scale(1.06);
+  filter: saturate(1);
+}
+
+.panel:focus-visible {
+  outline: 2px solid var(--adults-ink);
+  outline-offset: 6px;
+}
+
+/* Meta sits in the clean upper third of each room photograph. */
+.panelMeta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.1rem, 2.4vh, 1.75rem) clamp(1.1rem, 1.6vw, 1.6rem);
+  pointer-events: none;
+}
+
+.panelIndex {
+  font-family: var(--font-display-adults);
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--adults-ink) 60%, transparent);
+}
+
+.panelTitle {
+  margin-top: 0.4rem;
+  font-family: var(--font-display-adults);
+  font-size: clamp(2rem, min(3.1vw, 5.6vh), 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.panelSub {
+  margin-top: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--adults-ink) 70%, transparent);
+}
+
+.panelFoot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--adults-ink);
+}
+
+.panelCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--adults-cream) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: translateY(0.4rem);
+  opacity: 0;
+  transition:
+    opacity 0.6s var(--ease-adults-out),
+    transform 0.6s var(--ease-adults-out);
+}
+
+.panel:hover .panelCta,
+.panel:focus-visible .panelCta,
+.panelActive .panelCta {
+  opacity: 1;
+  transform: none;
+}
+
+/* Drawer --------------------------------------------------------------- */
+
+.drawerRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.drawerOpen {
+  pointer-events: auto;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(32, 24, 20, 0.42);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-adults);
+  cursor: pointer;
+}
+
+.drawerOpen .scrim {
+  opacity: 1;
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(34rem, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--wash);
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateX(102%);
+  transition: transform 0.85s var(--ease-adults);
+  box-shadow: -30px 0 80px -40px rgba(0, 0, 0, 0.45);
+}
+
+.drawerOpen .drawer {
+  transform: none;
+}
+
+
+.close {
+  position: absolute;
+  z-index: 3;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--adults-ink) 18%, transparent);
+  background: color-mix(in srgb, var(--adults-cream) 70%, transparent);
+  cursor: pointer;
+}
+
+.close span,
+.close span::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1rem;
+  height: 1px;
+  background: var(--adults-ink);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close span::after {
+  content: "";
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.close:focus-visible,
+.buyButton:focus-visible {
+  outline: 2px solid var(--adults-ink);
+  outline-offset: 3px;
+}
+
+/* Still life built from the cutouts */
+.still {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  flex-shrink: 0;
+  height: clamp(20rem, 52vh, 28rem);
+  background:
+    radial-gradient(60% 55% at 50% 42%, color-mix(in srgb, var(--adults-cream) 55%, var(--tint)) 0%, var(--tint) 75%);
+  overflow: hidden;
+}
+
+.stillDisc {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  width: 62%;
+  height: 11%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(40, 25, 15, 0.35), transparent);
+  filter: blur(6px);
+}
+
+.still img {
+  position: absolute;
+  object-fit: contain;
+  transition: transform 0.9s var(--ease-adults-out);
+}
+
+.stillTin {
+  left: 50%;
+  bottom: 12%;
+  height: 78%;
+  transform: translate(calc(-50% + var(--mx) * -10px), calc(var(--my) * -6px));
+  filter: drop-shadow(0 24px 22px rgba(40, 25, 15, 0.28));
+  animation: still-in 1.1s var(--ease-adults-out) 0.25s both;
+}
+
+.stillSachet {
+  left: 6%;
+  bottom: 6%;
+  width: 34%;
+  transform: rotate(-12deg) translate(calc(var(--mx) * 18px), calc(var(--my) * 12px));
+  filter: drop-shadow(0 14px 14px rgba(40, 25, 15, 0.25));
+  animation: still-in 1.1s var(--ease-adults-out) 0.4s both;
+}
+
+.stillGummies {
+  right: 5%;
+  bottom: 5%;
+  width: 30%;
+  transform: translate(calc(var(--mx) * 24px), calc(var(--my) * 16px));
+  filter: drop-shadow(0 12px 12px rgba(40, 25, 15, 0.3));
+  animation: still-in 1.1s var(--ease-adults-out) 0.5s both;
+}
+
+.drawerBody {
+  display: grid;
+  gap: 1.1rem;
+  padding: 2rem clamp(1.25rem, 3vw, 2.5rem) 2.5rem;
+  animation: still-in 1s var(--ease-adults-out) 0.35s both;
+}
+
+.drawerEyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.drawerTitle {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.drawerDesc {
+  margin: 0;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--adults-ink-muted);
+}
+
+.facts {
+  margin: 0.4rem 0 0;
+  display: grid;
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--adults-line);
+}
+
+.facts dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+  padding-top: 0.2rem;
+}
+
+.facts dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--deep) 35%, transparent);
+  font-size: 0.82rem;
+}
+
+.buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--adults-line);
+}
+
+.buyPrice {
+  font-family: var(--font-display-adults);
+  font-size: 1.75rem;
+}
+
+.buyButton {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 1.05rem 2.2rem;
+  border-radius: 999px;
+  background: var(--adults-ink);
+  color: var(--adults-cream);
+  font-family: var(--font-body-adults);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: background-color 0.4s var(--ease-adults-out);
+}
+
+.buyButton:hover {
+  background: var(--deep);
+}
+
+@keyframes still-in {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+}
+
+/* Mobile: native scroll-snap shelf -------------------------------------- */
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .pin {
+    height: auto;
+    min-height: 0;
+    padding: 5rem 0 4rem;
+  }
+
+  .viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    height: auto;
+  }
+
+  .panel {
+    height: auto;
+    aspect-ratio: 2 / 3;
+    width: min(78vw, 22rem);
+    scroll-snap-align: start;
+    scroll-margin-left: var(--gutter);
+  }
+
+  .panelCta {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .introSide {
+    justify-items: start;
+  }
+
+  .description {
+    text-align: left;
+  }
+}
+

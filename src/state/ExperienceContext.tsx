@@ -1,4 +1,6 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { getLenis } from "../hooks/useLenis";
+import { ScrollTrigger } from "../animations/gsap/gsapConfig";
 
 export type ExperienceMode = "kids" | "adults";
 
@@ -8,14 +10,43 @@ interface ExperienceContextValue {
 }
 
 const ExperienceContext = createContext<ExperienceContextValue | null>(null);
+const STORAGE_KEY = "gr:mode";
+
+function readStoredMode(): ExperienceMode {
+  try {
+    return localStorage.getItem(STORAGE_KEY) === "adults" ? "adults" : "kids";
+  } catch {
+    return "kids";
+  }
+}
 
 /**
- * Holds which experience (Kids / Adults) is currently active. Kids is the
- * default and only fully-built experience today; Adults is a placeholder
- * (see components/Hero/AdultHero.tsx) until its own visual system is built.
+ * Holds which experience (Kids / Adults) is active. The choice is
+ * remembered (localStorage), so a refresh keeps the visitor where they
+ * were — and the browser's own scroll restoration returns them to the
+ * same spot. Switching experiences always starts the new one at the top.
  */
 export function ExperienceProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<ExperienceMode>("kids");
+  // Read synchronously so the first render is already the right page
+  // (no Kids flash, and scroll restoration has the right document).
+  const [mode, setMode] = useState<ExperienceMode>(readStoredMode);
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, mode);
+    } catch {
+      // Storage unavailable (private mode) — the choice just isn't remembered.
+    }
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    // A switch is a new page: start at the top, then re-measure triggers.
+    getLenis()?.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }, [mode]);
 
   const value = useMemo(() => ({ mode, setMode }), [mode]);
 

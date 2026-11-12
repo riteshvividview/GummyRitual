@@ -76,7 +76,7 @@
 .description {
   margin: 0;
   font-size: 0.98rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: var(--adults-ink-muted);
   text-align: right;
@@ -214,6 +214,7 @@
   font-size: clamp(2rem, min(3.1vw, 5.6vh), 3.25rem);
   line-height: 1;
   letter-spacing: -0.02em;
+  color: #ffffff;
 }
 
 .panelSub {
@@ -432,7 +433,7 @@
 
 .drawerDesc {
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: var(--adults-ink-muted);
 }

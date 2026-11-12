@@ -89,7 +89,7 @@
 .introLine {
   margin: 0.9rem 0 0;
   font-size: 1.02rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--adults-ink-muted);
 }
 
@@ -144,7 +144,7 @@
 .chapterText {
   margin: 0;
   font-size: 0.95rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.55;
   color: var(--adults-ink-muted);
 }
@@ -412,7 +412,7 @@
   margin: clamp(2rem, 5vh, 3rem) auto 0;
   text-align: center;
   font-size: 1.05rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--adults-ink-muted);
   animation: note-in 0.8s var(--ease-adults-out) both;
 }

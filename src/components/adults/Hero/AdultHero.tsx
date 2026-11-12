@@ -17,6 +17,11 @@ const { plates } = adultHeroContent;
 const LAST = plates.length - 1;
 const PLATE_URLS = plates.map((p) => adultImages.plate(p.product));
 const PLATE_DEPTH = plates.map((p) => adultImages.plateDepth(p.product));
+/**
+ * The tin's place in every plate (measured — same camera for all five):
+ * it spins on its axis between plates. Remove `spin` to turn this off.
+ */
+const TIN_SPIN = { cx: 0.7162, r: 0.1002, top: 0.055, bottom: 0.765 };
 const PLATE_ALTS = plates.map(
   (p) => `${adultProducts[p.product].name} on a travertine block in ${p.moment.toLowerCase()} studio light`
 );
@@ -108,7 +113,8 @@ export function AdultHero() {
       tweenRef.current = gsap.to(state, {
         m: 1,
         duration: reduced ? 0 : STEP_DURATION,
-        ease: "power2.inOut",
+        // one gentle curve end to end (the shader adds no easing of its own)
+        ease: "sine.inOut",
         onUpdate: () => applyPair(from, target, state.m),
         onComplete: () => {
           animatingRef.current = false;
@@ -161,8 +167,11 @@ export function AdultHero() {
       }
     };
 
+    // scrollable overlays (e.g. the product drawer) scroll on their own
+    const inOverlay = (e: Event) => !!(e.target as Element | null)?.closest?.("[data-lenis-prevent]");
+
     const onWheel = (e: WheelEvent) => {
-      if (!locked) return;
+      if (!locked || inOverlay(e)) return;
       // Scrolling up at the very top with nothing to go back to: let it be.
       if (e.deltaY < 0 && indexRef.current === 0 && !animatingRef.current) return;
       // Hold the page still; keep Lenis (bubble listener on window) out of it.
@@ -192,7 +201,7 @@ export function AdultHero() {
       touchY = locked ? e.touches[0].clientY : null;
     };
     const onTouchMove = (e: TouchEvent) => {
-      if (!locked || touchY === null) return;
+      if (!locked || touchY === null || inOverlay(e)) return;
       const dy = touchY - e.touches[0].clientY;
       if (dy < 0 && indexRef.current === 0) return; // pull-down at the top
       e.preventDefault();
@@ -346,6 +355,7 @@ export function AdultHero() {
             ref={plateRef}
             urls={PLATE_URLS}
             depthUrls={PLATE_DEPTH}
+            spin={TIN_SPIN}
             parallax={isMobile ? 0.012 : 0.022}
             alts={PLATE_ALTS}
             transition="depth"

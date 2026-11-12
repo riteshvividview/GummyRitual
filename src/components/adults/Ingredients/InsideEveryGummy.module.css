@@ -295,8 +295,10 @@
 }
 
 .chipName {
-  font-family: var(--font-display-adults);
-  font-size: clamp(0.85rem, 1.05vw, 1.05rem);
+  font-family: var(--font-secondary-adults);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: clamp(0.8rem, 0.95vw, 0.95rem);
   line-height: 1.1;
   text-align: center;
 }
@@ -375,4 +377,143 @@
     flex: 0 0 6.25rem;
     scroll-snap-align: start;
   }
+}
+
+/* Desktop: shared heading above the scene; ingredient info at the top
+   right of the image; the selector as a quiet row at the bottom right. */
+.column {
+  display: contents;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: auto;
+    padding: clamp(4.5rem, 11vh, 7rem) var(--gutter) clamp(1.75rem, 4vh, 2.5rem);
+    background: var(--adults-paper);
+    --fg: var(--adults-ink);
+    --fg-muted: var(--adults-ink-muted);
+  }
+
+  .headline {
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    color: var(--adults-ink);
+  }
+
+  .scene {
+    --col-w: min(38rem, 44vw);
+  }
+
+  .column {
+    position: absolute;
+    z-index: 2;
+    top: clamp(2.5rem, 8vh, 4.5rem);
+    right: var(--gutter);
+    width: var(--col-w);
+    display: block;
+  }
+
+  .column .card {
+    position: static;
+    width: auto;
+    transform: none;
+  }
+
+  /* Ingredient grid: same column as the info, filling the space below it */
+  .strip {
+    position: absolute;
+    z-index: 3;
+    right: var(--gutter);
+    bottom: clamp(1.5rem, 5vh, 3rem);
+    width: var(--col-w);
+    border-top: 0;
+    background: none;
+  }
+
+  .strip::before {
+    display: none;
+  }
+
+  .stripList {
+    display: grid;
+    /* sits against the right edge of the column */
+    grid-template-columns: repeat(3, auto);
+    justify-content: end;
+    justify-items: center;
+    align-items: end;
+    column-gap: clamp(3rem, 5.5vw, 5.5rem);
+    row-gap: clamp(0.5rem, 1.8vh, 1.1rem);
+    padding: 0;
+  }
+
+  .chip {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 0;
+    background: none;
+  }
+
+  .chip:not(.chipActive):hover {
+    background: none;
+  }
+
+  .chipIcon {
+    width: clamp(3.2rem, min(4.6vw, 8.5vh), 4.6rem);
+  }
+
+  .chipIcon::after {
+    display: none;
+  }
+
+  .chipIcon img {
+    filter: saturate(0.85) drop-shadow(0 6px 8px rgba(40, 25, 15, 0.25));
+  }
+
+  .chip:not(.chipActive):hover .chipIcon img {
+    transform: translateY(-0.2rem) scale(1.08);
+  }
+
+  .chipActive .chipIcon img {
+    transform: translateY(-0.15rem) scale(1.18);
+    filter: saturate(1.05) drop-shadow(0 10px 12px rgba(40, 25, 15, 0.32));
+  }
+
+  .chipName {
+    font-size: clamp(0.78rem, min(0.95vw, 1.7vh), 0.95rem);
+    line-height: 1.15;
+    text-align: center;
+    color: var(--fg-muted);
+    transition: color 0.4s var(--ease-adults-out);
+  }
+
+  .chipActive .chipName,
+  .chip:hover .chipName {
+    color: var(--fg);
+    font-size: clamp(0.78rem, min(0.95vw, 1.7vh), 0.95rem);
+  }
+
+  .chipProduct {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .points li {
+    grid-template-columns: 9.5rem 1fr;
+  }
+
+  .pointTitle {
+    white-space: nowrap;
+  }
+}
+
+/* Small labels take each scene's tinted accent */
+.cardFor,
+.pointTitle {
+  color: var(--fg-label, var(--fg-muted));
 }

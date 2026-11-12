@@ -65,6 +65,7 @@ export function ProductDrawer({ productId, onClose }: ProductDrawerProps) {
       />
       <aside
         className={styles.drawer}
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-label={product.name}

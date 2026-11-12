@@ -63,7 +63,7 @@
   max-width: 24rem;
   margin: 0;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.65;
   color: var(--adults-ink-muted);
 }
@@ -303,7 +303,7 @@
   margin: 0.7rem 0 0;
   max-width: 24rem;
   font-size: 0.97rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: var(--adults-ink-muted);
 }

@@ -22,7 +22,7 @@
  *              free space, so nothing at the top or bottom is cropped.
  */
 
-export type PlateTransition = "focus" | "dissolve" | "slats" | "depth";
+export type PlateTransition = "focus" | "dissolve" | "slats" | "depth" | "depthZoom" | "depthFocus";
 export type PlateFit = "cover" | "height";
 
 export interface PlateRendererOptions {
@@ -32,6 +32,12 @@ export interface PlateRendererOptions {
   depthUrls?: string[];
   /** Strength of the depth parallax (pointer + idle drift). */
   parallax?: number;
+  /**
+   * Optional cylinder to spin on transitions ("depth" mode): the product
+   * tin, in image coordinates (0..1, top-left origin). Its front half is
+   * the current plate's tin, its back half the next plate's tin.
+   */
+  spin?: { cx: number; r: number; top: number; bottom: number };
   transition?: PlateTransition;
   fit?: PlateFit;
   /** Normalised focal point kept in frame when the plate is cropped. */
@@ -67,6 +73,8 @@ uniform sampler2D uB;
 uniform sampler2D uDA;
 uniform sampler2D uDB;
 uniform float uParallax;
+uniform vec4 uTin;        // cx, r, y0, y1 in plate uv (bottom-up)
+uniform float uSpin;      // ±1 = spin the tin (sign = direction), 0 = off
 uniform vec2 uAspectA;   // image aspect (w/h)
 uniform vec2 uAspectB;
 uniform vec2 uRes;
@@ -198,6 +206,82 @@ void main() {
     float k = smoothstep(dB - 0.18, dB + 0.18, front);
     col = mix(a, b, k);
     col *= 1.0 + 0.06 * pulse * dA * (1.0 - k);
+
+    // Tin spin: re-sample the tin as a cylinder turning about its axis.
+    // Its shape follows the outgoing plate at the start of the turn and
+    // the incoming plate at the end, so both rest states match exactly.
+    if (abs(uSpin) > 0.5) {
+      vec2 pT = mix(pA, pB, m);
+      float dT = mix(dA, dB, m);
+      float nx = (pT.x - uTin.x) / uTin.y;
+      float inY = step(uTin.z, pT.y) * step(pT.y, uTin.w);
+      float inside = step(abs(nx), 0.999) * inY * smoothstep(0.38, 0.55, dT);
+      if (inside > 0.0) {
+        float phi = asin(clamp(nx, -1.0, 1.0)) + sign(uSpin) * 3.14159265 * m;
+        // never sample the tin's very edge: those texels are squashed and
+        // smeared, and they read as a bright band where the labels meet
+        float sA = clamp(sin(phi), -0.985, 0.985);
+        vec3 colA = tap(uA, vec2(uTin.x + uTin.y * sA, pT.y));
+        vec3 colB = tap(uB, vec2(uTin.x - uTin.y * sA, pT.y));
+        // the two labels meet softly where they pass the side
+        float w = smoothstep(-0.12, 0.12, cos(phi));
+        vec3 tinCol = mix(colB, colA, w);
+        // rounder shading: light falls off toward the cylinder's edges
+        float srcN = abs(sA);
+        float lamScreen = 0.62 + 0.38 * sqrt(max(0.0, 1.0 - nx * nx));
+        float lamSrc = 0.62 + 0.38 * sqrt(max(0.0, 1.0 - srcN * srcN));
+        // the photo's own edge is shaded dark: lift it back a little where it
+        // lands mid-tin, capped so the seam never glows
+        float ratio = min(lamScreen / lamSrc, 1.18);
+        // the label edge passing through reads as the tin's turned-away side
+        float c = cos(phi);
+        ratio *= 1.0 - 0.04 * exp(-c * c / 0.03);
+        tinCol *= mix(1.0, ratio, sin(3.14159265 * m));
+        col = mix(col, tinCol, inside);
+      }
+    }
+  } else if (uMode == 4) {
+    // Depth melt: the two subjects never share the screen and nothing is
+    // warped. First half: the outgoing scene melts into its own backdrop,
+    // nearest objects first. Middle: backdrop colour shifts. Second half:
+    // the new scene builds up from its backdrop, far to near.
+    vec2 pA0 = placeUv(uv, uAspectA.x, 1.0);
+    vec2 pB0 = placeUv(uv, uAspectB.x, 1.0);
+    float dA = texture2D(uDA, vec2(clamp(pA0.x, 0.0, 1.0), 1.0 - clamp(pA0.y, 0.0, 1.0))).r;
+    float dB = texture2D(uDB, vec2(clamp(pB0.x, 0.0, 1.0), 1.0 - clamp(pB0.y, 0.0, 1.0))).r;
+    vec2 drift = vec2(sin(uTime * 0.25), cos(uTime * 0.19)) * 0.25;
+    vec2 look = (uPointer - 0.5) + drift;
+    vec3 a = plate(uA, pA0 - look * uParallax * dA, 0.0, uAspectA.x);
+    vec3 b = plate(uB, pB0 - look * uParallax * dB, 0.0, uAspectB.x);
+    // each scene's backdrop: its wall, softly blurred, at this height
+    vec3 bgA = sampleSoft(uA, vec2(0.88, mix(0.55, 0.92, uv.y)), 0.06, uAspectA.x);
+    vec3 bgB = sampleSoft(uB, vec2(0.88, mix(0.55, 0.92, uv.y)), 0.06, uAspectB.x);
+    vec3 bg = mix(bgA, bgB, smoothstep(0.35, 0.65, m));
+    float p1 = clamp(m * 2.0, 0.0, 1.0);
+    float p2 = clamp(m * 2.0 - 1.0, 0.0, 1.0);
+    float kA = smoothstep((1.0 - dA) - 0.25, (1.0 - dA) + 0.25, p1 * 1.5 - 0.25);
+    float kB = smoothstep(dB - 0.25, dB + 0.25, p2 * 1.5 - 0.25);
+    col = m < 0.5 ? mix(a, bg, kA) : mix(bg, b, kB);
+  } else if (uMode == 5) {
+    // Depth rack-focus: parallax by depth at rest. On change the lens racks
+    // focus — the outgoing scene drifts out of focus away from its subject,
+    // the whole frame crossfades evenly (no per-object reveal), and the new
+    // scene pulls into focus with a slow depth dolly settling back.
+    vec2 pA0 = placeUv(uv, uAspectA.x, 1.0);
+    vec2 pB0 = placeUv(uv, uAspectB.x, 1.0);
+    float dA = texture2D(uDA, vec2(clamp(pA0.x, 0.0, 1.0), 1.0 - clamp(pA0.y, 0.0, 1.0))).r;
+    float dB = texture2D(uDB, vec2(clamp(pB0.x, 0.0, 1.0), 1.0 - clamp(pB0.y, 0.0, 1.0))).r;
+    vec2 drift = vec2(sin(uTime * 0.25), cos(uTime * 0.19)) * 0.25;
+    vec2 look = (uPointer - 0.5) + drift;
+    float ea = smoothstep(0.0, 1.0, m);
+    vec2 pA = pA0 - look * uParallax * dA + (pA0 - uFocus) * (-0.035 * ea * (0.4 + dA));
+    vec2 pB = pB0 - look * uParallax * dB + (pB0 - uFocus) * (0.035 * (1.0 - ea) * (0.4 + dB));
+    // focal plane: subject sharp longest, background softens first
+    float bA = 0.024 * smoothstep(0.0, 0.6, m) * (0.35 + 0.65 * (1.0 - dA * (1.0 - m)));
+    float bB = 0.024 * (1.0 - smoothstep(0.4, 1.0, m)) * (0.35 + 0.65 * (1.0 - dB * m));
+    vec3 a = plate(uA, pA, bA, uAspectA.x);
+    vec3 b = plate(uB, pB, bB, uAspectB.x);
+    col = mix(a, b, smoothstep(0.3, 0.7, m));
   } else if (uMode == 2) {
     // Slats: vertical strips open from their centres, staggered left → right.
     vec2 pA = placeUv(uv, uAspectA.x, 1.0 + 0.02 * m);
@@ -355,7 +439,8 @@ export class PlateRenderer {
       p.x += (p.tx - p.x) * 0.08;
       p.y += (p.ty - p.y) * 0.08;
       const settling = Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.0005;
-      const animateGrain = (this.opts.grain ?? 0) > 0 || this.opts.transition === "depth";
+      const animateGrain =
+        (this.opts.grain ?? 0) > 0 || this.opts.transition === "depth" || this.opts.transition === "depthZoom" || this.opts.transition === "depthFocus";
       // Grain alone ticks at film cadence (24fps) rather than every frame.
       const now = performance.now();
       const grainDue = animateGrain && now - this.lastGrainDraw > 1000 / 24;
@@ -404,6 +489,8 @@ export class PlateRenderer {
     const hasDepth = !!(this.depth[this.from] && this.depth[this.to]);
     const mode =
       this.opts.transition === "depth" ? (hasDepth ? 3 : 1)
+      : this.opts.transition === "depthZoom" ? (hasDepth ? 4 : 1)
+      : this.opts.transition === "depthFocus" ? (hasDepth ? 5 : 0)
       : this.opts.transition === "dissolve" ? 1
       : this.opts.transition === "slats" ? 2 : 0;
     gl.uniform1i(u.uMode, mode);
@@ -416,6 +503,10 @@ export class PlateRenderer {
       gl.uniform1i(u.uDB, 3);
     }
     gl.uniform1f(u.uParallax, this.opts.parallax ?? 0.02);
+    const sp = this.opts.spin;
+    // going back turns the tin the other way, so it reads as returning
+    gl.uniform1f(u.uSpin, sp ? (this.to < this.from ? -1 : 1) : 0);
+    if (sp) gl.uniform4f(u.uTin, sp.cx, sp.r, 1 - sp.bottom, 1 - sp.top);
     gl.uniform1i(u.uFit, this.opts.fit === "height" ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
@@ -499,7 +590,7 @@ export class PlateRenderer {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     for (const name of [
       "uA", "uB", "uAspectA", "uAspectB", "uRes", "uFocus", "uMix", "uTime",
-      "uGrain", "uPointer", "uPointerAmt", "uLight", "uSide", "uMode", "uFit", "uDA", "uDB", "uParallax",
+      "uGrain", "uPointer", "uPointerAmt", "uLight", "uSide", "uMode", "uFit", "uDA", "uDB", "uParallax", "uTin", "uSpin",
     ]) {
       this.uniforms[name] = gl.getUniformLocation(this.program, name);
     }

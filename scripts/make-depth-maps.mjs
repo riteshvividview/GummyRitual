@@ -10,13 +10,18 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const dir = join(root, "src/assets/adults/01-hero");
+// Plates that get depth maps: hero plates + ingredient scenes.
+const JOBS = [
+  [join(root, "src/assets/adults/01-hero"), "hero-plate-"],
+  [join(root, "src/assets/adults/04-ingredients"), "ingredient-"],
+];
 
 const estimator = await pipeline("depth-estimation", "onnx-community/depth-anything-v2-small", {
   dtype: "fp32",
 });
 
-for (const f of readdirSync(dir).filter((f) => f.startsWith("hero-plate-") && !f.includes("-depth"))) {
+for (const [dir, prefix] of JOBS)
+for (const f of readdirSync(dir).filter((f) => f.startsWith(prefix) && !f.includes("-depth"))) {
   const png = await sharp(join(dir, f)).png().toBuffer();
   const image = await RawImage.fromBlob(new Blob([png]));
   const { depth } = await estimator(image);

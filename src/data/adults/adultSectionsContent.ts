@@ -115,6 +115,11 @@ export interface AdultIngredient {
   tone: string;
   /** Whether the scene backdrop is dark enough to need light text. */
   dark?: boolean;
+  /** Optional custom text colours (headline/body, secondary). */
+  ink?: string;
+  inkMuted?: string;
+  /** Small labels ("In Hair", point titles). */
+  label?: string;
   summary: string;
   stat: { value: string; label: string };
   points: { title: string; text: string }[];
@@ -127,7 +132,7 @@ export const adultIngredientsContent = {
     "Every ingredient earns its place. Tap through what's inside each ritual.",
   ingredients: [
     {
-      id: "collagen", name: "Collagen", product: "skin", tone: "#b1625d",
+      id: "collagen", name: "Collagen", product: "skin", tone: "#b1625d", dark: true, ink: "#fffaf8", inkMuted: "#f8d2ca", label: "#f3b9ae",
       summary: "The protein that gives skin its structure and spring.",
       stat: { value: "2.5g", label: "hydrolysed collagen peptides per daily serving" },
       points: [
@@ -137,7 +142,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "hyaluronic", name: "Hyaluronic Acid", product: "skin", tone: "#d99c98",
+      id: "hyaluronic", name: "Hyaluronic Acid", product: "skin", tone: "#d99c98", dark: true, ink: "#fff7f5", inkMuted: "#feeeea", label: "#fbdcd5",
       summary: "A moisture magnet that holds up to 1,000× its weight in water.",
       stat: { value: "120mg", label: "hyaluronic acid in every serving" },
       points: [
@@ -147,7 +152,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "vitamin-c", name: "Vitamin C", product: "multivitamin", tone: "#d49a6f",
+      id: "vitamin-c", name: "Vitamin C", product: "multivitamin", tone: "#d49a6f", dark: true, ink: "#fffaf3", inkMuted: "#fdf0e3", label: "#fadfc2",
       summary: "The everyday antioxidant behind immunity and collagen formation.",
       stat: { value: "100%", label: "of your daily vitamin C need" },
       points: [
@@ -157,7 +162,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "zinc", name: "Zinc", product: "hair", tone: "#99967f",
+      id: "zinc", name: "Zinc", product: "hair", tone: "#99967f", dark: true, ink: "#fbfaf4", inkMuted: "#f2f0e6", label: "#e9e6d4",
       summary: "A trace mineral quietly working in hair, skin and immunity.",
       stat: { value: "10mg", label: "zinc per serving" },
       points: [
@@ -167,7 +172,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "biotin", name: "Biotin", product: "hair", tone: "#a5a38a",
+      id: "biotin", name: "Biotin", product: "hair", tone: "#a5a38a", dark: true, ink: "#fbfaf4", inkMuted: "#f3f2e8", label: "#e9ecd9",
       summary: "Vitamin B7 — the best-known nutrient for hair strength.",
       stat: { value: "5000µg", label: "biotin in every daily serving" },
       points: [
@@ -177,7 +182,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "magnesium", name: "Magnesium", product: "sleep", tone: "#c6a4b1",
+      id: "magnesium", name: "Magnesium", product: "sleep", tone: "#c6a4b1", dark: true, ink: "#fdf8fa", inkMuted: "#f8ecf1", label: "#f1dae3",
       summary: "The calming mineral that helps muscles and mind unwind.",
       stat: { value: "100mg", label: "magnesium per serving" },
       points: [
@@ -187,7 +192,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "melatonin", name: "Melatonin", product: "sleep", tone: "#7f5b5d", dark: true,
+      id: "melatonin", name: "Melatonin", product: "sleep", tone: "#7f5b5d", dark: true, ink: "#fbf3ee", inkMuted: "#ecd7d2", label: "#e1b8b5",
       summary: "Your body's own night-time signal, gently topped up.",
       stat: { value: "1mg", label: "melatonin, taken before bed" },
       points: [
@@ -197,7 +202,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "probiotic", name: "Probiotics", product: "gut", tone: "#85928e",
+      id: "probiotic", name: "Probiotics", product: "gut", tone: "#85928e", dark: true, ink: "#f6fbfa", inkMuted: "#dceae7", label: "#c8e0dc",
       summary: "Live cultures that keep your gut's ecosystem in balance.",
       stat: { value: "1B", label: "CFU of live cultures per serving" },
       points: [
@@ -207,7 +212,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "fiber", name: "Prebiotic Fibre", product: "gut", tone: "#6e7b76", dark: true,
+      id: "fiber", name: "Prebiotic Fibre", product: "gut", tone: "#6e7b76", dark: true, ink: "#f7faf5", inkMuted: "#e1e9e3", label: "#e6d3a6",
       summary: "Food for your good bacteria — gentle, plant-based fibre.",
       stat: { value: "3g", label: "prebiotic fibre per serving" },
       points: [

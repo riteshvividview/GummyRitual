@@ -11,6 +11,7 @@ interface PlateCanvasProps {
   urls: string[];
   depthUrls?: string[];
   parallax?: number;
+  spin?: { cx: number; r: number; top: number; bottom: number };
   alts: string[];
   transition?: PlateTransition;
   fit?: PlateFit;
@@ -35,6 +36,7 @@ export function PlateCanvas({
   urls,
   depthUrls,
   parallax,
+  spin,
   alts,
   transition = "focus",
   fit = "cover",
@@ -61,6 +63,7 @@ export function PlateCanvas({
         urls,
         depthUrls,
         parallax,
+        spin,
         transition,
         focus,
         grain,

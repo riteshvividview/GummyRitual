@@ -56,6 +56,7 @@ export const adultImages = {
   gummies: (id: AdultProductId) => get(`gummy-pair-${id}`),
   need: (id: NeedImage) => get(`need-${id}`),
   ingredient: (id: IngredientKey) => get(`ingredient-${id}`),
+  ingredientDepth: (id: IngredientKey) => get(`ingredient-${id}-depth`),
   ingredientIcon: (id: IngredientKey) => get(`icon-${id}`),
   paper: () => get("archive-paper"),
   day: (id: DayImage) => get(`day-${id}`),

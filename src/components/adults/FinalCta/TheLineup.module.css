@@ -121,7 +121,7 @@
   margin: 1.4rem 0 0;
   max-width: 26rem;
   font-size: 1.02rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: var(--adults-ink-muted);
 }
@@ -166,7 +166,7 @@
   height: 100%;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.7s var(--ease-adults);
+  transition: opacity 0.3s var(--ease-adults);
 }
 
 .beamOn {
@@ -176,7 +176,7 @@
 /* Each tin's light fades on/off in place */
 .beamShape {
   opacity: 0;
-  transition: opacity 0.6s var(--ease-adults);
+  transition: opacity 0.22s var(--ease-adults);
 }
 
 .beamShapeOn {

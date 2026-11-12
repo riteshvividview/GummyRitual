@@ -116,7 +116,7 @@
   margin: 1.5rem 0 0;
   max-width: 30rem;
   font-size: 1.02rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.65;
   color: var(--adults-ink-muted);
 }
@@ -198,7 +198,7 @@
   grid-column: 2;
   margin: 0.35rem 0 0;
   font-size: 0.95rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.55;
   color: var(--adults-ink-muted);
 }

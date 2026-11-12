@@ -6,6 +6,7 @@ import { useIsMobile } from "../../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
 import { adultImages } from "../common/adultImages";
 import { StandardIconSvg } from "./StandardIcons";
+import { Ornament } from "../ornaments/Ornament";
 import styles from "./FormulatedWithCare.module.css";
 
 const { standards, proof } = adultTrustContent;
@@ -101,6 +102,7 @@ export function FormulatedWithCare() {
 
   return (
     <section ref={sectionRef} className={styles.section} aria-labelledby="adult-trust-title">
+      <Ornament art="lattice" place="trust" parallax={40} />
       <div className={styles.grid}>
         {/* Photo spread ------------------------------------------------- */}
         <div className={styles.spread} data-spread>

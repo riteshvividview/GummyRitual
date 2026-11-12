@@ -5,6 +5,7 @@ import { adultNeedsContent } from "../../../data/adults/adultSectionsContent";
 import { adultProducts } from "../../../data/adults/adultProducts";
 import { useIsMobile } from "../../../hooks/useMediaQuery";
 import { adultImages } from "../common/adultImages";
+import { Ornament } from "../ornaments/Ornament";
 import styles from "./BodyAsks.module.css";
 
 const { needs } = adultNeedsContent;
@@ -66,6 +67,7 @@ export function BodyAsks() {
       style={{ ["--wash" as string]: product.wash, ["--deep" as string]: product.tintDeep }}
       aria-labelledby="adult-needs-title"
     >
+      <Ornament art="sprig" place="needs" parallax={30} />
       <div className={styles.inner}>
         <div className={styles.listCol}>
           <p className={styles.eyebrow} data-reveal>

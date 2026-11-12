@@ -1,0 +1,133 @@
+/* Adults ornaments — decorative line illustrations behind section content.
+   Everything decorative lives in this folder; see Ornament.tsx. */
+
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--adults-ink);
+}
+
+/* Keep the art above the host's background but under its content. */
+:has(> .layer) {
+  isolation: isolate;
+}
+
+.figure {
+  position: absolute;
+  display: block;
+  will-change: transform;
+}
+
+.figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
+
+/* 03 · What does your body ask for — a sprig rising from the lower corner,
+   tinted with the chosen product's colour. */
+.needs {
+  color: var(--deep, var(--adults-ink));
+}
+.needs .figure {
+  right: clamp(-1rem, 1.5vw, 2.5rem);
+  bottom: -2.5rem;
+  width: clamp(9rem, 15vw, 15rem);
+  opacity: 0.32;
+}
+
+/* 04 · Inside every gummy — nine actives in orbit, beside the heading. */
+.actives .figure {
+  right: clamp(1rem, 9vw, 10rem);
+  top: 50%;
+  width: clamp(9rem, 15vw, 14rem);
+  margin-top: calc(clamp(9rem, 15vw, 14rem) / -2 + 1.5rem);
+  opacity: 0.3;
+}
+
+/* 05 · A day, held lightly — sunrise to moonrise across the header. */
+.day .figure {
+  right: var(--gutter, 4vw);
+  top: 0.75rem;
+  width: min(50%, 52rem);
+  opacity: 0.3;
+}
+.day svg {
+  stroke-width: 1.6;
+}
+
+/* 06 · Flavours — a citrus wheel turning slowly at the edge. */
+.flavours {
+  color: var(--deep, var(--adults-ink));
+}
+.flavours .figure {
+  right: clamp(-7rem, -5vw, -3rem);
+  top: clamp(2rem, 8vh, 5rem);
+  width: clamp(12rem, 20vw, 19rem);
+  opacity: 0.26;
+}
+
+/* 07 · Formulated with care — a fragment of molecular lattice. */
+.trust .figure {
+  right: clamp(-1rem, 2vw, 3rem);
+  top: clamp(1rem, 4vh, 3rem);
+  width: clamp(11rem, 17vw, 16rem);
+  opacity: 0.26;
+}
+
+/* 08 · The lineup — a low sun behind the closing headline. */
+.lineup .figure {
+  left: 43%;
+  top: clamp(7rem, 17vh, 10.5rem);
+  width: clamp(14rem, 22vw, 21rem);
+  opacity: 0.26;
+}
+
+/* Lighter on small screens: smaller, fainter, clear of the copy. */
+@media (max-width: 767px) {
+  .needs .figure {
+    left: auto;
+    right: -1.5rem;
+    width: 7.5rem;
+    opacity: 0.22;
+  }
+  .actives .figure {
+    right: 0.5rem;
+    width: 6.5rem;
+    margin-top: -3.25rem;
+    opacity: 0.2;
+  }
+  .day .figure {
+    right: -8%;
+    top: 0.5rem;
+    width: 80%;
+    opacity: 0.2;
+  }
+  .flavours .figure {
+    right: -5rem;
+    top: 1rem;
+    width: 10rem;
+    opacity: 0.18;
+  }
+  .trust .figure {
+    right: -3rem;
+    top: 0.5rem;
+    width: 9rem;
+    opacity: 0.16;
+  }
+  .lineup .figure {
+    left: auto;
+    right: -2rem;
+    top: 1.25rem;
+    width: 11rem;
+    opacity: 0.18;
+  }
+}

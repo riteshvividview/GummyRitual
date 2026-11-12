@@ -9,6 +9,8 @@ export interface PlateCanvasHandle {
 interface PlateCanvasProps {
   ref?: Ref<PlateCanvasHandle>;
   urls: string[];
+  depthUrls?: string[];
+  parallax?: number;
   alts: string[];
   transition?: PlateTransition;
   fit?: PlateFit;
@@ -31,6 +33,8 @@ interface PlateCanvasProps {
 export function PlateCanvas({
   ref,
   urls,
+  depthUrls,
+  parallax,
   alts,
   transition = "focus",
   fit = "cover",
@@ -55,6 +59,8 @@ export function PlateCanvas({
       const renderer = new PlateRenderer({
         canvas,
         urls,
+        depthUrls,
+        parallax,
         transition,
         focus,
         grain,

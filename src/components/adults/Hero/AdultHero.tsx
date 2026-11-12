@@ -16,6 +16,7 @@ import styles from "./AdultHero.module.css";
 const { plates } = adultHeroContent;
 const LAST = plates.length - 1;
 const PLATE_URLS = plates.map((p) => adultImages.plate(p.product));
+const PLATE_DEPTH = plates.map((p) => adultImages.plateDepth(p.product));
 const PLATE_ALTS = plates.map(
   (p) => `${adultProducts[p.product].name} on a travertine block in ${p.moment.toLowerCase()} studio light`
 );
@@ -24,7 +25,7 @@ const HOURS = plates.map((p) => p.hour);
 const WALL_LIGHT = plates.map((p) => p.wallLight);
 
 /** Every plate change takes exactly this long, however hard you scroll. */
-const STEP_DURATION = 1.0;
+const STEP_DURATION = 0.7;
 /** A pause this long between wheel events starts a new gesture. */
 const GESTURE_GAP_MS = 160;
 const WHEEL_THRESHOLD = 12;
@@ -79,6 +80,9 @@ export function AdultHero() {
       section.style.setProperty("--ink", lerp(a.ink, b.ink, mix));
       section.style.setProperty("--ink-muted", lerp(a.inkMuted, b.inkMuted, mix));
       section.style.setProperty("--accent", lerp(a.accent, b.accent, mix));
+      section.style.setProperty("--label", lerp(a.label, b.label, mix));
+      section.style.setProperty("--btn", lerp(a.button, b.button, mix));
+      section.style.setProperty("--btn-text", lerp(a.buttonText, b.buttonText, mix));
     }
     plateRef.current?.setState(from, to, mix);
     const hour = gsap.utils.interpolate(a.hour, b.hour, mix);
@@ -341,8 +345,10 @@ export function AdultHero() {
             key={isMobile ? "m" : "d"}
             ref={plateRef}
             urls={PLATE_URLS}
+            depthUrls={PLATE_DEPTH}
+            parallax={isMobile ? 0.012 : 0.022}
             alts={PLATE_ALTS}
-            transition="focus"
+            transition="depth"
             fit={isMobile ? "cover" : "height"}
             focus={isMobile ? [0.74, 0.5] : [0.62, 0.5]}
             grain={0}

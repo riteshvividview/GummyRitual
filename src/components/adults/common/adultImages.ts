@@ -49,6 +49,7 @@ const plateFile: Record<AdultProductId, string> = {
 
 export const adultImages = {
   plate: (id: AdultProductId) => get(plateFile[id]),
+  plateDepth: (id: AdultProductId) => get(`${plateFile[id]}-depth`),
   tin: (id: AdultProductId) => get(`tin-${id}-front`),
   room: (id: AdultProductId) => get(`room-${id}`),
   sachet: (id: AdultProductId) => get(`sachet-${id}`),

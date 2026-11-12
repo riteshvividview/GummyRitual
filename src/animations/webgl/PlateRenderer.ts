@@ -22,12 +22,16 @@
  *              free space, so nothing at the top or bottom is cropped.
  */
 
-export type PlateTransition = "focus" | "dissolve";
+export type PlateTransition = "focus" | "dissolve" | "slats" | "depth";
 export type PlateFit = "cover" | "height";
 
 export interface PlateRendererOptions {
   canvas: HTMLCanvasElement;
   urls: string[];
+  /** Optional depth maps (white = near), one per url — enables "depth". */
+  depthUrls?: string[];
+  /** Strength of the depth parallax (pointer + idle drift). */
+  parallax?: number;
   transition?: PlateTransition;
   fit?: PlateFit;
   /** Normalised focal point kept in frame when the plate is cropped. */
@@ -60,6 +64,9 @@ precision highp float;
 varying vec2 vUv;
 uniform sampler2D uA;
 uniform sampler2D uB;
+uniform sampler2D uDA;
+uniform sampler2D uDB;
+uniform float uParallax;
 uniform vec2 uAspectA;   // image aspect (w/h)
 uniform vec2 uAspectB;
 uniform vec2 uRes;
@@ -91,9 +98,15 @@ float fbm(vec2 p) {
 vec2 placeUv(vec2 uv, float imgAspect, float scale) {
   float screenAspect = uRes.x / uRes.y;
   vec2 p;
-  float w = imgAspect / screenAspect; // plate width in screen units at full height
+  // Height fit leaves headroom: the plate fills the lower part of the
+  // frame and its own wall is extended above it.
+  float h = 1.0 - (uFit == 1 ? 0.14 : 0.0);
+  float w = imgAspect * h / screenAspect; // plate width in screen units
   if (uFit == 1 && w < 1.0) {
-    p = vec2((uv.x - (1.0 - w)) / w, uv.y);
+    p = vec2((uv.x - (1.0 - w)) / w, uv.y / h);
+  } else if (uFit == 1) {
+    float off = (w - 1.0) * uFocus.x;
+    p = vec2((uv.x * 1.0 + off) / w, uv.y / h);
   } else {
     vec2 s = vec2(1.0);
     if (screenAspect > imgAspect) s.y = imgAspect / screenAspect;
@@ -137,10 +150,14 @@ vec3 wallFill(sampler2D t, float y) {
 vec3 plate(sampler2D t, vec2 p, float r, float aspect) {
   vec3 img = sampleSoft(t, p, r, aspect);
   if (uFit == 0) return img;
-  vec3 fill = wallFill(t, p.y);
+  vec3 fill = wallFill(t, min(p.y, 0.96));
   // feather the plate's left edge into the extended wall
   float k = smoothstep(0.0, 0.12, p.x);
-  return mix(fill, img, k);
+  vec3 col = mix(fill, img, k);
+  // and its top edge into the wall extended upward
+  vec3 top = tap(t, vec2(p.x, 0.97)) * 0.5 + tap(t, vec2(p.x + 0.03, 0.95)) * 0.25 + tap(t, vec2(p.x - 0.03, 0.95)) * 0.25;
+  top = mix(fill, top, k);
+  return mix(col, top, smoothstep(0.9, 1.0, p.y));
 }
 
 void main() {
@@ -160,6 +177,43 @@ void main() {
     float t = smoothstep(0.2, 0.8, m);
     col = mix(a, b, t);
     col *= 1.0 + 0.1 * pulse;                // a breath of exposure
+  } else if (uMode == 3) {
+    // Depth: parallax by depth; on change, the far wall resolves first and
+    // the near objects arrive last, easing in from a gentle depth push.
+    vec2 pA0 = placeUv(uv, uAspectA.x, 1.0);
+    vec2 pB0 = placeUv(uv, uAspectB.x, 1.0);
+    float dA = texture2D(uDA, vec2(clamp(pA0.x, 0.0, 1.0), 1.0 - clamp(pA0.y, 0.0, 1.0))).r;
+    float dB = texture2D(uDB, vec2(clamp(pB0.x, 0.0, 1.0), 1.0 - clamp(pB0.y, 0.0, 1.0))).r;
+    vec2 drift = vec2(sin(uTime * 0.25), cos(uTime * 0.19)) * 0.25;
+    vec2 look = (uPointer - 0.5) + drift;
+    vec2 parA = look * uParallax * dA;
+    vec2 parB = look * uParallax * dB;
+    // outgoing: near layers ease forward (scale up about the focal point)
+    vec2 pA = pA0 - parA + (pA0 - uFocus) * (-0.10 * m * dA);
+    // incoming: near layers settle back from a slight push
+    vec2 pB = pB0 - parB + (pB0 - uFocus) * (-0.08 * (1.0 - m) * dB);
+    vec3 a = plate(uA, pA, 0.0, uAspectA.x);
+    vec3 b = plate(uB, pB, 0.0, uAspectB.x);
+    float front = m * 1.5 - 0.25;            // sweeps far -> near
+    float k = smoothstep(dB - 0.18, dB + 0.18, front);
+    col = mix(a, b, k);
+    col *= 1.0 + 0.06 * pulse * dA * (1.0 - k);
+  } else if (uMode == 2) {
+    // Slats: vertical strips open from their centres, staggered left → right.
+    vec2 pA = placeUv(uv, uAspectA.x, 1.0 + 0.02 * m);
+    vec2 pB = placeUv(uv, uAspectB.x, 1.03 - 0.03 * m);
+    vec3 a = plate(uA, pA, 0.0, uAspectA.x);
+    vec3 b = plate(uB, pB, 0.0, uAspectB.x);
+    float n = 9.0;
+    float idx = floor(uv.x * n);
+    float delay = idx / n * 0.45;
+    float t = clamp((m - delay) / 0.55, 0.0, 1.0);
+    t = t * t * (3.0 - 2.0 * t);
+    float d = abs(fract(uv.x * n) - 0.5) * 2.0;
+    // soft edge that is fully closed at t = 0 and fully open at t = 1
+    float e = t * 1.12 - 0.06;
+    float edge = smoothstep(e - 0.05, e + 0.05, d);
+    col = mix(b, a * (1.0 - 0.12 * t), edge);
   } else {
     vec2 pA = placeUv(uv, uAspectA.x, 1.0 + 0.035 * m);
     vec2 pB = placeUv(uv, uAspectB.x, 1.035 - 0.035 * m);
@@ -207,6 +261,7 @@ export class PlateRenderer {
   private gl: WebGLRenderingContext;
   private program: WebGLProgram;
   private textures: (Tex | null)[];
+  private depth: (Tex | null)[] = [];
   private uniforms: Record<string, WebGLUniformLocation | null> = {};
   private raf = 0;
   private running = false;
@@ -239,6 +294,8 @@ export class PlateRenderer {
     this.textures = opts.urls.map(() => null);
     this.setupGeometry();
     this.loadTextures();
+    this.depth = (opts.depthUrls ?? []).map(() => null);
+    opts.depthUrls?.forEach((url, i) => this.loadImage(url, (t) => (this.depth[i] = t)));
 
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(opts.canvas);
@@ -298,7 +355,7 @@ export class PlateRenderer {
       p.x += (p.tx - p.x) * 0.08;
       p.y += (p.ty - p.y) * 0.08;
       const settling = Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.0005;
-      const animateGrain = (this.opts.grain ?? 0) > 0;
+      const animateGrain = (this.opts.grain ?? 0) > 0 || this.opts.transition === "depth";
       // Grain alone ticks at film cadence (24fps) rather than every frame.
       const now = performance.now();
       const grainDue = animateGrain && now - this.lastGrainDraw > 1000 / 24;
@@ -344,7 +401,21 @@ export class PlateRenderer {
     const lightB = lights?.[this.to] ?? lightA;
     gl.uniform1f(u.uLight, lightA + (lightB - lightA) * this.mix);
     gl.uniform1f(u.uSide, this.opts.lightSide === "right" ? 1 : 0);
-    gl.uniform1i(u.uMode, this.opts.transition === "dissolve" ? 1 : 0);
+    const hasDepth = !!(this.depth[this.from] && this.depth[this.to]);
+    const mode =
+      this.opts.transition === "depth" ? (hasDepth ? 3 : 1)
+      : this.opts.transition === "dissolve" ? 1
+      : this.opts.transition === "slats" ? 2 : 0;
+    gl.uniform1i(u.uMode, mode);
+    if (hasDepth) {
+      gl.activeTexture(gl.TEXTURE2);
+      gl.bindTexture(gl.TEXTURE_2D, this.depth[this.from]!.tex);
+      gl.activeTexture(gl.TEXTURE3);
+      gl.bindTexture(gl.TEXTURE_2D, this.depth[this.to]!.tex);
+      gl.uniform1i(u.uDA, 2);
+      gl.uniform1i(u.uDB, 3);
+    }
+    gl.uniform1f(u.uParallax, this.opts.parallax ?? 0.02);
     gl.uniform1i(u.uFit, this.opts.fit === "height" ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
@@ -391,6 +462,29 @@ export class PlateRenderer {
     });
   }
 
+  private loadImage(url: string, done: (t: Tex) => void) {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = url;
+    img
+      .decode()
+      .catch(() => undefined)
+      .then(() => {
+        if (this.disposed || !img.naturalWidth) return;
+        const gl = this.gl;
+        const tex = gl.createTexture()!;
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+        done({ tex, aspect: img.naturalWidth / img.naturalHeight });
+        this.dirty = true;
+        this.loop();
+      });
+  }
+
   private setupGeometry() {
     const gl = this.gl;
     const buf = gl.createBuffer();
@@ -405,7 +499,7 @@ export class PlateRenderer {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     for (const name of [
       "uA", "uB", "uAspectA", "uAspectB", "uRes", "uFocus", "uMix", "uTime",
-      "uGrain", "uPointer", "uPointerAmt", "uLight", "uSide", "uMode", "uFit",
+      "uGrain", "uPointer", "uPointerAmt", "uLight", "uSide", "uMode", "uFit", "uDA", "uDB", "uParallax",
     ]) {
       this.uniforms[name] = gl.getUniformLocation(this.program, name);
     }

@@ -22,6 +22,10 @@ export interface HeroPlate {
   accent: string;
   /** Shader wall light behind the headline: > 0 lifts (dark text), < 0 deepens (light text). */
   wallLight: number;
+  /** Small labels (eyebrow, moment) and the CTA button. */
+  label: string;
+  button: string;
+  buttonText: string;
 }
 
 export const adultHeroContent = {
@@ -32,11 +36,11 @@ export const adultHeroContent = {
   primaryCta: "Shop the Ritual",
   scrollHint: "Scroll through the day",
   plates: [
-    { product: "multivitamin", hour: 7, moment: "Morning", wall: "#c9a685", ink: "#1f150e", inkMuted: "rgba(31,21,14,0.82)", accent: "#5a3b1f", wallLight: 0.55 },
-    { product: "skin", hour: 10, moment: "Late morning", wall: "#cf9a8c", ink: "#22110e", inkMuted: "rgba(34,17,14,0.82)", accent: "#6b2a24", wallLight: 0.5 },
-    { product: "hair", hour: 13, moment: "Midday", wall: "#adb096", ink: "#171c11", inkMuted: "rgba(23,28,17,0.82)", accent: "#33421f", wallLight: 0.5 },
-    { product: "gut", hour: 17, moment: "Afternoon", wall: "#9bb0ad", ink: "#0f1d1c", inkMuted: "rgba(15,29,28,0.82)", accent: "#1d3d3b", wallLight: 0.55 },
-    { product: "sleep", hour: 22, moment: "Night", wall: "#45333e", ink: "#f4ebe1", inkMuted: "rgba(244,235,225,0.78)", accent: "#cdbbe6", wallLight: -0.22 },
+    { product: "multivitamin", hour: 7, moment: "Morning", wall: "#c9a685", ink: "#f6efe8", inkMuted: "#eee2d4", accent: "#f2dcc4", wallLight: -0.3, label: "#e9d6c2", button: "#4f4038", buttonText: "#f6efe8" },
+    { product: "skin", hour: 10, moment: "Late morning", wall: "#cf9a8c", ink: "#ffe8e1", inkMuted: "#fdd6cc", accent: "#f6c0b5", wallLight: -0.3, label: "#efc0b6", button: "#a4695f", buttonText: "#ffe8e1" },
+    { product: "hair", hour: 13, moment: "Midday", wall: "#adb096", ink: "#f2f5f8", inkMuted: "#e6ebf1", accent: "#eedcc2", wallLight: -0.28, label: "#f0e4d2", button: "#2d221e", buttonText: "#eedcc2" },
+    { product: "gut", hour: 17, moment: "Afternoon", wall: "#9bb0ad", ink: "#f3f1ec", inkMuted: "#e6e3dc", accent: "#dcd9d2", wallLight: -0.28, label: "#ece6dc", button: "#19273c", buttonText: "#f3f1ec" },
+    { product: "sleep", hour: 22, moment: "Night", wall: "#45333e", ink: "#f7f3ec", inkMuted: "#ece2d6", accent: "#e6c8c0", wallLight: -0.22, label: "#e2b4b6", button: "#d4a0a3", buttonText: "#2b1d24" },
   ] satisfies HeroPlate[],
 };
 

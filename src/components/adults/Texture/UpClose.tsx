@@ -7,7 +7,6 @@ import { adultProducts } from "../../../data/adults/adultProducts";
 import { useIsMobile } from "../../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
 import { adultImages } from "../common/adultImages";
-import { Ornament } from "../ornaments/Ornament";
 import styles from "./UpClose.module.css";
 
 const { chapters, flavours } = adultTextureContent;
@@ -272,7 +271,6 @@ export function UpClose() {
         data-flavours
         style={{ ["--wash" as string]: fp.wash, ["--deep" as string]: fp.tintDeep, ["--tint" as string]: fp.tint }}
       >
-        <Ornament art="citrus" place="flavours" turn={120} />
         <div className={styles.flavoursHead}>
           <p className={styles.eyebrow} data-reveal>
             {flavours.eyebrow}

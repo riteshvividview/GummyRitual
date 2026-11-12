@@ -5,7 +5,6 @@ import { adultDayContent } from "../../../data/adults/adultSectionsContent";
 import { adultProducts } from "../../../data/adults/adultProducts";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
 import { adultImages } from "../common/adultImages";
-import { Ornament } from "../ornaments/Ornament";
 import styles from "./ADayHeldLightly.module.css";
 
 const { moments } = adultDayContent;
@@ -126,7 +125,6 @@ export function ADayHeldLightly() {
 
   return (
     <section ref={sectionRef} className={styles.section} aria-labelledby="adult-day-title">
-      <Ornament art="dayArc" place="day" />
       <header className={styles.head}>
         <div>
           <p className={styles.eyebrow} data-reveal>

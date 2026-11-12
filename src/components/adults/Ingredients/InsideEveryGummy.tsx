@@ -7,7 +7,6 @@ import { useIsMobile } from "../../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
 import { PlateCanvas, type PlateCanvasHandle } from "../common/PlateCanvas";
 import { adultImages } from "../common/adultImages";
-import { Ornament } from "../ornaments/Ornament";
 import styles from "./InsideEveryGummy.module.css";
 
 const { ingredients } = adultIngredientsContent;
@@ -132,7 +131,6 @@ export function InsideEveryGummy() {
       aria-labelledby="adult-ingredients-title"
     >
       <header className={styles.heading}>
-        <Ornament art="orbit" place="actives" turn={50} />
         <p className={styles.eyebrow} data-reveal>
           <span className={styles.eyebrowIndex}>04</span>
           {adultIngredientsContent.eyebrow}

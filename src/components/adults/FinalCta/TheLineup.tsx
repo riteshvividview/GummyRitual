@@ -9,7 +9,6 @@ import { getLenis } from "../../../hooks/useLenis";
 import { PlateCanvas } from "../common/PlateCanvas";
 import { adultImages } from "../common/adultImages";
 import { TurntableFrame } from "./TurntableFrame";
-import { Ornament } from "../ornaments/Ornament";
 import styles from "./TheLineup.module.css";
 
 const { spots, bundle } = adultFinalCtaContent;
@@ -89,7 +88,6 @@ export function TheLineup() {
       aria-labelledby="adult-final-title"
       style={product ? { ["--accent" as string]: product.tintDeep } : undefined}
     >
-      <Ornament art="rays" place="lineup" parallax={24} />
       <header className={styles.head}>
         <div className={styles.headText}>
           <p className={styles.eyebrow} data-fade>

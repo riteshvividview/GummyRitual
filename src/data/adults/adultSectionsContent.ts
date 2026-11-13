@@ -380,3 +380,12 @@ export const adultFinalCtaContent = {
   addLabel: "Add to bag",
   signoff: ["Wellness", "naturally", "always"],
 };
+
+/* 05½ · Better together ------------------------------------------------ */
+export const adultTogetherContent = {
+  eyebrow: "Better together",
+  wordLeft: "Shared,",
+  wordRight: "not prescribed.",
+  line: "Shared, not prescribed.",
+  sub: "A ritual is easier to keep when it's passed around — one small gummy, a few good people.",
+};

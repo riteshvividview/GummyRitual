@@ -269,7 +269,12 @@ export function UpClose() {
       <div
         className={styles.flavours}
         data-flavours
-        style={{ ["--wash" as string]: fp.wash, ["--deep" as string]: fp.tintDeep, ["--tint" as string]: fp.tint }}
+        style={{
+          // background follows the chosen gummy's own colour
+          ["--wash" as string]: `color-mix(in srgb, ${fp.gummy} 16%, #fbf4ee)`,
+          ["--deep" as string]: fp.tintDeep,
+          ["--tint" as string]: fp.gummy,
+        }}
       >
         <div className={styles.flavoursHead}>
           <p className={styles.eyebrow} data-reveal>

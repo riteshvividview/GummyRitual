@@ -24,6 +24,8 @@ export interface AdultProduct {
   tintDeep: string;
   /** A pale wash of the tint for full-section backgrounds. */
   wash: string;
+  /** Colour of the gummy itself (for gummy-led backgrounds). */
+  gummy: string;
 }
 
 export const adultProducts: Record<AdultProductId, AdultProduct> = {
@@ -40,6 +42,7 @@ export const adultProducts: Record<AdultProductId, AdultProduct> = {
     tint: "#2f6b66",
     tintDeep: "#1d4a46",
     wash: "#dfe9e6",
+    gummy: "#d98a2b",
   },
   "skin-hair": {
     id: "skin-hair",
@@ -54,6 +57,7 @@ export const adultProducts: Record<AdultProductId, AdultProduct> = {
     tint: "#d9667f",
     tintDeep: "#9a3a53",
     wash: "#f6ead2",
+    gummy: "#c43a3f",
   },
   gut: {
     id: "gut",
@@ -68,6 +72,7 @@ export const adultProducts: Record<AdultProductId, AdultProduct> = {
     tint: "#9b8fe0",
     tintDeep: "#5b4fa0",
     wash: "#e7e5fa",
+    gummy: "#de7a7c",
   },
   womens: {
     id: "womens",
@@ -82,6 +87,7 @@ export const adultProducts: Record<AdultProductId, AdultProduct> = {
     tint: "#e07a9b",
     tintDeep: "#a03f63",
     wash: "#f7e1e8",
+    gummy: "#f0a521",
   },
 };
 

@@ -147,7 +147,7 @@ export function InsideEveryGummy() {
           ref={plateRef}
           urls={SCENE_URLS}
           depthUrls={SCENE_DEPTH}
-          parallax={isMobile ? 0.01 : 0.02}
+          parallax={isMobile ? 0.018 : 0.03}
           alts={SCENE_ALTS}
           transition="depthFocus"
           focus={isMobile ? [0.22, 0.5] : [0.35, 0.5]}

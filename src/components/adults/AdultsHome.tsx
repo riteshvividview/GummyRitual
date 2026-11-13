@@ -7,6 +7,7 @@ import { TheEdit } from "./Collection/TheEdit";
 import { BodyAsks } from "./Needs/BodyAsks";
 import { InsideEveryGummy } from "./Ingredients/InsideEveryGummy";
 import { ADayHeldLightly } from "./Day/ADayHeldLightly";
+import { BetterTogether } from "./Together/BetterTogether";
 import { UpClose } from "./Texture/UpClose";
 import { FormulatedWithCare } from "./Trust/FormulatedWithCare";
 import { TheLineup } from "./FinalCta/TheLineup";
@@ -52,6 +53,7 @@ export function AdultsHome() {
       <BodyAsks />
       <InsideEveryGummy />
       <ADayHeldLightly />
+      <BetterTogether />
       <UpClose />
       <FormulatedWithCare />
       <TheLineup />

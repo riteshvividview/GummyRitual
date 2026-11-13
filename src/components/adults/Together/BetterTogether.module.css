@@ -1,0 +1,114 @@
+/* 05½ · Better together — friends sharing gummies ------------------- */
+
+.section {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #ece6dd; /* continues 05's stone, so the window opens out of it */
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transform: scale(1.04); /* trims the generator mark at the edge */
+  /* warm the golden hour a touch */
+  filter: saturate(1.08) sepia(0.12) contrast(1.03);
+}
+
+/* Bottom-left fade only — keeps the faces clean. */
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(38, 20, 10, 0.72) 0%, rgba(38, 20, 10, 0.28) 32%, transparent 58%),
+    radial-gradient(120% 90% at 0% 100%, rgba(60, 28, 10, 0.35), transparent 60%);
+  pointer-events: none;
+}
+
+/* Two halves of the headline, either side of the small window. */
+.headline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6.4vw, 7rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.headline span {
+  display: block;
+}
+
+.after {
+  position: absolute;
+  left: clamp(1.5rem, 5vw, 5rem);
+  bottom: clamp(2.5rem, 9vh, 5.5rem);
+  max-width: 34rem;
+  color: #fff8f0;
+}
+
+.eyebrow {
+  margin: 0 0 1.1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.line {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-size: clamp(2rem, 4.2vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 1.1rem 0 0;
+  max-width: 26rem;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.6;
+  opacity: 0.86;
+}
+
+/* Mobile: no split headline, film is the stage. */
+@media (max-width: 767px) {
+  .section {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    min-height: 34rem;
+  }
+
+  .video {
+    object-position: 38% 30%;
+  }
+
+  .headline {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline {
+    display: none;
+  }
+}

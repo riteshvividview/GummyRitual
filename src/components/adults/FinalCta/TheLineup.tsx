@@ -139,8 +139,13 @@ export function TheLineup() {
                   <stop offset="0.45" stopColor="#fff1de" stopOpacity="0.22" />
                   <stop offset="1" stopColor="#ffeed8" stopOpacity="0.32" />
                 </linearGradient>
+                {/* the dimming eases in from the top instead of starting as a band */}
+                <linearGradient id={`dimfade-${uid}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="black" />
+                  <stop offset="0.35" stopColor="white" />
+                </linearGradient>
                 <mask id={`mask-${uid}`}>
-                  <rect width="100" height="100" fill="white" />
+                  <rect width="100" height="100" fill={`url(#dimfade-${uid})`} />
                   {spots.map((sp, i) => (
                     <polygon
                       key={sp.product}

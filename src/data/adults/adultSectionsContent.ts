@@ -39,7 +39,7 @@ export const adultHeroContent = {
     { product: "essentials", hour: 7, moment: "Morning", wall: "#294740", ink: "#f3f6f1", inkMuted: "#dfe9e4", accent: "#8fc2bd", wallLight: -0.2, label: "#a9d6cd", button: "#e8f4f1", buttonText: "#1d3b37" },
     { product: "skin-hair", hour: 11, moment: "Late morning", wall: "#eab26f", ink: "#ffffff", inkMuted: "#fffaf2", accent: "#ffffff", wallLight: -0.32, label: "#ffffff", button: "#ffffff", buttonText: "#3a1f24" },
     { product: "gut", hour: 15, moment: "Afternoon", wall: "#b1aed7", ink: "#fbfaff", inkMuted: "#efedff", accent: "#e9d5ff", wallLight: -0.3, label: "#e8e4ff", button: "#f5f3ff", buttonText: "#2b2350" },
-    { product: "womens", hour: 20, moment: "Evening", wall: "#c57b7b", ink: "#fff4f2", inkMuted: "#fbe3e0", accent: "#ffe6c4", wallLight: -0.24, label: "#f8d3d6", button: "#5a2140", buttonText: "#fff1f4" },
+    { product: "womens", hour: 20, moment: "Evening", wall: "#c57b7b", ink: "#fff4f2", inkMuted: "#fbe3e0", accent: "#ffe6c4", wallLight: -0.24, label: "#f8d3d6", button: "#fff6f8", buttonText: "#2a1520" },
   ] satisfies HeroPlate[],
 };
 

@@ -1,0 +1,395 @@
+/* Adults footer ---------------------------------------------------------
+   Desktop: the footer is exactly the photo's 1983×793 ratio. Free areas
+   in the photo (as % of its size):
+     · top band, full width ............ y 0–33%   (pouches start at y 35%,
+                                                    from x 46% rightwards)
+     · left side ........................ x 0–44%, down to the waves (y ~68%)
+     · bottom strip ..................... y 88–100% (pale lilac waves)
+   Text is placed only inside those. */
+
+.footer {
+  --ink: #2a211c;
+  --muted: #6f625a;
+  --line: rgba(42, 33, 28, 0.14);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1983 / 793;
+  overflow: hidden;
+  background: #f1e4da;
+  color: var(--ink);
+  font-family: var(--font-body-adults);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 3% 4.5% 0.9%;
+}
+
+/* Left side: brand, then links -------------------------------------- */
+
+.left {
+  width: 44%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logo {
+  height: clamp(2.3rem, 3.4vw, 3rem);
+  width: auto;
+  align-self: flex-start;
+  margin-bottom: 0.2rem;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.05rem, 1.55vw, 1.45rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  display: none;
+  margin: 0;
+  max-width: 19rem;
+  font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.socials {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.8rem;
+  transition:
+    background-color 0.3s var(--ease-adults-out),
+    color 0.3s var(--ease-adults-out);
+}
+
+.social:hover {
+  background: var(--ink);
+  color: #f6efe8;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 2.25rem);
+}
+
+.linkCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.linkHeading {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  font-size: clamp(0.74rem, 0.92vw, 0.86rem);
+  color: var(--ink);
+  white-space: nowrap;
+  text-underline-offset: 0.2em;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Top-right band, above the pouches (they start at y 35%). */
+.newsletter {
+  position: absolute;
+  top: 7.5%;
+  right: 4.5%;
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.newsHeading {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-size: clamp(1.05rem, 1.55vw, 1.45rem);
+  line-height: 1.15;
+}
+
+.newsText {
+  margin: 0;
+  font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.field:focus-within {
+  border-bottom-width: 2px;
+}
+
+.submit {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #f6efe8;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-adults-out);
+}
+
+.submit:hover {
+  transform: translateX(3px);
+}
+
+.link:focus-visible,
+.social:focus-visible,
+.submit:focus-visible,
+.legalLink:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Left side: our standards, above the ledge ---------------------------- */
+
+/* Bottom-left, along the waves, just above the legal bar. */
+.standards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  margin: auto 0 0;
+  padding: 0 0 1.2%;
+  width: 46%;
+  list-style: none;
+}
+
+.standard {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: clamp(0.74rem, 0.92vw, 0.86rem);
+}
+
+.standardIcon {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Ledge: legal bar ------------------------------------------------------ */
+
+.legal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9%;
+  border-top: 1px solid var(--line);
+}
+
+.copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.25rem;
+  margin: 0;
+  font-size: clamp(0.66rem, 0.8vw, 0.74rem);
+  color: var(--muted);
+}
+
+.legalLink {
+  color: var(--muted);
+}
+
+.legalLink:hover {
+  color: var(--ink);
+}
+
+.payments {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.paymentLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: clamp(0.66rem, 0.8vw, 0.74rem);
+  color: var(--muted);
+}
+
+.paymentIcons {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  color: var(--muted);
+}
+
+.upi {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.05rem 0.3rem;
+  border: 1.5px solid currentColor;
+  border-radius: 0.25rem;
+}
+
+/* Tablet & mobile: copy on the wall colour, the photo underneath -------- */
+
+@media (max-width: 1023px) {
+  .footer {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    background: #f1e4da;
+  }
+
+  .photo {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1983 / 793;
+    /* the pouches live in the right half — keep them in view */
+    object-position: 78% 100%;
+    min-height: 13rem;
+  }
+
+  .content {
+    height: auto;
+    padding: 3rem 1rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .left {
+    width: auto;
+    gap: 2rem;
+  }
+
+  .description {
+    display: block;
+  }
+
+  .newsletter {
+    position: static;
+    width: auto;
+  }
+
+  .links {
+    flex-wrap: wrap;
+    row-gap: 1.5rem;
+  }
+
+  .standards {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    gap: 0.9rem 1.5rem;
+  }
+
+  .legal {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .linkCol {
+    min-width: 45%;
+  }
+
+  .standards {
+    grid-template-columns: 1fr;
+  }
+
+  .payments {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

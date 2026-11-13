@@ -15,6 +15,13 @@ import { Ingredients } from "./components/Ingredients/Ingredients";
 import { DailyRoutine } from "./components/DailyRoutine/DailyRoutine";
 import { TasteTexture } from "./components/TasteTexture/TasteTexture";
 import { Footer } from "./components/Footer/Footer";
+import { AdultFooter } from "./components/adults/Footer/AdultFooter";
+
+/** Each experience has its own footer (different copy, links and imagery). */
+function SiteFooter() {
+  const { mode } = useExperience();
+  return mode === "kids" ? <Footer /> : <AdultFooter />;
+}
 
 function HomeHero() {
   const { mode } = useExperience();
@@ -62,7 +69,7 @@ function App() {
         <main>
           <HomeHero />
         </main>
-        <Footer />
+        <SiteFooter />
       </SmoothScrollProvider>
       {showLoader && !siteRevealed && (
         <Loader

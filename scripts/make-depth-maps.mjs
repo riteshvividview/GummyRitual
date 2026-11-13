@@ -18,6 +18,7 @@ const JOBS = [
   [join(root, "src/assets/adults/05-day"), "day-"],
   [join(root, "src/assets/adults/08-final-cta"), "cta-lineup"],
   [join(root, "src/assets/adults/shared/pouches"), "pouch-"],
+  [join(root, "src/assets/adults/footer"), "footer-adults"],
 ];
 // Only rebuild what's missing (pass --all to redo everything).
 const ALL = process.argv.includes("--all");

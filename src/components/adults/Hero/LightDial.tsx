@@ -16,7 +16,7 @@ interface LightDialProps {
 /**
  * The hero's signature control: a 24-hour dial. Its arc, marker and
  * clock text are driven imperatively by scroll (see AdultHero), while the
- * five ticks are real buttons so the dial works by tap and keyboard too.
+ * ticks are real buttons so the dial works by tap and keyboard too.
  */
 export function LightDial({ hours, labels, active, onSelect, arcRef, markerRef, timeRef }: LightDialProps) {
   const size = 140;

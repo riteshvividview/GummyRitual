@@ -4,7 +4,7 @@
  * can be swapped for Storefront data later without touching components.
  */
 
-export type AdultProductId = "multivitamin" | "skin" | "hair" | "gut" | "sleep";
+export type AdultProductId = "essentials" | "skin-hair" | "gut" | "womens";
 
 export interface AdultProduct {
   id: AdultProductId;
@@ -27,83 +27,63 @@ export interface AdultProduct {
 }
 
 export const adultProducts: Record<AdultProductId, AdultProduct> = {
-  multivitamin: {
-    id: "multivitamin",
-    name: "Multivitamin Gummies",
-    title: "Multivitamin",
+  essentials: {
+    id: "essentials",
+    name: "Super Essentials Gummies",
+    title: "Super Essentials",
     flavour: "Mixed Fruit",
-    benefits: ["Energy", "Immunity", "Overall Wellness"],
-    keyIngredients: ["Vitamins A, B, C, D, E, K", "Zinc", "Iodine", "Selenium"],
-    description: "A complete daily foundation — thirteen essentials in one quiet ritual.",
+    benefits: ["Daily Nutrition", "6 Fruits & Botanicals", "Whole Body Wellbeing"],
+    keyIngredients: ["Vitamins A, C, D, E, K", "B Complex", "Zinc", "Copper", "Iodine", "Selenium", "Chromium"],
+    description: "Every essential vitamin and mineral, with six fruits and botanicals — one quiet foundation.",
     count: "30 gummies",
     price: "₹1,199",
-    tint: "#cdb08f",
-    tintDeep: "#8a6a47",
-    wash: "#efe4d4",
+    tint: "#2f6b66",
+    tintDeep: "#1d4a46",
+    wash: "#dfe9e6",
   },
-  skin: {
-    id: "skin",
-    name: "Skin Gummies",
-    title: "Skin",
+  "skin-hair": {
+    id: "skin-hair",
+    name: "Skin & Hair Gummies",
+    title: "Skin & Hair",
     flavour: "Strawberry",
-    benefits: ["Glow", "Hydrate", "Protect"],
-    keyIngredients: ["Collagen", "Hyaluronic Acid", "Vitamin C", "Zinc"],
-    description: "Collagen and hyaluronic acid for skin that looks rested from within.",
+    benefits: ["Beauty Begins Within", "Hydration", "Glow"],
+    keyIngredients: ["Liposomal Glutathione", "Hyaluronic Acid", "Vitamin C", "Essential Vitamins & Nutrients"],
+    description: "Glutathione, hyaluronic acid and vitamin C — beauty that begins within.",
     count: "30 gummies",
     price: "₹1,399",
-    tint: "#c9918a",
-    tintDeep: "#93514a",
-    wash: "#f1dfda",
-  },
-  hair: {
-    id: "hair",
-    name: "Hair Gummies",
-    title: "Hair",
-    flavour: "Blueberry",
-    benefits: ["Stronger", "Thicker", "Healthier"],
-    keyIngredients: ["Biotin", "Zinc", "Folic Acid", "Vitamin D3", "B Vitamins"],
-    description: "Biotin and zinc to support stronger, fuller-looking hair over time.",
-    count: "30 gummies",
-    price: "₹1,299",
-    tint: "#8f9d7f",
-    tintDeep: "#56654a",
-    wash: "#e3e6da",
+    tint: "#d9667f",
+    tintDeep: "#9a3a53",
+    wash: "#f6ead2",
   },
   gut: {
     id: "gut",
     name: "Gut Health Gummies",
     title: "Gut Health",
-    flavour: "Litchi",
-    benefits: ["Digestion", "Balance", "A Happier Gut"],
-    keyIngredients: ["Probiotics", "Prebiotic Fibre", "Vitamin B6", "Zinc"],
-    description: "Live cultures and gentle fibre for a calmer, more balanced gut.",
+    flavour: "Pineapple",
+    benefits: ["Balanced Gut", "Better Digestion", "Overall Wellness"],
+    keyIngredients: ["Prebiotic + Probiotic Blend", "Gut Microbiome Support", "Immune System Support"],
+    description: "A prebiotic and probiotic blend for a balanced gut, better digestion and overall wellness.",
     count: "30 gummies",
     price: "₹1,299",
-    tint: "#7fa3a4",
-    tintDeep: "#46696a",
-    wash: "#dde8e6",
+    tint: "#9b8fe0",
+    tintDeep: "#5b4fa0",
+    wash: "#e7e5fa",
   },
-  sleep: {
-    id: "sleep",
-    name: "Sleep Gummies",
-    title: "Sleep",
-    flavour: "Mango",
-    benefits: ["Relax", "Unwind", "Better Sleep"],
-    keyIngredients: ["Melatonin", "Magnesium", "L-Theanine", "Chamomile"],
-    description: "Melatonin and magnesium to help the day let go of you.",
+  womens: {
+    id: "womens",
+    name: "Women's Daily Ritual Gummies",
+    title: "Women's Daily Ritual",
+    flavour: "Pineapple",
+    benefits: ["Healthy pH", "Urinary Tract Health", "Microflora Balance"],
+    keyIngredients: ["Cranberry Extract", "Prebiotics", "Probiotics"],
+    description: "Daily nourishment for her health and vitality — cranberry, prebiotics and probiotics.",
     count: "30 gummies",
     price: "₹1,299",
-    tint: "#9a8bb5",
-    tintDeep: "#5d4f78",
-    wash: "#e6e0ee",
+    tint: "#e07a9b",
+    tintDeep: "#a03f63",
+    wash: "#f7e1e8",
   },
 };
 
-/** Display order across the collection (morning → night). */
-export const adultProductOrder: AdultProductId[] = [
-  "multivitamin",
-  "skin",
-  "hair",
-  "gut",
-  "sleep",
-];
+/** Display order across the collection. */
+export const adultProductOrder: AdultProductId[] = ["essentials", "skin-hair", "gut", "womens"];

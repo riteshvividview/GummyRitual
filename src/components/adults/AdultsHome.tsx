@@ -31,7 +31,7 @@ export function AdultsHome() {
         gsap.utils.toArray<HTMLElement>("[data-split]", rootRef.current).forEach((el) => {
           const split = SplitText.create(el, { type: "lines,words", mask: "lines" });
           gsap.from(split.words, {
-            yPercent: 110,
+            yPercent: 135,
             duration: 1.15,
             stagger: 0.06,
             ease: "power4.out",

@@ -12,14 +12,14 @@ interface ProductDrawerProps {
 
 /**
  * Side sheet with a still life composed from the product cutouts
- * (tin, sachet, gummies) on the product's own colour.
+ * (pouch, sachet, gummies) on the product's own colour.
  */
 export function ProductDrawer({ productId, onClose }: ProductDrawerProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const stillRef = useRef<HTMLDivElement>(null);
   const open = productId !== null;
   // Keep showing the last product while the drawer slides closed.
-  const [shownId, setShownId] = useState<AdultProductId>(productId ?? "multivitamin");
+  const [shownId, setShownId] = useState<AdultProductId>(productId ?? "essentials");
   if (productId && productId !== shownId) setShownId(productId);
   const product = adultProducts[shownId];
   const copy = adultCollectionContent.drawer;
@@ -77,7 +77,7 @@ export function ProductDrawer({ productId, onClose }: ProductDrawerProps) {
 
         <div ref={stillRef} className={styles.still} key={shownId}>
           <span className={styles.stillDisc} aria-hidden />
-          <img className={styles.stillTin} src={adultImages.tin(product.id)} alt={product.name} />
+          <img className={styles.stillPouch} src={adultImages.pouch(product.id)} alt={product.name} />
           <img className={styles.stillSachet} src={adultImages.sachet(product.id)} alt="" aria-hidden />
           <img className={styles.stillGummies} src={adultImages.gummies(product.id)} alt="" aria-hidden />
         </div>

@@ -17,11 +17,6 @@ const { plates } = adultHeroContent;
 const LAST = plates.length - 1;
 const PLATE_URLS = plates.map((p) => adultImages.plate(p.product));
 const PLATE_DEPTH = plates.map((p) => adultImages.plateDepth(p.product));
-/**
- * The tin's place in every plate (measured — same camera for all five):
- * it spins on its axis between plates. Remove `spin` to turn this off.
- */
-const TIN_SPIN = { cx: 0.7162, r: 0.1002, top: 0.055, bottom: 0.765 };
 const PLATE_ALTS = plates.map(
   (p) => `${adultProducts[p.product].name} on a travertine block in ${p.moment.toLowerCase()} studio light`
 );
@@ -44,7 +39,7 @@ const formatTime = (h: number) => {
 
 /**
  * 01 · The Light Dial.
- * One studio set, five lighting setups — each light belongs to one
+ * One studio set, four lighting setups — each light belongs to one
  * product. On desktop the hero is a stepped sequence: while the page is
  * at the top, every scroll gesture (wheel, trackpad, keys, swipe) moves
  * exactly one plate with a fixed-length focus pull, and input is held
@@ -294,8 +289,8 @@ export function AdultHero() {
           .set(q("[data-in]"), { autoAlpha: 1 }, 0.15)
           .from(q("[data-in-eyebrow]"), { yPercent: 110, autoAlpha: 0, duration: 1 }, 0.25)
           .from(q("[data-in-rule]"), { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "power3.inOut" }, 0.35)
-          .from(split.chars, { yPercent: 115, duration: 1.2, stagger: 0.018 }, 0.35)
-          .from(descSplit.lines, { yPercent: 105, duration: 1, stagger: 0.08 }, 0.85)
+          .from(split.chars, { yPercent: 135, duration: 1.2, stagger: 0.018 }, 0.35)
+          .from(descSplit.lines, { yPercent: 130, duration: 1, stagger: 0.08 }, 0.85)
           .from(q("[data-in-ritual]"), { y: 24, autoAlpha: 0, duration: 1 }, 1.0)
           .from(q("[data-in-actions]"), { y: 20, autoAlpha: 0, duration: 1 }, 1.1)
           .fromTo(
@@ -355,7 +350,6 @@ export function AdultHero() {
             ref={plateRef}
             urls={PLATE_URLS}
             depthUrls={PLATE_DEPTH}
-            spin={TIN_SPIN}
             parallax={isMobile ? 0.012 : 0.022}
             alts={PLATE_ALTS}
             transition="depth"

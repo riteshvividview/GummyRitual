@@ -32,15 +32,14 @@ export const adultHeroContent = {
   eyebrow: "Daily Wellbeing Rituals",
   headline: ["Better habits.", "A healthier you."],
   description:
-    "Plant-based gummies for every hour of your day. Five rituals, one quiet routine.",
+    "Plant-based gummies for every hour of your day. Four rituals, one quiet routine.",
   primaryCta: "Shop the Ritual",
   scrollHint: "Scroll through the day",
   plates: [
-    { product: "multivitamin", hour: 7, moment: "Morning", wall: "#c9a685", ink: "#f6efe8", inkMuted: "#eee2d4", accent: "#f2dcc4", wallLight: -0.3, label: "#e9d6c2", button: "#4f4038", buttonText: "#f6efe8" },
-    { product: "skin", hour: 10, moment: "Late morning", wall: "#cf9a8c", ink: "#ffe8e1", inkMuted: "#fdd6cc", accent: "#f6c0b5", wallLight: -0.3, label: "#efc0b6", button: "#a4695f", buttonText: "#ffe8e1" },
-    { product: "hair", hour: 13, moment: "Midday", wall: "#adb096", ink: "#f2f5f8", inkMuted: "#e6ebf1", accent: "#eedcc2", wallLight: -0.28, label: "#f0e4d2", button: "#2d221e", buttonText: "#eedcc2" },
-    { product: "gut", hour: 17, moment: "Afternoon", wall: "#9bb0ad", ink: "#f3f1ec", inkMuted: "#e6e3dc", accent: "#dcd9d2", wallLight: -0.28, label: "#ece6dc", button: "#19273c", buttonText: "#f3f1ec" },
-    { product: "sleep", hour: 22, moment: "Night", wall: "#45333e", ink: "#f7f3ec", inkMuted: "#ece2d6", accent: "#e6c8c0", wallLight: -0.22, label: "#e2b4b6", button: "#d4a0a3", buttonText: "#2b1d24" },
+    { product: "essentials", hour: 7, moment: "Morning", wall: "#294740", ink: "#f3f6f1", inkMuted: "#dfe9e4", accent: "#8fc2bd", wallLight: -0.2, label: "#a9d6cd", button: "#e8f4f1", buttonText: "#1d3b37" },
+    { product: "skin-hair", hour: 11, moment: "Late morning", wall: "#eab26f", ink: "#ffffff", inkMuted: "#fffaf2", accent: "#ffffff", wallLight: -0.32, label: "#ffffff", button: "#ffffff", buttonText: "#3a1f24" },
+    { product: "gut", hour: 15, moment: "Afternoon", wall: "#b1aed7", ink: "#fbfaff", inkMuted: "#efedff", accent: "#e9d5ff", wallLight: -0.3, label: "#e8e4ff", button: "#f5f3ff", buttonText: "#2b2350" },
+    { product: "womens", hour: 20, moment: "Evening", wall: "#c57b7b", ink: "#fff4f2", inkMuted: "#fbe3e0", accent: "#ffe6c4", wallLight: -0.24, label: "#f8d3d6", button: "#5a2140", buttonText: "#fff1f4" },
   ] satisfies HeroPlate[],
 };
 
@@ -50,7 +49,7 @@ export const adultHeroContent = {
 
 export const adultCollectionContent = {
   eyebrow: "The Collection",
-  headline: ["Five rituals.", "One quiet routine."],
+  headline: ["Four rituals.", "One quiet routine."],
   description:
     "Each formula is made for a moment of your day — plant based, no added sugar, nothing artificial.",
   viewLabel: "View ritual",
@@ -84,11 +83,11 @@ export const adultNeedsContent = {
   headline: "What does your body ask for?",
   hint: "Choose one",
   needs: [
-    { id: "glow", word: "Glow", product: "skin", line: "Skin that looks rested, from the inside out.", ingredients: "Collagen · Hyaluronic Acid · Vitamin C" },
-    { id: "strength", word: "Strength", product: "hair", line: "Fuller, stronger-looking hair, one day at a time.", ingredients: "Biotin · Zinc · Folic Acid" },
-    { id: "energy", word: "Energy", product: "multivitamin", line: "A steady foundation for long, full days.", ingredients: "Vitamins A–K · Zinc · Selenium" },
-    { id: "rest", word: "Rest", product: "sleep", line: "Let the day loosen its grip before you sleep.", ingredients: "Melatonin · Magnesium · L-Theanine" },
-    { id: "balance", word: "Balance", product: "gut", line: "A calmer gut, and everything that follows.", ingredients: "Probiotics · Prebiotic Fibre · B6" },
+    { id: "glow", word: "Glow", product: "skin-hair", line: "Beauty that begins within — skin that looks rested and bright.", ingredients: "Liposomal Glutathione · Hyaluronic Acid · Vitamin C" },
+    { id: "strength", word: "Strength", product: "skin-hair", line: "Fuller, stronger-looking hair, one day at a time.", ingredients: "Essential Vitamins · Nutrients · Vitamin C" },
+    { id: "energy", word: "Energy", product: "essentials", line: "A steady foundation for long, full days.", ingredients: "Vitamins A C D E K · B Complex · Minerals" },
+    { id: "rest", word: "Care", product: "womens", line: "Daily nourishment for her health and vitality.", ingredients: "Cranberry Extract · Prebiotics · Probiotics" },
+    { id: "balance", word: "Balance", product: "gut", line: "A balanced gut, better digestion — and everything that follows.", ingredients: "Prebiotic + Probiotic Blend" },
   ] satisfies Need[],
 };
 
@@ -132,7 +131,7 @@ export const adultIngredientsContent = {
     "Every ingredient earns its place. Tap through what's inside each ritual.",
   ingredients: [
     {
-      id: "collagen", name: "Collagen", product: "skin", tone: "#b1625d", dark: true, ink: "#fffaf8", inkMuted: "#f8d2ca", label: "#f3b9ae",
+      id: "collagen", name: "Collagen", product: "skin-hair", tone: "#b1625d", dark: true, ink: "#fffaf8", inkMuted: "#f8d2ca", label: "#f3b9ae",
       summary: "The protein that gives skin its structure and spring.",
       stat: { value: "2.5g", label: "hydrolysed collagen peptides per daily serving" },
       points: [
@@ -142,7 +141,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "hyaluronic", name: "Hyaluronic Acid", product: "skin", tone: "#d99c98", dark: true, ink: "#fff7f5", inkMuted: "#feeeea", label: "#fbdcd5",
+      id: "hyaluronic", name: "Hyaluronic Acid", product: "skin-hair", tone: "#d99c98", dark: true, ink: "#fff7f5", inkMuted: "#feeeea", label: "#fbdcd5",
       summary: "A moisture magnet that holds up to 1,000× its weight in water.",
       stat: { value: "120mg", label: "hyaluronic acid in every serving" },
       points: [
@@ -152,7 +151,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "vitamin-c", name: "Vitamin C", product: "multivitamin", tone: "#d49a6f", dark: true, ink: "#fffaf3", inkMuted: "#fdf0e3", label: "#fadfc2",
+      id: "vitamin-c", name: "Vitamin C", product: "skin-hair", tone: "#d49a6f", dark: true, ink: "#fffaf3", inkMuted: "#fdf0e3", label: "#fadfc2",
       summary: "The everyday antioxidant behind immunity and collagen formation.",
       stat: { value: "100%", label: "of your daily vitamin C need" },
       points: [
@@ -162,7 +161,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "zinc", name: "Zinc", product: "hair", tone: "#99967f", dark: true, ink: "#fbfaf4", inkMuted: "#f2f0e6", label: "#e9e6d4",
+      id: "zinc", name: "Zinc", product: "essentials", tone: "#99967f", dark: true, ink: "#fbfaf4", inkMuted: "#f2f0e6", label: "#e9e6d4",
       summary: "A trace mineral quietly working in hair, skin and immunity.",
       stat: { value: "10mg", label: "zinc per serving" },
       points: [
@@ -172,7 +171,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "biotin", name: "Biotin", product: "hair", tone: "#a5a38a", dark: true, ink: "#fbfaf4", inkMuted: "#f3f2e8", label: "#e9ecd9",
+      id: "biotin", name: "Biotin", product: "skin-hair", tone: "#a5a38a", dark: true, ink: "#fbfaf4", inkMuted: "#f3f2e8", label: "#e9ecd9",
       summary: "Vitamin B7 — the best-known nutrient for hair strength.",
       stat: { value: "5000µg", label: "biotin in every daily serving" },
       points: [
@@ -182,7 +181,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "magnesium", name: "Magnesium", product: "sleep", tone: "#c6a4b1", dark: true, ink: "#fdf8fa", inkMuted: "#f8ecf1", label: "#f1dae3",
+      id: "magnesium", name: "Magnesium", product: "essentials", tone: "#c6a4b1", dark: true, ink: "#fdf8fa", inkMuted: "#f8ecf1", label: "#f1dae3",
       summary: "The calming mineral that helps muscles and mind unwind.",
       stat: { value: "100mg", label: "magnesium per serving" },
       points: [
@@ -192,7 +191,7 @@ export const adultIngredientsContent = {
       ],
     },
     {
-      id: "melatonin", name: "Melatonin", product: "sleep", tone: "#7f5b5d", dark: true, ink: "#fbf3ee", inkMuted: "#ecd7d2", label: "#e1b8b5",
+      id: "melatonin", name: "Melatonin", product: "womens", tone: "#7f5b5d", dark: true, ink: "#fbf3ee", inkMuted: "#ecd7d2", label: "#e1b8b5",
       summary: "Your body's own night-time signal, gently topped up.",
       stat: { value: "1mg", label: "melatonin, taken before bed" },
       points: [
@@ -247,17 +246,16 @@ export const adultTextureContent = {
   ] satisfies TextureChapter[],
   replay: "Watch again",
   flavours: {
-    eyebrow: "Five flavours",
-    headline: "One texture, five fruits.",
+    eyebrow: "Four rituals",
+    headline: "One texture, every ritual.",
     hint: "Choose a flavour",
     /** Display order across the row, keyed to adultProducts. */
-    order: ["skin", "hair", "multivitamin", "sleep", "gut"] as const,
+    order: ["skin-hair", "essentials", "gut", "womens"] as const,
     notes: {
-      skin: "Bright, just-ripe strawberry.",
-      hair: "Deep, jammy wild blueberry.",
-      multivitamin: "Orange, apple and peach together.",
-      sleep: "Soft, sun-warm Alphonso mango.",
-      gut: "Delicate, floral litchi.",
+      "skin-hair": "Bright, just-ripe strawberry.",
+      essentials: "Orange, apple and peach together.",
+      gut: "Sweet, golden pineapple.",
+      womens: "Juicy, sun-ripe pineapple.",
     },
   },
 };
@@ -288,22 +286,22 @@ export const adultDayContent = {
       id: "0700-vanity",
       hour: 7,
       moment: "Morning",
-      products: ["multivitamin", "skin"],
-      line: "With your first glass of water — foundations and glow, before the day asks anything of you.",
+      products: ["essentials", "skin-hair"],
+      line: "With your first glass of water — your essentials and your glow, before the day asks anything of you.",
     },
     {
       id: "1300-desk",
       hour: 13,
       moment: "Midday",
-      products: ["hair"],
-      line: "At your desk, after lunch. A small reset that keeps working long after you've moved on.",
+      products: ["womens"],
+      line: "At your desk, after lunch. A small daily ritual of care that keeps working long after you've moved on.",
     },
     {
       id: "2200-bedside",
       hour: 22,
       moment: "Night",
-      products: ["gut", "sleep"],
-      line: "On the bedside table — balance for the gut, then a slow wind-down into sleep.",
+      products: ["gut"],
+      line: "On the bedside table — balance for the gut, and a calm close to the day.",
       night: true,
     },
   ] satisfies DayMoment[],
@@ -345,7 +343,7 @@ export const adultTrustContent = {
     { value: 0, suffix: "g", label: "added sugar per gummy" },
     { value: 100, suffix: "%", label: "plant-based formula" },
     { value: 3, suffix: "×", label: "independent tests per batch" },
-    { value: 30, label: "days in every tin" },
+    { value: 30, label: "days in every pouch" },
   ] as ProofStat[],
   caption: "Weighed, tested and logged — batch by batch.",
 };
@@ -356,28 +354,27 @@ export const adultTrustContent = {
 
 export interface LineupSpot {
   product: AdultProductId;
-  /** Tin centre in the lineup photograph, as % of its width. */
+  /** Pouch centre in the lineup photograph, as % of its width. */
   x: number;
 }
 
 export const adultFinalCtaContent = {
   eyebrow: "The full ritual",
   headline: ["Small habits.", "A brighter you."],
-  description: "Five quiet rituals for every hour of your day. Start with one, or keep the whole shelf.",
+  description: "Four quiet rituals for every hour of your day. Start with one, or keep the whole shelf.",
   hint: "Choose a ritual",
-  turntableCaption: "Multivitamin · in the round",
+  turntableCaption: "Super Essentials · in the round",
   spots: [
-    { product: "skin", x: 16.1 },
-    { product: "hair", x: 33.1 },
-    { product: "multivitamin", x: 50 },
-    { product: "sleep", x: 66.7 },
-    { product: "gut", x: 83.4 },
+    { product: "essentials", x: 19.7 },
+    { product: "skin-hair", x: 39.8 },
+    { product: "gut", x: 59.8 },
+    { product: "womens", x: 80.6 },
   ] satisfies LineupSpot[],
   bundle: {
     name: "The Full Ritual",
-    detail: "All five · a month of every ritual",
-    price: "₹5,999",
-    saving: "Save ₹495",
+    detail: "All four · a month of every ritual",
+    price: "₹4,799",
+    saving: "Save ₹397",
   },
   primaryCta: "Shop the collection",
   addLabel: "Add to bag",

@@ -92,12 +92,34 @@ export function PlateCanvas({
     if (!pointerLight || fallback) return;
     const canvas = canvasRef.current;
     if (!canvas || !window.matchMedia("(hover: hover)").matches) return;
-    const onMove = (e: PointerEvent) => {
+    // Follow the cursor only while it is over this canvas; anywhere else
+    // (another section, after scrolling, outside the window) the light and
+    // depth parallax ease back to rest instead of holding a far-off point.
+    const REST = { x: 0.7, y: 0.45 };
+    let last: { x: number; y: number } | null = null;
+    const update = () => {
       const r = canvas.getBoundingClientRect();
-      rendererRef.current?.setPointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+      const inside =
+        last && last.x >= r.left && last.x <= r.right && last.y >= r.top && last.y <= r.bottom;
+      if (inside) rendererRef.current?.setPointer((last!.x - r.left) / r.width, (last!.y - r.top) / r.height);
+      else rendererRef.current?.setPointer(REST.x, REST.y);
+    };
+    const onMove = (e: PointerEvent) => {
+      last = { x: e.clientX, y: e.clientY };
+      update();
+    };
+    const onLeave = () => {
+      last = null;
+      update();
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    window.addEventListener("scroll", update, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("scroll", update);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+    };
   }, [pointerLight, fallback]);
 
   useImperativeHandle(

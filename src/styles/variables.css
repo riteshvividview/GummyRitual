@@ -25,7 +25,7 @@
      Adults experience and intentionally unused by any Kids component. */
   --font-display-kids: "Mochibop", "Fredoka", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display-adults: "Gloock", "Fraunces", Georgia, serif;
+  --font-display-adults: "TeX Gyre Adventor", "Gloock", system-ui, sans-serif;
   /* Secondary face: all small/body text in Adults (readable at small sizes). */
   --font-secondary-adults: "Poppins", "Jost", system-ui, sans-serif;
   --font-body-adults: var(--font-secondary-adults);

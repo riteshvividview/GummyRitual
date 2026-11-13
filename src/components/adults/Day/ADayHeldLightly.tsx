@@ -13,7 +13,7 @@ const NODE_X = moments.map((_, i) => ((i + 0.5) / moments.length) * 100);
 const SUN_FROM = 2;
 const SUN_TO = 98;
 /** The gummy riding the day line changes with the moment it's nearest. */
-const MARKER_GUMMY = ["multivitamin", "hair", "sleep"] as const;
+const MARKER_GUMMY = ["essentials", "womens", "gut"] as const;
 
 /** Crossfade weights for the marker gummies at position x (%). */
 function gummyWeights(x: number) {

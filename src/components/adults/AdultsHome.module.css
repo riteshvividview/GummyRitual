@@ -1,3 +1,11 @@
 .root {
   position: relative;
 }
+
+/* SplitText wraps each headline line in an overflow-hidden mask. Give
+   every mask room below for descenders (g, y, p) and cancel it with a
+   negative margin, so nothing is clipped and line spacing is unchanged. */
+.root :is([data-split], [data-line], [data-in-description]) div {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}

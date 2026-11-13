@@ -312,13 +312,13 @@
 }
 
 .flavourStage {
-  max-width: 82rem;
+  max-width: 66rem;
   margin: 0 auto;
 }
 
 .flavourRow {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: end;
   gap: clamp(0.5rem, 2vw, 2rem);
   margin: 0;

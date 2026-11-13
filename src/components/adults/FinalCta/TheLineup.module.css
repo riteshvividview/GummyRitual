@@ -58,15 +58,6 @@
 
 /* Diagonal warm light in the clip's own wall colour (sampled), laid along
    the edge of a studio softbox that sits in the source's corner. */
-.turntableVeil {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(115deg, rgb(140, 104, 70) 0%, rgb(140, 104, 70) 15%, rgba(140, 104, 70, 0) 30%),
-    radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(60, 40, 25, 0.28) 100%);
-}
-
 .turntableCaption {
   margin-top: 1rem;
   font-size: 0.66rem;
@@ -105,7 +96,10 @@
 .line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  /* Room for descenders inside the mask; the negative margin keeps the
+     original line spacing. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.14em;
 }
 
 .line > span {
@@ -189,7 +183,7 @@
   z-index: 2;
   top: 26%;
   bottom: 8%;
-  width: 14%;
+  width: 18%;
   transform: translateX(-50%);
   padding: 0;
   border: 0;

@@ -136,10 +136,10 @@
   appearance: none;
   position: relative;
   height: 100%;
-  /* Portrait by default; the vw floor guarantees five rooms overflow
+  /* Portrait by default; the vw floor guarantees four rooms overflow
      the viewport so the shelf always has somewhere to travel. */
   aspect-ratio: 2 / 3;
-  min-width: 23vw;
+  min-width: 29vw;
   flex-shrink: 0;
   padding: 0;
   border: 0;
@@ -172,13 +172,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 12%;
+  /* Low enough that at least the top half of the pouch is in frame. */
+  object-position: 50% 28%;
   transition:
     transform 1.4s var(--ease-adults-out),
     filter 1s var(--ease-adults-out);
   transform: scale(1.02);
   filter: saturate(0.92);
 }
+
 
 .panel:hover .panelImg,
 .panel:focus-visible .panelImg,
@@ -205,7 +207,7 @@
 .panelIndex {
   font-family: var(--font-display-adults);
   font-size: 0.95rem;
-  color: color-mix(in srgb, var(--adults-ink) 60%, transparent);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .panelTitle {
@@ -222,7 +224,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--adults-ink) 70%, transparent);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .panelFoot {
@@ -233,21 +235,22 @@
   gap: 1rem;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
-  color: var(--adults-ink);
+  color: #ffffff;
 }
 
 .panelCta {
   display: inline-flex;
   align-items: center;
-  padding: 0.7rem 1.1rem;
+  padding: 0.5rem 0.85rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--adults-cream) 82%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  font-size: 0.66rem;
+  font-size: 0.58rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--adults-ink);
   transform: translateY(0.4rem);
   opacity: 0;
   transition:
@@ -260,6 +263,18 @@
 .panelActive .panelCta {
   opacity: 1;
   transform: none;
+}
+
+/* Skin & Hair (pale yellow) and Gut Health (lilac) rooms: dark text. */
+.panel[data-product="skin-hair"] .panelIndex,
+.panel[data-product="skin-hair"] .panelTitle,
+.panel[data-product="skin-hair"] .panelSub,
+.panel[data-product="skin-hair"] .panelFoot,
+.panel[data-product="gut"] .panelIndex,
+.panel[data-product="gut"] .panelTitle,
+.panel[data-product="gut"] .panelSub,
+.panel[data-product="gut"] .panelFoot {
+  color: #1a120d;
 }
 
 /* Drawer --------------------------------------------------------------- */
@@ -380,10 +395,10 @@
   transition: transform 0.9s var(--ease-adults-out);
 }
 
-.stillTin {
-  left: 50%;
-  bottom: 12%;
-  height: 78%;
+.stillPouch {
+  left: 46%;
+  bottom: 8%;
+  height: 86%;
   transform: translate(calc(-50% + var(--mx) * -10px), calc(var(--my) * -6px));
   filter: drop-shadow(0 24px 22px rgba(40, 25, 15, 0.28));
   animation: still-in 1.1s var(--ease-adults-out) 0.25s both;

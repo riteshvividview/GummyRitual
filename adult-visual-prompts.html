@@ -9,16 +9,16 @@
 <style>
   :root{
     --bg:#f3eee6; --paper:#fbf8f3; --ink:#2b2420; --muted:#7a6f66; --line:#ddd3c6;
-    --skin:#d9a99a; --hair:#9fae8f; --multi:#e6d3b4; --sleep:#a99bc4; --gut:#8fb0b3;
-    --accent:#3c2f28; --code:#efe8dd;
+    --essentials:#0f4a46; --skinhair:#f6dc84; --gut:#c5c3f7; --womens:#f0a0b6;
+    --accent:#3c2f28; --code:#efe8dd; --new:#b5562f;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722;
+      --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722; --new:#e58a62;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722;
+    --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722; --new:#e58a62;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.65 Jost,system-ui,sans-serif}
@@ -32,10 +32,13 @@
   .lead{font-size:18px;color:var(--muted)}
   hr{border:0;border-top:1px solid var(--line);margin:64px 0}
   .swatches{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
-  .swatches span{flex:1 1 120px;padding:28px 12px 10px;border-radius:4px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2b2420}
+  .swatches span{flex:1 1 140px;padding:28px 12px 10px;border-radius:4px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2b2420}
+  .swatches span.dark{color:#e8f4f1}
   nav.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 24px;margin:28px 0}
   nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
   nav.toc a span{color:var(--muted);margin-right:10px;font-size:12px;letter-spacing:.2em}
+  nav.toc a i{font-style:normal;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-left:8px;color:var(--new)}
+  nav.toc a i.keep{color:var(--muted)}
   .concept{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;margin:18px 0}
   .concept b{font-weight:500}
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
@@ -47,6 +50,7 @@
   .kind.video{background:#6d5a8a;color:#fff}
   .kind.png{background:#5d7a62;color:#fff}
   .spec{font-size:13px;color:var(--muted);margin:6px 0 10px}
+  .replaces{font-size:13px;margin:4px 0 8px;color:var(--new)}
   .prompt{position:relative;background:var(--code);border-radius:6px;padding:16px;font:400 14px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-wrap:break-word}
   .copy{position:absolute;top:8px;right:8px;font:500 11px Jost,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 10px;cursor:pointer}
   .prompt .label{display:block;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
@@ -54,147 +58,172 @@
   .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
   .path{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--muted)}
   code{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+  .badge{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;border-radius:99px;padding:3px 10px;margin-left:12px;vertical-align:middle;font-family:Jost,sans-serif}
+  .badge.new{background:var(--new);color:#fff}
+  .badge.keep{border:1px solid var(--line);color:var(--muted)}
+  .tablewrap{overflow-x:auto;margin:14px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  td code{word-break:break-all}
+  .unchanged{opacity:.6}
+  .unchanged:hover{opacity:1}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<div class="eyebrow">Gummy Rituals — Adults Experience · Visual Brief</div>
-<h1>Daily Wellbeing.<br/>Shot in the studio, not rendered.</h1>
-<p class="lead">Section plan and every image and video prompt for the Adults homepage. Every prompt includes its exact size and aspect ratio, and every visual is shot in a closed studio — no windows, no outdoors, no plants. Rename each file exactly as listed and drop it into <span class="path">src/assets/adults/NN-section/{images,videos}/</span>.</p>
+<div class="eyebrow">Gummy Rituals — Adults Experience · Visual Brief · v2 packaging</div>
+<h1>Daily Wellbeing.<br/>Now in pouches.</h1>
+<p class="lead">The packaging has changed from paper tins and sachets to stand-up pouches, and the range is now four products instead of five. This version replaces only the images that show packaging. The gummies, ingredients, people and texture shots stay exactly as they are; those sections are kept below for reference and marked <b>No change</b>.</p>
 
 <div class="swatches">
-  <span style="background:var(--skin)">Skin · Strawberry</span>
-  <span style="background:var(--hair)">Hair · Blueberry</span>
-  <span style="background:var(--multi)">Multi · Mixed fruit</span>
-  <span style="background:var(--sleep)">Sleep · Mango</span>
-  <span style="background:var(--gut)">Gut · Litchi</span>
+  <span class="dark" style="background:var(--essentials)">Super Essentials</span>
+  <span style="background:var(--skinhair)">Skin &amp; Hair · Strawberry</span>
+  <span style="background:var(--gut)">Gut Health · Pineapple</span>
+  <span style="background:var(--womens)">Women's Daily Ritual · Pineapple</span>
 </div>
 
-<h2>How Adults differs from Kids</h2>
-<div class="grid2">
-  <div class="concept"><h3>Kids (existing)</h3><p>Bright, saturated, playful bears, 4 scroll-synced frame-sequence videos in the hero, bouncy motion, Mochibop display face, orange and pink gradients.</p></div>
-  <div class="concept"><h3>Adults (new)</h3><p>Same closed-studio photography, but a different world: stone, paper, ceramic and glass on muted seamless backdrops. <b>Studio light is the motion.</b> The hero changes lighting colour per product instead of playing video sequences. Gloock serif with spaced Jost capitals. Slower, fewer elements, more air.</p></div>
-</div>
-
-<h2>Typography</h2>
+<h2>What changes</h2>
 <div class="concept">
-  <p><b>Display:</b> <span style="font-family:Gloock;font-size:22px">Gloock</span> (Google Fonts, free) — the closest match to “Better Habits. A Healthier You.” in your reference. Tight tracking (-0.02em), line-height around 0.95.</p>
-  <p><b>Eyebrows / labels:</b> Jost 400, uppercase, letter-spacing 0.3em. <b>Body:</b> Jost 300.</p>
+  <p><b>The range: 5 tins → 4 pouches.</b> Each new product takes the place of an old one, so the existing gummy photographs keep working:</p>
+  <div class="tablewrap"><table>
+    <tr><th>New product</th><th>Pouch</th><th>Takes over from</th><th>Gummy kept</th></tr>
+    <tr><td><b>Super Essentials</b></td><td>Deep teal matte pouch, white logo</td><td>Multivitamin</td><td>Amber (mixed fruit)</td></tr>
+    <tr><td><b>Skin &amp; Hair</b> · Strawberry</td><td>White fading to magenta and yellow</td><td>Skin and Hair (merged)</td><td>Strawberry red</td></tr>
+    <tr><td><b>Gut Health</b> · Pineapple</td><td>White fading to lilac and aqua</td><td>Gut Health</td><td>Pale pink (current gut gummy)</td></tr>
+    <tr><td><b>Women's Daily Ritual</b> · Pineapple</td><td>White fading to rose and magenta</td><td>Sleep</td><td>Mango yellow (closest to pineapple)</td></tr>
+  </table></div>
+  <p><b>Sachets are gone.</b> The pouch is the only packaging, so the sachet cutouts and every "sachet at its foot" detail are dropped.</p>
+  <p><b>Copy on the page</b> (product names, flavours, taglines, benefits) will be updated in code to match the pouches, for example "Beauty Begins Within", "Supports a Balanced Gut, Better Digestion &amp; Overall Wellness", "Daily Nourishment for Her Health &amp; Vitality" and "Vitamins A C D E K &amp; B Complex · Minerals · 6 Fruits &amp; Botanicals". No images are needed for that.</p>
+  <p><b>The hero tin spin goes.</b> A flat pouch can't turn like a cylinder, so the hero changes plates with the depth transition alone.</p>
+</div>
+
+<h2>Files to make: 16 images + 1 video</h2>
+<div class="concept">
+  <div class="tablewrap"><table>
+    <tr><th>Section</th><th>Name your file</th><th>Replaces</th></tr>
+    <tr><td>01 Hero</td><td><code>hero-plate-01-essentials.jpg</code></td><td>hero-plate-01-multivitamin</td></tr>
+    <tr><td></td><td><code>hero-plate-02-skin-hair.jpg</code></td><td>hero-plate-02-skin and hero-plate-03-hair</td></tr>
+    <tr><td></td><td><code>hero-plate-03-gut.jpg</code></td><td>hero-plate-04-gut</td></tr>
+    <tr><td></td><td><code>hero-plate-04-womens.jpg</code></td><td>hero-plate-05-sleep</td></tr>
+    <tr><td>Pouch cutouts (used across the page)</td><td><code>pouch-essentials-front.png</code> · <code>pouch-skin-hair-front.png</code> · <code>pouch-gut-front.png</code> · <code>pouch-womens-front.png</code></td><td>the 5 <code>tin-*-front</code> and 5 <code>sachet-*</code> files</td></tr>
+    <tr><td>02 The Edit</td><td><code>room-essentials.jpg</code> · <code>room-skin-hair.jpg</code> · <code>room-gut.jpg</code> · <code>room-womens.jpg</code></td><td>the 5 <code>room-*</code> files</td></tr>
+    <tr><td>05 A Day</td><td><code>day-0700-vanity.jpg</code> · <code>day-1300-desk.jpg</code> · <code>day-2200-bedside.jpg</code></td><td>same names</td></tr>
+    <tr><td>08 The Lineup</td><td><code>cta-lineup.jpg</code></td><td>same name</td></tr>
+    <tr><td></td><td><code>cta-turntable-loop.mp4</code></td><td><code>turntable.mp4</code> and its poster</td></tr>
+  </table></div>
+  <p><b>Where to put them:</b> rename each file exactly as above and drop them all, flat, into <span class="path">Organize-adult-section/packaging-v2/</span>. Claude will convert them, move each into its section folder, rebuild the depth maps and remove the old tin and sachet files.</p>
 </div>
 
 <h2>Studio rules (already written into every prompt)</h2>
 <div class="concept">
 <ul>
   <li><b>Closed studio only.</b> Seamless paper sweeps, plaster flats, stone and ceramic props. No windows, rooms, sky or outdoors.</li>
-  <li><b>No plants of any kind.</b> No leaves, sprigs, flowers, branches or leaf shadows. Fruit appears only as clean cut pieces with no stems or leaves.</li>
+  <li><b>No plants of any kind.</b> No leaves, sprigs, flowers, branches or leaf shadows. Fruit appears only as clean cut pieces with no stems, crowns or leaves.</li>
   <li><b>No light effects.</b> No sun rays, light beams, window shadows, gobos, haze, lens flare or glowing rims. Light comes from large softboxes, so shadows are soft and grounded.</li>
-  <li><b>Real camera, real material:</b> medium-format digital, true-to-life colour, fine stone pores, paper fibre, tiny dust specks, slight imperfections in the gummies.</li>
+  <li><b>Real camera, real material:</b> medium-format digital, true-to-life colour, fine stone pores, tiny dust specks, slight imperfections in the gummies.</li>
+  <li><b>Pouches are soft-touch matte film</b> with gentle natural creases at the shoulders, a crisp zip seal near the top and a flat gusset base, standing upright on their own.</li>
   <li><b>Gummies are sugar-free:</b> matte, lightly powdered, never glossy or glassy.</li>
-  <li><b>Never let the model write label text.</b> Attach the product crop (see below).</li>
+  <li><b>Never let the model write label text.</b> Attach the pouch reference (see below).</li>
 </ul>
 <p><b>Negative prompt (paste in every time if your tool has a field for it):</b></p>
-<div class="prompt">plants, leaves, foliage, flowers, branches, herbs, leaf shadows, window, window light, window shadow, sun rays, light beams, god rays, haze, fog, lens flare, glow, bokeh balls, outdoors, sky, landscape, text, letters, watermark, logo, cgi, 3d render, plastic, glossy, oversaturated, hdr, gradient background, floating objects, levitation, clutter, symmetrical face, extra fingers, cartoon<button class="copy">Copy</button></div>
+<div class="prompt">plants, leaves, foliage, flowers, branches, herbs, pineapple crown, leaf shadows, window, window light, window shadow, sun rays, light beams, god rays, haze, fog, lens flare, glow, bokeh balls, outdoors, sky, landscape, extra text, misspelled label, watermark, cgi, 3d render, plastic sheen, glossy, oversaturated, hdr, floating objects, levitation, clutter, tin, can, bottle, jar, sachet, extra fingers, cartoon<button class="copy">Copy</button></div>
 </div>
 
 <h2>Getting clean transparent PNGs</h2>
-<div class="concept"><ul><li>Generators can't output real transparency. Every PNG prompt renders on flat light grey (#d9d9d9) — it separates far more cleanly than white, especially around powder, crystals and glass.</li><li>Remove the background with <b>Photoshop → Remove Background</b> (best), or Higgsfield / remove.bg on the highest quality setting.</li><li>Check the edges at 200% on a dark and a coloured background. Red, yellow or grey fringing = re-run the removal, or in Photoshop use <b>Select and Mask → Decontaminate Colors</b>.</li><li>Export PNG-24 with transparency, at the size in the prompt. Clear (glass, gel) objects: keep their soft shadow off — I add shadows in CSS.</li></ul></div>
+<div class="concept"><ul><li>Generators can't output real transparency. Every PNG prompt renders on flat light grey (#d9d9d9). It separates far more cleanly than white, which matters here because the pouch tops are white.</li><li>Remove the background with <b>Photoshop → Remove Background</b> (best), or Higgsfield / remove.bg on the highest quality setting.</li><li>Check the edges at 200% on a dark and a coloured background. If the white pouch edge looks grey or chewed, re-run the removal, or in Photoshop use <b>Select and Mask → Decontaminate Colors</b>.</li><li>Export PNG-24 with transparency, at the size in the prompt. Leave the cast shadow out; shadows are added in CSS.</li></ul></div>
 
 <h2>What to attach as reference</h2>
 <div class="concept">
-  <p><b>Don't attach the full product sheet.</b> It has 5 tins, 5 sachets, fruit, icons and a headline, so the model copies that layout and mixes up products. Attach only the crop for the product in the shot, from <span class="path">reference-crops/</span>:</p>
+  <p>Use the four new pouch mockups as they are; each already shows one pouch on its own. Save them into <span class="path">reference-crops/</span> with these names:</p>
   <ul>
-    <li><span class="path">ref-tin-skin.png · ref-tin-hair.png · ref-tin-multivitamin.png · ref-tin-sleep.png · ref-tin-gut.png</span> — one tin each</li>
-    <li><span class="path">ref-sachet-skin.png · ref-sachet-hair.png · ref-sachet-multivitamin.png · ref-sachet-sleep.png · ref-sachet-gut.png</span> — one sachet each</li>
-    <li><span class="path">ref-lineup.png</span> — all five, used only for the final lineup shot</li>
+    <li><span class="path">ref-pouch-essentials.jpg</span> — Super Essentials (teal)</li>
+    <li><span class="path">ref-pouch-skin-hair.jpg</span> — Skin &amp; Hair (on yellow)</li>
+    <li><span class="path">ref-pouch-gut.jpg</span> — Gut Health (on lilac)</li>
+    <li><span class="path">ref-pouch-womens.jpg</span> — Women's Daily Ritual (on pink)</li>
   </ul>
-  <p>Each asset below has an <b>Attach:</b> line. <b>None</b> means a plain text prompt.</p>
+  <p>For a shot with more than one pouch, attach each pouch it needs and refer to them in the prompt as image 1, image 2 and so on. Never attach a combined picture of several pouches; the model mixes up the labels. Each asset below has an <b>Attach:</b> line.</p>
+  <p><b>If a label comes out wrong:</b> keep the scene and use your tool's edit or product-swap mode to place the reference pouch onto it, rather than regenerating from scratch.</p>
 </div>
 
 <nav class="toc">
-  <a href="#s1"><span>01</span>Hero — The Light Dial</a>
-  <a href="#s2"><span>02</span>The Edit — Collection</a>
-  <a href="#s3"><span>03</span>What Your Body Asks For</a>
-  <a href="#s4"><span>04</span>Inside Every Gummy</a>
-  <a href="#s5"><span>05</span>A Day, Held Lightly</a>
-  <a href="#s6"><span>06</span>Up Close — Texture</a>
-  <a href="#s7"><span>07</span>Formulated With Care</a>
-  <a href="#s8"><span>08</span>Final CTA — The Lineup</a>
-  <a href="#s0"><span>00</span>Shared textures</a>
+  <a href="#s1"><span>01</span>Hero — The Light Dial<i>New</i></a>
+  <a href="#s2"><span>02</span>The Edit — Collection<i>New</i></a>
+  <a href="#s3"><span>03</span>What Your Body Asks For<i class="keep">No change</i></a>
+  <a href="#s4"><span>04</span>Inside Every Gummy<i class="keep">No change</i></a>
+  <a href="#s5"><span>05</span>A Day, Held Lightly<i>New</i></a>
+  <a href="#s6"><span>06</span>Up Close — Texture<i class="keep">No change</i></a>
+  <a href="#s7"><span>07</span>Formulated With Care<i class="keep">No change</i></a>
+  <a href="#s8"><span>08</span>Final CTA — The Lineup<i>New</i></a>
+  <a href="#s0"><span>00</span>Shared textures<i class="keep">No change</i></a>
 </nav>
 
 <!-- ===================== 01 HERO ===================== -->
 <hr id="s1"/>
 <div class="eyebrow">Section 01 · Hero</div>
-<h2>The Light Dial</h2>
+<h2>The Light Dial<span class="badge new">New images</span></h2>
 <div class="concept">
-  <p><b>Concept:</b> One studio set, one camera position, five lighting setups. A single tin stands on a travertine block in front of a plaster flat. As you scroll, the studio light changes colour and direction, and each light belongs to one product: warm sand → Multivitamin, blush → Skin, cool sage → Hair, soft teal → Gut Health, deep lavender → Sleep.</p>
-  <p><b>Build:</b> 5 photographs from the exact same camera position, each with its own product in the shot, crossfaded by scroll (pinned, GSAP). The tin lifts slightly as it swaps. A small circular dial (06:00 → 22:00) shows progress and is the hero's signature interaction. Headline in Gloock: <i>“Better habits. A healthier you.”</i></p>
-  <p><b>Mobile:</b> no pin; plates crossfade every 4 s, tap the dial to change. <b>Reduced motion:</b> the first plate only.</p>
-  <div class="meta"><span class="tag">0 frame sequences</span><span class="tag">5 plates</span><span class="tag">pinned scroll · desktop only</span></div>
+  <p><b>Concept (unchanged):</b> One studio set, one camera position, four lighting setups now instead of five. A single pouch stands on a travertine block in front of a plaster flat. As you scroll, the studio light changes colour, and each light belongs to one product: deep teal → Super Essentials, butter yellow → Skin &amp; Hair, soft lilac → Gut Health, rose → Women's Daily Ritual.</p>
+  <p><b>What changes:</b> the tin becomes the pouch, and there are 4 plates instead of 5. The pouch must sit in the <b>same place and at the same height in all four plates</b> (right of centre, base on the block), because the depth transition crossfades them in place. The tin spin is removed.</p>
+  <div class="meta"><span class="tag">4 plates</span><span class="tag">4 pouch cutouts</span><span class="tag">replaces 5 plates + 5 tins</span></div>
 </div>
-<p class="path">src/assets/adults/01-hero/images/</p>
+<p class="path">src/assets/adults/01-hero/</p>
 
-<div class="asset"><div class="asset-head"><span class="fname">hero-plate-01-multivitamin.jpg</span><span class="kind">image</span></div>
-<div class="spec">3840 × 2160 px · 16:9 · left 40% kept empty for the headline. Generate this first; plates 02–05 are built from it.</div>
-<div class="spec"><b>Attach:</b> <span class="path">reference-crops/ref-tin-multivitamin.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>Studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed photo studio, no windows. A warm sand-coloured seamless plaster flat fills the background, hand-troweled with subtle uneven texture and one faint hairline crack. A low, honed travertine block sits on the floor right of centre, with chipped corners and natural pores. The sand MULTIVITAMIN paper tin from the reference image stands on the block, label facing camera. The left 40% of the frame is calm, empty plaster. Lighting: one large softbox high on the left, warm 3200K, plus a white bounce card on the right. Soft, grounded contact shadow under the tin and block, gentle falloff into slightly darker corners. Camera at block height, 80mm lens, f/8, Phase One medium format, true-to-life colour, fine detail in the stone and paper, tiny dust specks on the block. The tin must match the reference exactly — same colour, label layout and text. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-01-essentials.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces hero-plate-01-multivitamin</div>
+<div class="spec">3840 × 2160 px · 16:9 · left 40% kept empty for the headline. Generate this first; plates 02–04 are built from it. The headline is cream on this plate, so the left side stays dark and even.</div>
+<div class="spec"><b>Attach:</b> <span class="path">reference-crops/ref-pouch-essentials.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio product photograph, 16:9 landscape, 3840 × 2160 px. Closed photo studio, no windows. A deep teal-green seamless plaster flat fills the background, hand-troweled with subtle uneven texture and one faint hairline crack. A low, honed travertine block sits on the floor right of centre, with chipped corners and natural pores. The teal SUPER ESSENTIALS stand-up pouch from the reference image stands upright on the block, front facing camera, soft-touch matte film with gentle creases at the shoulders and a flat gusset base. The pouch fills about 55% of the frame height. The left 40% of the frame is calm, empty, evenly dark plaster. Beside the pouch on the block: two matte, lightly powdered amber gummies and one clean orange segment, no peel stem, no leaves. Lighting: one large softbox high on the left, neutral 4500K, plus a white bounce card on the right; the pouch reads clearly against the dark wall. Soft, grounded contact shadow under the pouch and block, gentle falloff into darker corners. Camera at block height, 80mm lens, f/8, Phase One medium format, true-to-life colour, fine detail in the stone, tiny dust specks on the block. The pouch must match the reference exactly — same colour, logo, layout and text. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
 
-<div class="asset"><div class="asset-head"><span class="fname">hero-plate-02-skin.jpg</span><span class="kind">image</span></div>
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-02-skin-hair.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces hero-plate-02-skin and hero-plate-03-hair</div>
 <div class="spec">3840 × 2160 px · 16:9 · same set and camera as plate 01.</div>
-<div class="spec"><b>Attach:</b> 2 images — your finished <span class="path">hero-plate-01-multivitamin.jpg</span> (scene) + <span class="path">reference-crops/ref-tin-skin.png</span> (product)</div>
-<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the dusty-rose SKIN tin from image 2, same size and position, label matching exactly. Change only the lighting: the softbox is now gelled a soft blush pink, so the plaster and stone take on a warm rosy tone; shadows stay soft and grounded. Place one cleanly halved strawberry (no stem, no leaves) on the block beside the tin. Phase One medium format, true-to-life colour, fine stone texture. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> 2 images — your finished <span class="path">hero-plate-01-essentials.jpg</span> (scene) + <span class="path">reference-crops/ref-pouch-skin-hair.jpg</span> (product)</div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the pouch with the SKIN &amp; HAIR stand-up pouch from image 2 — white at the top fading into magenta and warm yellow at the base — same size, same position, label matching exactly. Change only the lighting and wall colour: the plaster is now a soft butter yellow, lit by a warm 3400K softbox from the upper left with a faint rose fill from the right, so the stone takes on a warm, sunny-rosy tone; shadows stay soft and grounded. Replace the props with one cleanly halved strawberry (no stem, no leaves) and two matte strawberry-red gummies on the block beside the pouch. Phase One medium format, true-to-life colour, fine stone texture. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
 
-<div class="asset"><div class="asset-head"><span class="fname">hero-plate-03-hair.jpg</span><span class="kind">image</span></div>
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-03-gut.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces hero-plate-04-gut</div>
 <div class="spec">3840 × 2160 px · 16:9 · same set and camera.</div>
-<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-hair.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the sage-green HAIR tin from image 2, same size and position, label matching exactly. Change only the lighting: neutral 5600K softbox from the upper right instead of the left, with a pale sage-green fill from the opposite side, giving the plaster a cool muted green cast; shadows fall to the left, soft and grounded. Three blueberries with natural bloom on the skin rest on the block. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-essentials.jpg</span> + <span class="path">reference-crops/ref-pouch-gut.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the pouch with the GUT HEALTH stand-up pouch from image 2 — white at the top fading into lilac and soft aqua at the base — same size, same position, label matching exactly. Change only the lighting and wall colour: the plaster is now a soft periwinkle lilac, lit by very soft, low-contrast overhead light with a faint cool-violet gel, calm and airy. Replace the props with a small handmade ceramic dish holding two clean pineapple chunks (no skin, no crown) and two matte pale-pink gummies beside it. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
 
-<div class="asset"><div class="asset-head"><span class="fname">hero-plate-04-gut.jpg</span><span class="kind">image</span></div>
+<div class="asset"><div class="asset-head"><span class="fname">hero-plate-04-womens.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces hero-plate-05-sleep</div>
 <div class="spec">3840 × 2160 px · 16:9 · same set and camera.</div>
-<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-gut.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the muted-teal GUT HEALTH tin from image 2, same size and position, label matching exactly. Change only the lighting: very soft, flat overhead light with a faint blue-teal gel, low contrast, calm and cool; a shallow handmade ceramic dish of still water sits on the block beside the tin, one peeled litchi in it showing translucent flesh. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-essentials.jpg</span> + <span class="path">reference-crops/ref-pouch-womens.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the pouch with the WOMEN'S DAILY RITUAL stand-up pouch from image 2 — white at the top fading into rose and deep magenta at the base — same size, same position, label matching exactly. Change only the lighting and wall colour: the plaster is now a dusty rose pink, lit by a soft warm softbox from the upper right with a gentle blush fill from the left; shadows fall left, soft and grounded. Replace the props with a small stone dish holding a few fresh cranberries and two matte mango-yellow gummies. Phase One medium format, true-to-life colour. No plants, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
 
-<div class="asset"><div class="asset-head"><span class="fname">hero-plate-05-sleep.jpg</span><span class="kind">image</span></div>
-<div class="spec">3840 × 2160 px · 16:9 · same set and camera · the headline turns cream on this plate, so the left side stays dark and even.</div>
-<div class="spec"><b>Attach:</b> 2 images — <span class="path">hero-plate-01-multivitamin.jpg</span> + <span class="path">reference-crops/ref-tin-sleep.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>16:9 landscape, 3840 × 2160 px. Keep the exact studio set, plaster flat, travertine block, camera angle and framing from image 1. Replace the tin with the lavender SLEEP tin from image 2, same size and position, label matching exactly. Change only the lighting: low-key night mood. The studio is dim and lavender-blue, with a single small, tightly controlled warm spot from the front-right lighting only the tin and the top of the block; the plaster falls off into deep violet shadow. A small stone dish holds two matte mango-coloured gummies. Phase One medium format, slight natural noise in the shadows. No plants, no window light, no rays, no haze, no candle glow.<button class="copy">Copy</button></div></div>
-
-<div class="asset"><div class="asset-head"><span class="fname">tin-skin-front.png · tin-hair-front.png · tin-multivitamin-front.png · tin-sleep-front.png · tin-gut-front.png</span><span class="kind png">transparent png ×5</span></div>
-<div class="spec">2000 × 3000 px · 2:3 · straight-on cutouts, used in the collection side sheet, cart and section 05.</div>
-<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-tin-*.png</span> (one per run)</div>
-<div class="prompt"><span class="label">Prompt (run once per product, swap the bracket)</span>Studio packshot, 2:3 portrait, 2000 × 3000 px. The [SKIN dusty-rose / HAIR sage-green / MULTIVITAMIN warm-sand / SLEEP lavender / GUT HEALTH muted-teal] paper-board cylinder tin from the reference image, straight-on at eye level, centred, filling about 75% of the frame height. Label preserved exactly. One large softbox from the left, white bounce on the right, gentle shading around the curve of the cylinder, matte paper texture visible. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. 120mm macro lens, f/11, medium format, true-to-life colour. No props, no plants, no reflections.<button class="copy">Copy</button></div>
+<div class="asset"><div class="asset-head"><span class="fname">pouch-essentials-front.png · pouch-skin-hair-front.png · pouch-gut-front.png · pouch-womens-front.png</span><span class="kind png">transparent png ×4</span></div>
+<div class="replaces">Replaces the 5 tin-*-front.png and the 5 sachet-*.png cutouts</div>
+<div class="spec">2400 × 3000 px · 4:5 · straight-on cutouts, used in the collection side sheet, the cart and the hero on mobile.</div>
+<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-pouch-*.jpg</span> (one per run)</div>
+<div class="prompt"><span class="label">Prompt (run once per product, swap the bracket)</span>Studio packshot, 4:5 portrait, 2400 × 3000 px. The [SUPER ESSENTIALS teal / SKIN &amp; HAIR white-to-magenta-and-yellow / GUT HEALTH white-to-lilac-and-aqua / WOMEN'S DAILY RITUAL white-to-rose-and-magenta] stand-up pouch from the reference image, straight-on at eye level, centred, standing upright on its flat gusset base, filling about 80% of the frame height. Label preserved exactly. Soft-touch matte film, gentle natural creases at the shoulders, crisp zip seal near the top. One large softbox from the left, white bounce on the right, soft shading across the pouch's slight curve. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the pouch edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. 120mm macro lens, f/11, medium format, true-to-life colour. No props, no plants, no reflections.<button class="copy">Copy</button></div>
 <p class="spec">Then run background removal to get the transparent PNG.</p></div>
 
 <!-- ===================== 02 COLLECTION ===================== -->
 <hr id="s2"/>
 <div class="eyebrow">Section 02 · Collection</div>
-<h2>The Edit</h2>
+<h2>The Edit<span class="badge new">New images</span></h2>
 <div class="concept">
-  <p><b>Concept:</b> A magazine-style horizontal shelf. Each product gets a tall “colour room”: a full-height studio photograph on a seamless sweep in its tint, with the tin on its own stone and the sachet and two gummies at its foot. Scroll sideways (drag on mobile). Tapping a panel opens a side sheet with ingredients and Add to Cart.</p>
-  <div class="meta"><span class="tag">horizontal scroll</span></div>
+  <p><b>Concept (unchanged):</b> A magazine-style horizontal shelf. Each product gets a tall "colour room": a full-height studio photograph on a seamless sweep in its colour, with the pouch standing on its own stone and two gummies at its foot. Scroll sideways (drag on mobile). Tapping a panel opens a side sheet with ingredients and Add to Cart.</p>
+  <p><b>What changes:</b> 4 rooms instead of 5, pouch instead of tin, no sachet. The two gummies and the cut fruit stay.</p>
+  <p><b>No change:</b> the 5 <code>gummy-pair-*.png</code> cutouts stay as they are and are reassigned to the new products (see the table at the top).</p>
+  <div class="meta"><span class="tag">4 rooms</span><span class="tag">replaces 5 rooms + 5 sachets</span></div>
 </div>
-<p class="path">src/assets/adults/02-collection/images/</p>
+<p class="path">src/assets/adults/02-collection/</p>
 
-<div class="asset"><div class="asset-head"><span class="fname">room-skin.jpg · room-hair.jpg · room-multivitamin.jpg · room-sleep.jpg · room-gut.jpg</span><span class="kind">image ×5</span></div>
+<div class="asset"><div class="asset-head"><span class="fname">room-essentials.jpg · room-skin-hair.jpg · room-gut.jpg · room-womens.jpg</span><span class="kind">image ×4</span></div>
+<div class="replaces">Replaces room-multivitamin, room-skin, room-hair, room-gut, room-sleep</div>
 <div class="spec">2400 × 3600 px · 2:3 portrait · top 35% kept clean for the title.</div>
-<div class="spec"><b>Attach:</b> the matching <span class="path">ref-tin-*.png</span> + <span class="path">ref-sachet-*.png</span> (2 images, same product)</div>
-<div class="prompt"><span class="label">Prompt (per product, swap the brackets)</span>Studio product photograph, 2:3 portrait, 2400 × 3600 px. Closed studio, seamless paper sweep and floor in one muted [dusty rose / sage / warm sand / lavender / muted teal] tone, faint natural creases in the paper. In the lower half, the [SKIN / HAIR / MULTIVITAMIN / SLEEP / GUT HEALTH] tin from image 1 stands on a small irregular block of honed travertine. At its foot: the matching sachet from image 2 lying flat at an angle, and two matte, lightly powdered gummies in [strawberry red / deep blueberry / amber / mango yellow / pale litchi pink]. One clean-cut [strawberry half / three blueberries / orange segment / mango cube / peeled litchi] beside them, no stems or leaves. The top 35% of the frame is empty paper. One large softbox from the upper left, crisp but soft-edged shadows falling right, white bounce fill. 80mm lens, f/8, medium format, true-to-life colour. Tin and sachet must match the references exactly. No plants, no window light, no rays.<button class="copy">Copy</button></div></div>
-
-<div class="asset"><div class="asset-head"><span class="fname">sachet-skin.png · sachet-hair.png · sachet-multivitamin.png · sachet-sleep.png · sachet-gut.png</span><span class="kind png">transparent png ×5</span></div>
-<div class="spec">1600 × 1600 px · 1:1.</div>
-<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-sachet-*.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>Studio packshot, 1:1 square, 1600 × 1600 px. The single [SKIN / HAIR / MULTIVITAMIN / SLEEP / GUT HEALTH] foil sachet from the reference image, lying flat, shot from directly above with a slight 10° rotation, centred, filling about 70% of the frame. Soft-matte foil with small natural crinkles at the crimped edges. One overhead softbox, short soft shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. Label preserved exactly. No props, no plants.<button class="copy">Copy</button></div></div>
-
-<div class="asset"><div class="asset-head"><span class="fname">gummy-pair-skin.png · gummy-pair-hair.png · gummy-pair-multivitamin.png · gummy-pair-sleep.png · gummy-pair-gut.png</span><span class="kind png">transparent png ×5</span></div>
-<div class="spec">1600 × 1200 px · 4:3.</div>
-<div class="spec"><b>Attach:</b> None (if the colour drifts, attach that product's tin crop for colour only)</div>
-<div class="prompt"><span class="label">Prompt</span>Studio macro photograph, 4:3 landscape, 1600 × 1200 px. Two dome-shaped soft gummies in [strawberry red / deep blueberry purple / amber orange / mango yellow / pale litchi pink], matte surface with a faint dusting of fine powder, tiny air bubbles and slight irregularities in shape, one leaning against the other, centred. 120mm macro, f/16, one softbox from the side, real contact shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. Not glossy, not glassy, no plants.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> the matching <span class="path">reference-crops/ref-pouch-*.jpg</span></div>
+<div class="prompt"><span class="label">Prompt (per product, swap the brackets)</span>Studio product photograph, 2:3 portrait, 2400 × 3600 px. Closed studio, seamless paper sweep and floor in one muted [deep teal-green / soft butter yellow / soft periwinkle lilac / dusty rose] tone, faint natural creases in the paper. In the lower half, the [SUPER ESSENTIALS / SKIN &amp; HAIR / GUT HEALTH / WOMEN'S DAILY RITUAL] stand-up pouch from the reference image stands upright on a small irregular block of honed travertine, front facing camera. At its foot: two matte, lightly powdered gummies in [amber / strawberry red / pale pink / mango yellow] and one clean-cut [orange segment / strawberry half / pineapple chunk without skin / small cluster of fresh cranberries], no stems or leaves. The top 35% of the frame is empty paper. One large softbox from the upper left, soft-edged shadows falling right, white bounce fill. 80mm lens, f/8, medium format, true-to-life colour. The pouch must match the reference exactly — colour, logo, text and layout. No sachet, no tin, no plants, no window light, no rays.<button class="copy">Copy</button></div></div>
 
 <!-- ===================== 03 NEEDS ===================== -->
 <hr id="s3"/>
+<div class="unchanged">
 <div class="eyebrow">Section 03 · Benefits</div>
-<h2>What does your body ask for?</h2>
+<h2>What does your body ask for?<span class="badge keep">No change</span></h2>
 <div class="concept">
   <p><b>Concept:</b> A large typographic index — five words in Gloock: <i>Glow. Strength. Energy. Rest. Balance.</i> Hover (desktop) or tap (mobile) a word and a tall studio portrait fades in beside it while the page background shifts to that product's tint. No icons, no cards — words and photographs only.</p>
 </div>
@@ -225,10 +254,14 @@
 <div class="spec"><b>Attach:</b> None</div>
 <div class="prompt"><span class="label">Prompt</span>Studio photograph, 5:7 portrait, 2000 × 2800 px. Closed studio, seamless muted-teal paper background. Two hands holding a handmade stoneware bowl of plain yogurt topped with sliced peeled litchi and a thin drizzle of honey, framed at chest height against cream linen clothing. Gentle glaze imperfections on the bowl. Soft, even softbox light from the front-left, low contrast, cool calm tones. 80mm lens, f/8, medium format, true-to-life colour. No face, no plants, no window light, no rays.<button class="copy">Copy</button></div></div>
 
+
+</div>
+
 <!-- ===================== 04 INGREDIENTS ===================== -->
 <hr id="s4"/>
+<div class="unchanged">
 <div class="eyebrow">Section 04 · Ingredients</div>
-<h2>Inside Every Gummy</h2>
+<h2>Inside Every Gummy<span class="badge keep">No change</span></h2>
 <div class="concept">
   <p><b>Concept:</b> The same interaction as the Kids “Inside Every Gummy” section, in the Adults look. Each active gets a full-bleed studio scene: a matte dome gummy on travertine, in its product's colour, with the ingredient as a sculptural hero element. A row of 9 ingredient objects sits below as the selector. Tap one to change the scene; the info card and stat come from HTML. Richer than the rest of the page, but no glow, bears or plants.</p>
 </div>
@@ -327,34 +360,43 @@
 <div class="spec"><b>Attach:</b> None</div>
 <div class="prompt"><span class="label">Prompt</span>Studio object photograph, 1:1 square, 1200 × 1200 px, slight 3/4 view from 30° above so the shape reads clearly even at small icon size. A neat, peaked mound of golden-beige prebiotic fibre granules with a crisp, slightly crystalline texture and a few loose granules around it, resting on a small thin round disc of smooth honed pale limestone with a slightly irregular hand-cut edge and only a few tiny subtle pores. Every icon in this set uses this same disc, same angle and same lighting. Centred, filling about 70% of the frame with even margins on all sides, nothing touching the frame edge. One softbox from the upper left, crisp sculpted highlights, a very soft short contact shadow only under the disc, true-to-life colour, 120mm macro, f/11, very high material detail. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No glow, no bloom, no reflections, no plants, no text.<button class="copy">Copy</button></div></div>
 
+
+</div>
+
 <!-- ===================== 05 DAY ===================== -->
 <hr id="s5"/>
 <div class="eyebrow">Section 05 · Daily Routine</div>
-<h2>A Day, Held Lightly</h2>
+<h2>A Day, Held Lightly<span class="badge new">New images</span></h2>
 <div class="concept">
-  <p><b>Concept:</b> Echoes the hero dial. A slim 24-hour line runs across the section; three studio vignettes sit on it at 07:00, 13:00 and 22:00, each a small built set (vanity top, desk top, bedside top) shot in the studio. A thin marker travels along the line as you scroll — the only scroll animation here. Copy: <i>“Morning: Multivitamin + Skin. Midday: Hair. Evening: Gut. Night: Sleep.”</i></p>
+  <p><b>Concept (unchanged):</b> A slim day line runs across the section; three studio vignettes sit on it at 07:00, 13:00 and 22:00, each a small built set (vanity top, desk top, bedside top). A marker travels along the line as you scroll.</p>
+  <p><b>What changes:</b> the tins in each vignette become pouches. New pairing: <i>Morning: Super Essentials + Skin &amp; Hair. Midday: Women's Daily Ritual. Evening: Gut Health.</i> Keep the same framing and props so the section looks the same apart from the packaging.</p>
+  <div class="meta"><span class="tag">3 vignettes</span><span class="tag">same file names</span></div>
 </div>
-<p class="path">src/assets/adults/05-day/images/</p>
+<p class="path">src/assets/adults/05-day/</p>
 
 <div class="asset"><div class="asset-head"><span class="fname">day-0700-vanity.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces day-0700-vanity (Multivitamin + Skin tins)</div>
 <div class="spec">2400 × 3000 px · 4:5 portrait.</div>
-<div class="spec"><b>Attach:</b> <span class="path">ref-tin-multivitamin.png</span> + <span class="path">ref-tin-skin.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, warm-sand plaster flat behind a slab of honed limestone acting as a bathroom vanity top. On it: the sand MULTIVITAMIN tin from image 1 and the rose SKIN tin from image 2, a handmade ceramic soap dish, a folded white waffle towel, a short glass of water with a few drops on the stone. A hand just entering the frame from the right. One large warm softbox from the left, soft grounded shadows. 80mm lens, f/8, medium format, true-to-life colour. Tins must match the references exactly. No plants, no window, no rays.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-pouch-essentials.jpg</span> + <span class="path">ref-pouch-skin-hair.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, warm-sand plaster flat behind a slab of honed limestone acting as a bathroom vanity top. On it: the teal SUPER ESSENTIALS stand-up pouch from image 1 and the SKIN &amp; HAIR stand-up pouch from image 2, standing side by side, fronts facing camera; a handmade ceramic soap dish holding two matte amber gummies; a folded white waffle towel; a short glass of water with a few drops on the stone. A hand just entering the frame from the right, reaching for the Skin &amp; Hair pouch. One large warm softbox from the left, soft grounded shadows. 80mm lens, f/8, medium format, true-to-life colour. Pouches must match the references exactly. No tins, no plants, no window, no rays.<button class="copy">Copy</button></div></div>
 
 <div class="asset"><div class="asset-head"><span class="fname">day-1300-desk.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces day-1300-desk (Hair tin)</div>
 <div class="spec">2400 × 3000 px · 4:5 portrait.</div>
-<div class="spec"><b>Attach:</b> <span class="path">ref-tin-hair.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, pale sage plaster flat behind a light oak desk top. On it: the sage HAIR tin from the reference image, an open notebook with faint pencil marks (no readable text), a pair of reading glasses, a linen napkin with half a pear. Neutral 5600K softbox from the upper right, clean soft shadows. 80mm lens, f/8, medium format, true-to-life colour. Tin must match the reference exactly. No plants, no window, no rays.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-pouch-womens.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, pale blush plaster flat behind a light oak desk top. On it: the WOMEN'S DAILY RITUAL stand-up pouch from the reference image, front facing camera; an open notebook with faint pencil marks (no readable text); a pair of reading glasses; a linen napkin with two matte mango-yellow gummies and a few pineapple chunks without skin. Neutral 5600K softbox from the upper right, clean soft shadows. 80mm lens, f/8, medium format, true-to-life colour. Pouch must match the reference exactly. No tins, no plants, no window, no rays.<button class="copy">Copy</button></div></div>
 
 <div class="asset"><div class="asset-head"><span class="fname">day-2200-bedside.jpg</span><span class="kind">image</span></div>
+<div class="replaces">Replaces day-2200-bedside (Sleep + Gut tins)</div>
 <div class="spec">2400 × 3000 px · 4:5 portrait.</div>
-<div class="spec"><b>Attach:</b> <span class="path">ref-tin-sleep.png</span> + <span class="path">ref-tin-gut.png</span></div>
-<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, low-key, deep lavender plaster flat behind a dark walnut bedside top. On it: the lavender SLEEP tin from image 1 and the teal GUT HEALTH tin from image 2, a small travertine dish with two matte mango gummies, two worn paperback books stacked (no readable text), a ceramic cup of tea. One small warm spot from the front-right lights the objects; the background falls into soft violet shadow. 80mm lens, f/5.6, medium format, slight natural noise. Tins must match the references exactly. No plants, no candle, no lamp glow, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="spec"><b>Attach:</b> <span class="path">ref-pouch-gut.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Studio vignette, 4:5 portrait, 2400 × 3000 px. Closed studio, low-key, deep lavender plaster flat behind a dark walnut bedside top. On it: the GUT HEALTH stand-up pouch from the reference image, front facing camera; a small travertine dish with two matte pale-pink gummies; two worn paperback books stacked (no readable text); a ceramic cup of tea. One small warm spot from the front-right lights the objects; the background falls into soft violet shadow, but the pouch label stays clearly readable. 80mm lens, f/5.6, medium format, slight natural noise. Pouch must match the reference exactly. No tins, no plants, no candle, no lamp glow, no rays, no haze.<button class="copy">Copy</button></div></div>
 
 <!-- ===================== 06 TEXTURE ===================== -->
 <hr id="s6"/>
+<div class="unchanged">
 <div class="eyebrow">Section 06 · Taste &amp; Texture</div>
-<h2>Up Close</h2>
+<h2>Up Close<span class="badge keep">No change</span></h2>
 <div class="concept">
   <p><b>Concept:</b> The one place we use video — a single full-bleed, slow macro loop of a gummy being gently pressed and pulled apart in the studio. Below it, five cross-section cutouts (one per flavour) you can tap to switch the loop's colour grade. Sound off, seamless loop. Quiet and sensory.</p>
 </div>
@@ -375,10 +417,14 @@
 <div class="spec"><b>Attach:</b> None</div>
 <div class="prompt"><span class="label">Prompt</span>Studio macro photograph, 4:3 landscape, 1600 × 1200 px. A dome-shaped gummy cut cleanly in half with a knife, side view, showing the dense, slightly translucent [strawberry red / blueberry purple / amber / mango yellow / litchi pink] interior with a few tiny suspended air bubbles and a matte powdered outer edge, centred. 120mm macro, f/16, one softbox, soft contact shadow. Isolated on a flat, evenly lit plain light-grey (#d9d9d9) seamless background, no floor line, no gradient, no vignette, with clear separation between the subject edge and the background so it can be cut out cleanly into a transparent PNG. Sharp focus edge to edge, no motion blur, no depth-of-field blur on the outline. No plants.<button class="copy">Copy</button></div></div>
 
+
+</div>
+
 <!-- ===================== 07 TRUST ===================== -->
 <hr id="s7"/>
+<div class="unchanged">
 <div class="eyebrow">Section 07 · Science &amp; Quality</div>
-<h2>Formulated With Care</h2>
+<h2>Formulated With Care<span class="badge keep">No change</span></h2>
 <div class="concept">
   <p><b>Concept:</b> Split screen. Left: one large “lab meets spa” studio still life. Right: four numbered statements that count up on scroll — <i>01 Plant based · 02 No added sugar · 03 No artificial colours · 04 Third-party tested</i>. The four icons from your product sheet are redrawn as thin line SVGs (no generation needed).</p>
 </div>
@@ -394,29 +440,37 @@
 <div class="spec"><b>Attach:</b> None</div>
 <div class="prompt"><span class="label">Prompt</span>Studio close-up, 3:2 landscape, 2400 × 1600 px. Gloved hands in pale nitrile gloves hold a single matte amber gummy with fine stainless tweezers above a glass dish, against a plain warm-grey seamless background. Real wrinkles in the gloves, shallow depth of field. One soft overhead softbox. 100mm lens, f/4, medium format, muted true-to-life colour. No plants, no rays.<button class="copy">Copy</button></div></div>
 
-<!-- ===================== 08 CTA ===================== -->
+
+</div>
+
+<!-- ===================== 08 FINAL CTA ===================== -->
 <hr id="s8"/>
 <div class="eyebrow">Section 08 · Final CTA</div>
-<h2>The Lineup</h2>
+<h2>The Lineup<span class="badge new">New images</span></h2>
 <div class="concept">
-  <p><b>Concept:</b> The page closes on the whole family. A wide studio shot of all five tins on one long travertine ledge, each lit with a faint pool of its own colour — a quiet callback to the hero's five lights. A short slow turntable loop sits behind it on desktop. Headline: <i>“Small habits. A brighter you.”</i> + one CTA, “Explore the Ritual”.</p>
+  <p><b>Concept (unchanged):</b> The page closes on the whole family. A wide studio shot of the range on one long travertine ledge, each lit with a faint pool of its own colour, a callback to the hero's lights. Hovering a product lights it up; the small turntable frame on the right shows one product turning slowly. Headline: <i>"Small habits. A brighter you."</i></p>
+  <p><b>What changes:</b> four pouches instead of five tins and sachets. Keep the pouches <b>evenly spaced, at equal height and in this order</b> — Super Essentials, Skin &amp; Hair, Gut Health, Women's Daily Ritual — because the hover spotlights are aimed at each one. The turntable becomes a pouch turning on its base.</p>
+  <div class="meta"><span class="tag">1 wide image</span><span class="tag">1 video</span></div>
 </div>
-<p class="path">src/assets/adults/08-final-cta/{images,videos}/</p>
+<p class="path">src/assets/adults/08-final-cta/</p>
 
 <div class="asset"><div class="asset-head"><span class="fname">cta-lineup.jpg</span><span class="kind">image</span></div>
-<div class="spec">3840 × 1800 px · 32:15 wide (use 21:9 if your tool has no custom ratio) · top 40% clean. Also generate a 1200 × 1800 px (2:3) version for mobile.</div>
-<div class="spec"><b>Attach:</b> <span class="path">reference-crops/ref-lineup.png</span> (the one place the multi-product image is correct)</div>
-<div class="prompt"><span class="label">Prompt</span>Wide studio product photograph, 21:9 panoramic, 3840 × 1800 px. Closed studio, warm off-white plaster flat behind a long, rough-edged travertine ledge running across the lower third. The five tins from the reference image — Skin, Hair, Multivitamin, Sleep, Gut Health, in that order — stand in a loose, slightly uneven row on the ledge, each with its matching sachet lying at its foot. Each tin sits in a faint, soft pool of light tinted to its own colour (rose, sage, sand, lavender, teal) blending gently into the neutral plaster. Top 40% of the frame is empty plaster. 45mm lens, f/11, medium format, true-to-life colour, fine stone pores. Tins and sachets must match the reference exactly. No plants, no fruit, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
+<div class="replaces">Replaces cta-lineup (5 tins + 5 sachets)</div>
+<div class="spec">3840 × 1800 px · 32:15 wide (use 21:9 if your tool has no custom ratio) · top 40% clean.</div>
+<div class="spec"><b>Attach:</b> 4 images, in this order — <span class="path">ref-pouch-essentials.jpg</span>, <span class="path">ref-pouch-skin-hair.jpg</span>, <span class="path">ref-pouch-gut.jpg</span>, <span class="path">ref-pouch-womens.jpg</span>. If your tool takes fewer references, generate the scene with plain pouches and swap each label in afterwards.</div>
+<div class="prompt"><span class="label">Prompt</span>Wide studio product photograph, 21:9 panoramic, 3840 × 1800 px. Closed studio, warm off-white plaster flat behind a long, rough-edged travertine ledge running across the lower third. Four stand-up pouches stand upright on the ledge in one even row, evenly spaced, all the same height, fronts facing camera, in this exact order from left to right: the teal SUPER ESSENTIALS pouch from image 1, the SKIN &amp; HAIR pouch from image 2, the GUT HEALTH pouch from image 3, the WOMEN'S DAILY RITUAL pouch from image 4. Each pouch sits in a faint, soft pool of light tinted to its own colour (teal, butter yellow, lilac, rose) blending gently into the neutral plaster. A pair of matching matte gummies rests at the foot of each pouch. Top 40% of the frame is empty plaster. 45mm lens, f/11, medium format, true-to-life colour, fine stone pores. Each pouch must match its reference exactly. No tins, no sachets, no plants, no fruit, no window light, no rays, no haze.<button class="copy">Copy</button></div></div>
 
 <div class="asset"><div class="asset-head"><span class="fname">cta-turntable-loop.mp4</span><span class="kind video">video</span></div>
-<div class="spec">1920 × 1080 px · 16:9 · 24 fps · 10 s · seamless loop · no audio · desktop only.</div>
-<div class="spec"><b>Attach:</b> your finished <span class="path">tin-multivitamin-front.png</span> (or the product crop) as the start frame</div>
-<div class="prompt"><span class="label">Video prompt</span>16:9, 1920 × 1080, 10 seconds, 24 fps, no audio. Closed studio, warm-sand seamless background. The sand MULTIVITAMIN tin from the reference stands on a small round travertine turntable that rotates very slowly, exactly one half turn over 10 seconds, so the label turns away and the plain back of the tin comes round, then the loop restarts. Locked-off camera at tin height, 100mm lens. One large softbox from the left, the soft highlight sliding naturally across the curve of the tin. Label stays accurate. No plants, no rays, no haze, no lens flare.<button class="copy">Copy</button></div></div>
+<div class="replaces">Replaces turntable.mp4 and turntable-poster</div>
+<div class="spec">1080 × 1350 px · 4:5 portrait · 24 fps · 8 s · no audio. The page plays it forward and back, so it doesn't need to loop by itself.</div>
+<div class="spec"><b>Attach:</b> your finished <span class="path">pouch-essentials-front.png</span> as the start frame</div>
+<div class="prompt"><span class="label">Video prompt</span>4:5 portrait, 1080 × 1350, 8 seconds, 24 fps, no audio. Closed studio, deep teal-green seamless background. The teal SUPER ESSENTIALS stand-up pouch from the reference stands on a small round travertine turntable that rotates very slowly, about 40 degrees to the left over 8 seconds, so the front label turns gently away and the side gusset of the pouch comes into view. Locked-off camera at pouch height, 100mm lens. One large softbox from the left, the soft highlight sliding naturally across the matte film and its creases. The label stays accurate and readable at the start. No plants, no rays, no haze, no lens flare.<button class="copy">Copy</button></div></div>
 
 <!-- ===================== SHARED ===================== -->
 <hr id="s0"/>
+<div class="unchanged">
 <div class="eyebrow">Shared</div>
-<h2>Textures</h2>
+<h2>Textures<span class="badge keep">No change</span></h2>
 <p class="path">src/assets/adults/shared/</p>
 
 <div class="asset"><div class="asset-head"><span class="fname">grain-overlay.png</span><span class="kind png">png</span></div>
@@ -434,21 +488,24 @@
 <div class="spec"><b>Attach:</b> None</div>
 <div class="prompt"><span class="label">Prompt</span>Seamless tileable flat photograph, 1:1 square, 3000 × 3000 px. Natural undyed oatmeal linen fabric, visible slub weave, very subtle creases, perfectly even studio lighting, no shadows, no objects.<button class="copy">Copy</button></div></div>
 
+
+</div>
+
 <hr/>
 <h2>Checklist</h2>
 <div class="concept">
 <ul>
-  <li><b>01 Hero:</b> 5 plates + 5 tin cutouts</li>
-  <li><b>02 Edit:</b> 5 rooms, 5 sachets, 5 gummy pairs</li>
-  <li><b>03 Needs:</b> 5 photos</li>
-  <li><b>04 Ingredients:</b> 9 scenes + 9 icons</li>
-  <li><b>05 Day:</b> 3 vignettes</li>
-  <li><b>06 Texture:</b> 1 start frame, 1 video, 5 cross-sections</li>
-  <li><b>07 Trust:</b> 1–2 photos</li>
-  <li><b>08 CTA:</b> 1 wide + 1 mobile lineup, 1 turntable video</li>
-  <li><b>Shared:</b> grain, plaster, linen</li>
+  <li><b>01 Hero:</b> 4 plates + 4 pouch cutouts <span class="badge new">New</span></li>
+  <li><b>02 Edit:</b> 4 rooms <span class="badge new">New</span> · gummy pairs kept</li>
+  <li><b>03 Needs:</b> no change</li>
+  <li><b>04 Ingredients:</b> no change</li>
+  <li><b>05 Day:</b> 3 vignettes <span class="badge new">New</span></li>
+  <li><b>06 Texture:</b> no change</li>
+  <li><b>07 Trust:</b> no change</li>
+  <li><b>08 CTA:</b> 1 wide lineup + 1 turntable video <span class="badge new">New</span></li>
 </ul>
-<p><b>Total:</b> about 64 images + 2 videos. Order: hero plate 01 → plates 02–05 → tins → lineup → the rest.</p>
+<p><b>Total:</b> 16 images + 1 video. Order: hero plate 01 → plates 02–04 → pouch cutouts → rooms → day → lineup → video.</p>
+<p><b>Then:</b> drop everything into <span class="path">Organize-adult-section/packaging-v2/</span> with the names above and ask Claude to organise it.</p>
 </div>
 
 </div>

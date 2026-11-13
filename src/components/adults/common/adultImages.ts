@@ -40,19 +40,20 @@ function get(name: string) {
 }
 
 const plateFile: Record<AdultProductId, string> = {
-  multivitamin: "hero-plate-01-multivitamin",
-  skin: "hero-plate-02-skin",
-  hair: "hero-plate-03-hair",
-  gut: "hero-plate-04-gut",
-  sleep: "hero-plate-05-sleep",
+  essentials: "hero-plate-01-essentials",
+  "skin-hair": "hero-plate-02-skin-hair",
+  gut: "hero-plate-03-gut",
+  womens: "hero-plate-04-womens",
 };
 
 export const adultImages = {
   plate: (id: AdultProductId) => get(plateFile[id]),
   plateDepth: (id: AdultProductId) => get(`${plateFile[id]}-depth`),
-  tin: (id: AdultProductId) => get(`tin-${id}-front`),
+  pouch: (id: AdultProductId) => get(`pouch-${id}-front`),
+  pouchDepth: (id: AdultProductId) => get(`pouch-${id}-front-depth`),
   room: (id: AdultProductId) => get(`room-${id}`),
   sachet: (id: AdultProductId) => get(`sachet-${id}`),
+  roomDepth: (id: AdultProductId) => get(`room-${id}-depth`),
   gummies: (id: AdultProductId) => get(`gummy-pair-${id}`),
   need: (id: NeedImage) => get(`need-${id}`),
   ingredient: (id: IngredientKey) => get(`ingredient-${id}`),
@@ -60,9 +61,11 @@ export const adultImages = {
   ingredientIcon: (id: IngredientKey) => get(`icon-${id}`),
   paper: () => get("archive-paper"),
   day: (id: DayImage) => get(`day-${id}`),
+  dayDepth: (id: DayImage) => get(`day-${id}-depth`),
   trustLab: () => get("trust-lab-still-life"),
   trustHands: () => get("trust-hands-detail"),
   lineup: () => get("cta-lineup"),
+  lineupDepth: () => get("cta-lineup-depth"),
   turntableVideo: () => videoUrl("turntable"),
   turntablePoster: () => get("turntable-poster"),
   textureStart: () => get("texture-start-frame"),

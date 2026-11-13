@@ -14,9 +14,9 @@ import styles from "./TheLineup.module.css";
 const { spots, bundle } = adultFinalCtaContent;
 const LINEUP_URLS = [adultImages.lineup()];
 
-/** A broad, gently tapered beam over a tin: ~10% wide at the top, ~22% at the base. */
-const beamPoints = (x: number) => `${x - 5},0 ${x + 5},0 ${x + 11},100 ${x - 11},100`;
-const LINEUP_ALTS = ["Skin, Hair, Multivitamin, Sleep and Gut Health tins with their sachets on a travertine ledge"];
+/** A broad, gently tapered beam over a pouch: ~16% wide at the top, ~24% at the base. */
+const beamPoints = (x: number) => `${x - 8},0 ${x + 8},0 ${x + 12},100 ${x - 12},100`;
+const LINEUP_ALTS = ["Super Essentials, Skin & Hair, Gut Health and Women's Daily Ritual pouches on a travertine ledge"];
 
 /**
  * 08 · The lineup — final CTA.
@@ -42,7 +42,7 @@ export function TheLineup() {
         scrollTrigger: { trigger: section, start: "top 65%" },
         defaults: { ease: "power3.out" },
       });
-      tl.from(q("[data-line]"), { yPercent: 105, duration: 1.3, stagger: 0.1 })
+      tl.from(q("[data-line]"), { yPercent: 130, duration: 1.3, stagger: 0.1 })
         .from(q("[data-fade]"), { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.08 }, "-=0.9")
         .fromTo(
           q("[data-turntable]"),

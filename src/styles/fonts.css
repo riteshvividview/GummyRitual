@@ -5,3 +5,12 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Adults display face: TeX Gyre Adventor (regular). */
+@font-face {
+  font-family: "TeX Gyre Adventor";
+  src: url("../assets/fonts/tex-gyre-adventor.regular.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

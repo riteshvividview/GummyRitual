@@ -4,8 +4,8 @@ import { adultImages } from "../common/adultImages";
 import styles from "./TheLineup.module.css";
 
 /**
- * A slow turntable portrait of the Multivitamin tin beside the closing
- * headline. The source clip is cropped to the tin and encoded as a
+ * A slow turntable portrait of the Super Essentials pouch beside the closing
+ * headline. The source clip is cropped to the pouch and encoded as a
  * ping-pong loop (forward + reversed) so it turns away and back with no
  * jump-cut — see scripts/optimize-adult-assets.mjs. It only plays while
  * on screen, and reduced motion gets the still poster frame.
@@ -36,7 +36,7 @@ export function TurntableFrame({ caption }: { caption: string }) {
     <figure className={styles.turntable}>
       <div className={styles.turntableFrame} data-turntable>
         {reduced ? (
-          <img src={adultImages.turntablePoster()} alt="Multivitamin tin on a stone turntable" className={styles.turntableMedia} />
+          <img src={adultImages.turntablePoster()} alt="Super Essentials pouch on a stone turntable" className={styles.turntableMedia} />
         ) : (
           <video
             ref={videoRef}
@@ -47,11 +47,9 @@ export function TurntableFrame({ caption }: { caption: string }) {
             loop
             playsInline
             preload="none"
-            aria-label="Multivitamin tin turning slowly on a stone turntable"
+            aria-label="Super Essentials pouch turning slowly on a stone turntable"
           />
         )}
-        {/* Warm corner light — also hides a studio softbox at the clip's edge. */}
-        <span className={styles.turntableVeil} aria-hidden />
       </div>
       <figcaption className={styles.turntableCaption}>{caption}</figcaption>
     </figure>

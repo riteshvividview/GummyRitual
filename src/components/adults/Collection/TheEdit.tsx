@@ -11,7 +11,7 @@ import styles from "./TheEdit.module.css";
 
 /**
  * 02 · The Edit.
- * A magazine-style shelf of five colour rooms. Desktop pins the section
+ * A magazine-style shelf of four colour rooms. Desktop pins the section
  * and scrubs the shelf sideways while the page washes into the colour of
  * the room in focus; mobile is a native scroll-snap row. Any room opens
  * the product drawer.
@@ -47,7 +47,7 @@ export function TheEdit() {
 
       if (!scrollDriven) return;
 
-      const distance = () => track.scrollWidth - window.innerWidth;
+      const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel-img]", track);
 
       const tl = gsap.timeline({
@@ -121,6 +121,7 @@ export function TheEdit() {
                   type="button"
                   className={`${styles.panel} ${scrollDriven && i === active ? styles.panelActive : ""}`}
                   style={{ ["--tint" as string]: p.tint, ["--deep" as string]: p.tintDeep }}
+                  data-product={id}
                   onClick={() => setOpenId(id)}
                   aria-label={`${p.name} — ${adultCollectionContent.viewLabel}`}
                 >

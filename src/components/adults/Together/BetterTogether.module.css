@@ -5,7 +5,8 @@
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  background: #ece6dd; /* continues 05's stone, so the window opens out of it */
+  isolation: isolate;
+  background: #f4ebe1; /* warm cream, continues 05's stone, so the window opens out of it */
   color: var(--adults-ink);
   font-family: var(--font-body-adults);
 }
@@ -37,7 +38,9 @@
   pointer-events: none;
 }
 
-/* Two halves of the headline, either side of the small window. */
+/* Two halves of the headline, either side of the small window. White +
+   difference: dark on the cream, inverted where it crosses the film
+   (the "not" of "not prescribed"). */
 .headline {
   position: absolute;
   inset: 0;
@@ -45,21 +48,67 @@
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  padding: 0 1.6vw 0 3.4vw;
   font-family: var(--font-display-adults);
   font-weight: 400;
-  font-size: clamp(2.6rem, 6.4vw, 7rem);
-  letter-spacing: -0.03em;
+  font-size: 6.6vw;
+  letter-spacing: -0.035em;
   line-height: 1;
+  color: #fff;
   pointer-events: none;
 }
 
 .headline span {
   display: block;
+  mix-blend-mode: difference;
+}
+
+/* Floating gummies + sugar ----------------------------------------- */
+
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.gummy,
+.dust {
+  position: absolute;
+  translate: -50% -50%;
+  will-change: transform;
+}
+
+.gummy img,
+.dust img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.gummy img {
+  filter: drop-shadow(0 1.6vw 1.4vw rgba(110, 50, 20, 0.22));
+}
+
+.dust {
+  opacity: 0.9;
+  mask-image: radial-gradient(closest-side, #000 35%, transparent 100%);
+}
+
+.floorShadow {
+  position: absolute;
+  width: 42%;
+  height: 5%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(90, 50, 30, 0.22), transparent);
+  filter: blur(10px);
 }
 
 .after {
   position: absolute;
+  z-index: 3;
   left: clamp(1.5rem, 5vw, 5rem);
   bottom: clamp(2.5rem, 9vh, 5.5rem);
   max-width: 34rem;
@@ -102,13 +151,15 @@
     object-position: 38% 30%;
   }
 
-  .headline {
+  .headline,
+  .decor {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .headline {
+  .headline,
+  .decor {
     display: none;
   }
 }

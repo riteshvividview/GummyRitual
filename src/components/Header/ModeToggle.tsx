@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Leaf, PawPrint } from "lucide-react";
+import { navigate } from "../../lib/router";
 import { useExperience, type ExperienceMode } from "../../state/ExperienceContext";
 import styles from "./ModeToggle.module.css";
 
@@ -27,7 +28,7 @@ export function ModeToggle() {
   }, [mode]);
 
   return (
-    <div className={styles.toggle} role="radiogroup" aria-label="Experience">
+    <div className={`${styles.toggle} ${mode === "adults" ? styles.adults : ""}`} role="radiogroup" aria-label="Experience">
       <span ref={indicatorRef} className={styles.indicator} aria-hidden="true" />
       {options.map(({ mode: optionMode, label, icon: Icon }) => (
         <button
@@ -39,7 +40,10 @@ export function ModeToggle() {
           role="radio"
           aria-checked={mode === optionMode}
           className={`${styles.option} ${mode === optionMode ? styles.optionActive : ""}`}
-          onClick={() => setMode(optionMode)}
+          onClick={() => {
+            setMode(optionMode);
+            if (location.pathname !== "/") navigate("/");
+          }}
         >
           <Icon size={14} strokeWidth={2.25} />
           <span className={styles.optionLabel}>{label}</span>

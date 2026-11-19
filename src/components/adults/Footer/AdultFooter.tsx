@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../../animations/gsap";
 import { useReducedMotion } from "../../../hooks/useReducedMotion";
@@ -20,6 +20,7 @@ import styles from "./AdultFooter.module.css";
  * stacks on the wall colour and the plain photo sits beneath it.
  */
 export function AdultFooter() {
+  const [joined, setJoined] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const isMobile = useIsMobile();
@@ -119,21 +120,30 @@ export function AdultFooter() {
         </div>
 
         {/* Top-right band, above the pouches. */}
-        <form className={styles.newsletter} onSubmit={(e) => e.preventDefault()} data-reveal>
+        <form className={styles.newsletter} onSubmit={(e) => {
+            e.preventDefault();
+            setJoined(true);
+          }} data-reveal>
             <p className={styles.newsHeading}>{content.newsletter.heading}</p>
             <p className={styles.newsText}>{content.newsletter.description}</p>
-            <div className={styles.field}>
-              <input
-                type="email"
-                required
-                placeholder={content.newsletter.placeholder}
-                aria-label={content.newsletter.placeholder}
-                className={styles.input}
-              />
-              <button type="submit" className={styles.submit} aria-label="Subscribe">
-                <i className="fa-solid fa-arrow-right" aria-hidden="true" />
-              </button>
-            </div>
+            {joined ? (
+              <p className={styles.newsText} role="status">
+                <strong>Thank you.</strong> The first letter is on its way.
+              </p>
+            ) : (
+              <div className={styles.field}>
+                <input
+                  type="email"
+                  required
+                  placeholder={content.newsletter.placeholder}
+                  aria-label={content.newsletter.placeholder}
+                  className={styles.input}
+                />
+                <button type="submit" className={styles.submit} aria-label="Subscribe">
+                  <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+                </button>
+              </div>
+            )}
         </form>
 
         <ul className={styles.standards} data-reveal data-depth="0.8">

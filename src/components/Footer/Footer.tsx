@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animations/gsap/gsapConfig";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
@@ -15,6 +15,7 @@ import styles from "./Footer.module.css";
  * stays aligned at any viewport width.
  */
 export function Footer() {
+  const [joined, setJoined] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
@@ -38,8 +39,10 @@ export function Footer() {
   );
 
   function handleNewsletterSubmit(event: React.FormEvent<HTMLFormElement>) {
-    // Not wired to a real email service yet — just stop the page reload.
+    // Not wired to an email service yet (Shopify customer marketing later) —
+    // confirm in place instead of reloading the page.
     event.preventDefault();
+    setJoined(true);
   }
 
   return (
@@ -99,18 +102,24 @@ export function Footer() {
           >
             <p className={styles.newsletterHeading}>{footerContent.newsletter.heading}</p>
             <p className={styles.newsletterDescription}>{footerContent.newsletter.description}</p>
-            <div className={styles.newsletterField}>
-              <input
-                type="email"
-                required
-                placeholder={footerContent.newsletter.placeholder}
-                className={styles.newsletterInput}
-                aria-label={footerContent.newsletter.placeholder}
-              />
-              <button type="submit" className={styles.newsletterSubmit} aria-label="Subscribe">
-                <i className="fa-solid fa-arrow-right" aria-hidden="true" />
-              </button>
-            </div>
+            {joined ? (
+              <p className={styles.newsletterDescription} role="status">
+                <strong>You’re on the list.</strong> Welcome to the ritual — watch your inbox.
+              </p>
+            ) : (
+              <div className={styles.newsletterField}>
+                <input
+                  type="email"
+                  required
+                  placeholder={footerContent.newsletter.placeholder}
+                  className={styles.newsletterInput}
+                  aria-label={footerContent.newsletter.placeholder}
+                />
+                <button type="submit" className={styles.newsletterSubmit} aria-label="Subscribe">
+                  <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+                </button>
+              </div>
+            )}
           </form>
         </div>
 

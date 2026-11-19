@@ -1,3 +1,5 @@
+import { benefitAnchor } from "../../data/benefitsContent";
+import { useRoute } from "../../lib/router";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, LayoutGrid } from "lucide-react";
@@ -48,11 +50,14 @@ export function ShopMegaMenu({ onNavigate }: MenuProps) {
   const { shopMenu } = headerContent;
   const featuredProduct = products.find((product) => product.id === shopMenu.featuredProductId);
   const featuredImage = getProductImage(featuredProduct?.image);
+  // Highlight follows the page you're on — nothing is highlighted elsewhere.
+  const route = useRoute();
+  const activeId = route.name === "product" ? route.id : route.name === "shop" ? "all" : null;
 
   return (
     <div className={styles.shopPanel} ref={panelRef}>
       <ul className={styles.categoryList}>
-        {shopMenu.categories.map((category, index) => {
+        {shopMenu.categories.map((category) => {
           const product = products.find((item) => item.id === category.productId);
           const Icon = headerIconMap[category.icon];
           if (!product) return null;
@@ -61,8 +66,9 @@ export function ShopMegaMenu({ onNavigate }: MenuProps) {
               <a
                 href={`/shop/${product.id}`}
                 className={`${styles.categoryLink} ${styles.revealItem} ${
-                  index === 0 ? styles.categoryLinkFeatured : ""
+                  activeId === product.id ? styles.categoryLinkFeatured : ""
                 }`}
+                aria-current={activeId === product.id ? "page" : undefined}
                 onClick={onNavigate}
               >
                 <span className={`${styles.categoryIcon} ${styles[`tint${capitalize(product.tint ?? "orange")}`]}`}>
@@ -80,7 +86,10 @@ export function ShopMegaMenu({ onNavigate }: MenuProps) {
         <li>
           <a
             href="/shop"
-            className={`${styles.categoryLink} ${styles.revealItem}`}
+            className={`${styles.categoryLink} ${styles.revealItem} ${
+              activeId === "all" ? styles.categoryLinkFeatured : ""
+            }`}
+            aria-current={activeId === "all" ? "page" : undefined}
             onClick={onNavigate}
           >
             <span className={`${styles.categoryIcon} ${styles.tintNeutral}`}>
@@ -103,7 +112,7 @@ export function ShopMegaMenu({ onNavigate }: MenuProps) {
             return (
               <li key={benefit.label}>
                 <a
-                  href={`/shop?benefit=${encodeURIComponent(benefit.label)}`}
+                  href={`/benefits#${benefitAnchor(benefit.label)}`}
                   className={`${styles.benefitLink} ${styles.revealItem}`}
                   onClick={onNavigate}
                 >

@@ -1,3 +1,4 @@
+import { useCart } from "../../../state/CartContext";
 import { useEffect, useRef, useState } from "react";
 import { adultCollectionContent } from "../../../data/adults/adultSectionsContent";
 import { adultProducts, type AdultProductId } from "../../../data/adults/adultProducts";
@@ -16,6 +17,7 @@ interface ProductDrawerProps {
  */
 export function ProductDrawer({ productId, onClose }: ProductDrawerProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { add } = useCart();
   const stillRef = useRef<HTMLDivElement>(null);
   const open = productId !== null;
   // Keep showing the last product while the drawer slides closed.
@@ -112,7 +114,11 @@ export function ProductDrawer({ productId, onClose }: ProductDrawerProps) {
 
           <div className={styles.buy}>
             <span className={styles.buyPrice}>{product.price}</span>
-            <button type="button" className={styles.buyButton}>
+            <button
+              type="button"
+              className={styles.buyButton}
+              onClick={() => add({ productId: product.id, packSize: 1, subscribe: false, quantity: 1 })}
+            >
               {adultCollectionContent.addLabel}
             </button>
           </div>

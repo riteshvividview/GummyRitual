@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { gsap } from "../../animations/gsap/gsapConfig";
@@ -11,12 +11,15 @@ import logo from "../../assets/gummyrituallogo.png";
 import { ModeToggle } from "./ModeToggle";
 import { ShopMegaMenu, IngredientsMenu } from "./DropdownPanels";
 import { MobileMenu } from "./MobileMenu";
+import { SearchPanel } from "./SearchPanel";
+import { useCart } from "../../state/CartContext";
 import styles from "./Header.module.css";
 
 type DropdownKey = "shop" | "ingredients";
 
 export function Header() {
   const hidden = useHideOnScroll();
+  const { count: bagCount } = useCart();
   const scrolled = useScrolled();
   const prefersReducedMotion = useReducedMotion();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,8 @@ export function Header() {
 
   const [openMenu, setOpenMenu] = useState<DropdownKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   // One-time floating entrance on mount — the bar drops into place rather
   // than simply appearing, reinforcing that it's a floating element rather
@@ -182,6 +187,7 @@ export function Header() {
                 type="button"
                 className={`${styles.iconButton} ${styles.searchButton}`}
                 aria-label="Search"
+                onClick={() => setSearchOpen(true)}
               >
                 <Search size={18} strokeWidth={2} />
               </button>
@@ -192,10 +198,10 @@ export function Header() {
               >
                 <User size={18} strokeWidth={2} />
               </button>
-              <button type="button" className={styles.iconButton} aria-label="Shopping bag">
+              <a href="/cart" className={styles.iconButton} aria-label={`Shopping bag, ${bagCount} items`}>
                 <ShoppingBag size={18} strokeWidth={2} />
-                <span className={styles.cartCount}>0</span>
-              </button>
+                <span className={styles.cartCount}>{bagCount}</span>
+              </a>
             </div>
             <a href="/shop" className={styles.ctaButton}>
               Shop Gummies
@@ -206,6 +212,7 @@ export function Header() {
       </div>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <SearchPanel open={searchOpen} onClose={closeSearch} />
     </>
   );
 }

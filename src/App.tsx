@@ -16,6 +16,13 @@ import { DailyRoutine } from "./components/DailyRoutine/DailyRoutine";
 import { TasteTexture } from "./components/TasteTexture/TasteTexture";
 import { Footer } from "./components/Footer/Footer";
 import { AdultFooter } from "./components/adults/Footer/AdultFooter";
+import { ProductsPage } from "./components/shop/ProductsPage";
+import { ProductPage } from "./components/shop/ProductPage";
+import { BagToast } from "./components/shop/BagToast";
+import { CartPage } from "./components/shop/CartPage";
+import { BenefitsPage } from "./components/shop/BenefitsPage";
+import { RouterProvider, useRoute } from "./lib/router";
+import { CartProvider } from "./state/CartContext";
 
 /** Each experience has its own footer (different copy, links and imagery). */
 function SiteFooter() {
@@ -42,10 +49,33 @@ function HomeHero() {
   );
 }
 
+/** Page for the current route — the homepage is the only one that needs
+ * the cinematic preload; shop pages render straight away. */
+function Page() {
+  const route = useRoute();
+  if (route.name === "shop") return <ProductsPage filter={route.filter} />;
+  if (route.name === "product") return <ProductPage id={route.id} />;
+  if (route.name === "cart") return <CartPage />;
+  if (route.name === "benefits") return <BenefitsPage />;
+  return <HomeHero />;
+}
+
 function App() {
+  return (
+    <RouterProvider>
+      <CartProvider>
+        <Shell />
+      </CartProvider>
+    </RouterProvider>
+  );
+}
+
+function Shell() {
+  const route = useRoute();
   // Read once, before first paint — not in an effect — so a loader that
   // already ran this tab session never flashes on screen before hiding.
-  const [showLoader] = useState(() => !hasLoaderRunThisSession());
+  // Shop pages skip it: their assets are light and load on demand.
+  const [showLoader] = useState(() => route.name === "home" && !hasLoaderRunThisSession());
   const { progress, isComplete } = useAppPreloader({ skip: !showLoader });
   const [siteRevealed, setSiteRevealed] = useState(() => !showLoader);
 
@@ -67,9 +97,10 @@ function App() {
       <SmoothScrollProvider enabled={siteRevealed}>
         <Header />
         <main>
-          <HomeHero />
+          <Page />
         </main>
         <SiteFooter />
+        <BagToast />
       </SmoothScrollProvider>
       {showLoader && !siteRevealed && (
         <Loader

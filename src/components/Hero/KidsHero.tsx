@@ -11,6 +11,7 @@ import {
 import { useHeroFrameSequence } from "../../animations/heroScroll";
 import { gsap } from "../../animations/gsap/gsapConfig";
 import { useMagneticButton } from "../../animations/cursor/useMagneticButton";
+import { useCart } from "../../state/CartContext";
 import { useIsMobile, useMediaQuery } from "../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { getLenis } from "../../hooks/useLenis";
@@ -198,6 +199,9 @@ export function KidsHero() {
   }
 
   const productTitle = kidsHero.productTitles[activeSequence];
+  // Pink world = Calcium; everything else shows the Multivitamin.
+  const heroProductId = activeSequence === "pink" ? "kids-calcium" : "kids-multivitamin";
+  const { add: addToBag } = useCart();
 
   return (
     <section ref={sectionRef} className={styles.section}>
@@ -228,11 +232,16 @@ export function KidsHero() {
                 {productTitle}
               </p>
               <div className={styles.productCtaRow} ref={productCtaRowRef}>
-                <button type="button" className={styles.ctaPrimary} ref={addToCartRef}>
+                <button
+                  type="button"
+                  className={styles.ctaPrimary}
+                  ref={addToCartRef}
+                  onClick={() => addToBag({ productId: heroProductId, packSize: 1, subscribe: false, quantity: 1 })}
+                >
                   <ShoppingBag size={16} strokeWidth={2.25} />
                   {kidsHero.productCta.addToCart}
                 </button>
-                <a className={styles.ctaSecondary} href="/our-gummies" ref={viewProductRef}>
+                <a className={styles.ctaSecondary} href={`/shop/${heroProductId}`} ref={viewProductRef}>
                   {kidsHero.productCta.viewProduct}
                   <span className={styles.ctaIcon}>
                     <ArrowRight size={16} strokeWidth={2.5} />

@@ -1,3 +1,4 @@
+import { benefitAnchor } from "../../data/benefitsContent";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, Bone, Brain, Heart, ShieldPlus, TrendingUp, Zap, type LucideIcon } from "lucide-react";
@@ -49,7 +50,7 @@ export function WhyGummyRituals() {
   // zigzag offset, both of which also animate x/y; stacking a third x/y
   // tween on the exact same element would fight with those instead of
   // compositing cleanly like nested transforms do.
-  const ctaRef = useCursorParallax<HTMLButtonElement>(sectionRef, { strength: 0.025, maxOffset: 10 });
+  const ctaRef = useCursorParallax<HTMLAnchorElement>(sectionRef, { strength: 0.025, maxOffset: 10 });
   useCursorParallaxGroup(sectionRef, `.${styles.pillItem}`, { strength: 0.02, maxOffset: 12 });
 
   useGSAP(
@@ -121,8 +122,8 @@ export function WhyGummyRituals() {
           </h2>
           <p className={`${styles.description} ${styles.revealUp}`}>{whyGummyRituals.description}</p>
 
-          <button
-            type="button"
+          <a
+            href="/benefits"
             ref={ctaRef}
             className={`${styles.ctaButton} ${styles.revealUp}`}
           >
@@ -130,7 +131,7 @@ export function WhyGummyRituals() {
             <span className={styles.ctaIcon}>
               <ArrowRight size={16} strokeWidth={2.5} />
             </span>
-          </button>
+          </a>
         </div>
 
         <ul className={styles.pillList}>
@@ -138,7 +139,8 @@ export function WhyGummyRituals() {
             const Icon = iconMap[benefit.icon];
             return (
               <li key={benefit.label} className={styles.pillItem}>
-                <div
+                <a
+                  href={`/benefits#${benefitAnchor(benefit.label)}`}
                   className={`${styles.pill} ${styles[`pillOffset${index % 2}`]} ${
                     styles[`tint${capitalize(benefit.tint)}`]
                   }`}
@@ -153,7 +155,7 @@ export function WhyGummyRituals() {
                   <span className={styles.pillArrow} aria-hidden="true">
                     <ArrowRight size={14} strokeWidth={2.5} />
                   </span>
-                </div>
+                </a>
               </li>
             );
           })}

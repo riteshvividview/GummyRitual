@@ -47,8 +47,6 @@ export const headerContent = {
     categories: [
       { productId: "kids-multivitamin", subtitle: "Everyday nutrition", icon: "shield" },
       { productId: "kids-calcium", subtitle: "Strong bones & teeth", icon: "bone" },
-      { productId: "kids-focus", subtitle: "Learning & concentration", icon: "brain" },
-      { productId: "kids-iron", subtitle: "Energy & immunity", icon: "droplet" },
     ] satisfies ShopCategory[],
     allProductsLabel: "All Products",
     allProductsSubtitle: "Explore the full range",
@@ -57,7 +55,6 @@ export const headerContent = {
       { label: "Immunity", icon: "shield" },
       { label: "Growth", icon: "trendingUp" },
       { label: "Energy", icon: "zap" },
-      { label: "Focus", icon: "brain" },
       { label: "Bone Health", icon: "bone" },
       { label: "Overall Health", icon: "heart" },
     ] satisfies ShopBenefit[],

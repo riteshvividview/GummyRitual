@@ -165,10 +165,10 @@ export function TasteTexture() {
                     {isActive ? (
                       <>
                         <p className={styles.cardDescription}>{card.description}</p>
-                        <span className={styles.cardCta}>
+                        <a href="/shop?range=kids" className={styles.cardCta}>
                           {card.ctaLabel}
                           <ArrowRight size={16} strokeWidth={2.5} />
-                        </span>
+                        </a>
                       </>
                     ) : (
                       <span className={styles.cardExpandMark} aria-hidden="true">

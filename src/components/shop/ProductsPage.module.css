@@ -1,0 +1,724 @@
+/* /shop — The Collection ------------------------------------------- */
+
+.page {
+  background: #fbf7f1;
+  color: var(--kids-ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+/* Intro ------------------------------------------------------------- */
+
+.intro {
+  position: relative;
+  padding: clamp(8.5rem, 16vh, 11rem) clamp(1rem, 5vw, 5rem) clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+  background:
+    radial-gradient(60% 70% at 18% 100%, #fde3d2 0%, transparent 70%),
+    radial-gradient(55% 70% at 85% 100%, #e9e3d8 0%, transparent 70%),
+    #fbf7f1;
+}
+
+.eyebrow {
+  margin: 0 0 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--kids-ink-muted);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--adults-ink);
+}
+
+.title em {
+  font-style: normal;
+  color: var(--kids-accent-orange);
+  font-family: var(--font-display-kids);
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--kids-ink-muted);
+}
+
+/* Doors: two entry tiles that are also the filter. */
+.doors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  max-width: 76rem;
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+}
+
+.doorWrap {
+  display: flex;
+}
+
+.door {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: clamp(15rem, 30vw, 24rem);
+  padding: clamp(1.1rem, 2vw, 1.75rem);
+  border: 0;
+  border-radius: 2rem;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    opacity 0.6s var(--ease-default),
+    filter 0.6s var(--ease-default),
+    box-shadow 0.6s var(--ease-default);
+  box-shadow: 0 30px 60px -30px rgba(60, 30, 10, 0.25);
+}
+
+.doorKids {
+  background:
+    radial-gradient(70% 80% at 30% 20%, #ffe2c7 0%, transparent 60%),
+    radial-gradient(70% 80% at 80% 30%, #ffd4e0 0%, transparent 60%),
+    #fff1e6;
+  color: var(--kids-ink);
+}
+
+.doorAdults {
+  background: linear-gradient(160deg, #efe8dd 0%, #e2d8c8 100%);
+  color: var(--adults-ink);
+}
+
+.doorDim {
+  opacity: 0.55;
+  filter: saturate(0.6);
+}
+
+.doorOn {
+  box-shadow:
+    0 0 0 2px currentColor,
+    0 30px 60px -30px rgba(60, 30, 10, 0.3);
+}
+
+.doorPacks {
+  position: absolute;
+  inset: 8% 6% 30%;
+  z-index: -1;
+}
+
+/* Packs fan out across the door; --i / --n set per image. */
+.doorPack {
+  position: absolute;
+  left: calc(50% + (var(--i) - (var(--n) - 1) / 2) * 23%);
+  top: 50%;
+  height: 112%;
+  width: auto;
+  translate: -50% -50%;
+  rotate: calc((var(--i) - (var(--n) - 1) / 2) * 7deg);
+  filter: drop-shadow(0 18px 22px rgba(60, 30, 10, 0.22));
+  transition: rotate 0.8s var(--ease-default), translate 0.8s var(--ease-default);
+}
+
+.doorKids .doorPack {
+  height: 128%;
+  left: calc(50% + (var(--i) - (var(--n) - 1) / 2) * 30%);
+}
+
+.door:hover .doorPack,
+.door:focus-visible .doorPack {
+  rotate: calc((var(--i) - (var(--n) - 1) / 2) * 10deg);
+  translate: -50% -54%;
+}
+
+.doorText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.doorLabel {
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  line-height: 1;
+}
+
+.doorKids .doorLabel {
+  font-family: var(--font-display-kids);
+}
+
+.doorAdults .doorLabel {
+  font-family: var(--font-display-adults);
+  letter-spacing: -0.02em;
+}
+
+.doorCount {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.doorArrow {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  transition: transform 0.5s var(--ease-default);
+}
+
+.door:hover .doorArrow {
+  transform: translateX(4px);
+}
+
+/* Filter */
+.filterBar {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 10px 30px -18px rgba(60, 30, 10, 0.35);
+}
+
+.filterBtn {
+  padding: 0.6rem 1.3rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font: 500 0.88rem var(--font-body);
+  color: var(--kids-ink-muted);
+  cursor: pointer;
+  transition: background 0.4s var(--ease-default), color 0.4s var(--ease-default);
+}
+
+.filterOn {
+  background: var(--kids-ink);
+  color: #fff;
+}
+
+/* Kids world --------------------------------------------------------- */
+
+.kidsWorld {
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 5vw, 5rem);
+  background: linear-gradient(#fbf7f1, #fff6ee 30%, #fff6ee);
+}
+
+.kidsHead {
+  max-width: 76rem;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 1rem 2rem;
+}
+
+.kidsEyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--kids-accent-orange-dark);
+}
+
+.kidsTitle {
+  margin: 0;
+  font-family: var(--font-display-kids);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1;
+}
+
+.kidsTitle span {
+  color: var(--kids-accent-orange);
+}
+
+.kidsPromises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kidsPromises li {
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--kids-ink-muted);
+  box-shadow: 0 6px 18px -12px rgba(60, 30, 10, 0.4);
+}
+
+.kidsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.kidsCard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2.25rem;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -50px rgba(90, 40, 10, 0.45);
+}
+
+.kidsStage {
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 4;
+  background:
+    radial-gradient(80% 70% at 50% 40%, #fff 0%, transparent 70%),
+    var(--wash);
+  overflow: hidden;
+}
+
+.kidsBlob {
+  position: absolute;
+  /* Centred without translate — GSAP owns this layer's transform. */
+  left: 19%;
+  top: 52%;
+  width: 62%;
+  margin-top: -31%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--tint) 35%, #fff), color-mix(in srgb, var(--tint) 18%, var(--wash)) 70%);
+  filter: blur(2px);
+}
+
+.kidsPack {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 92%;
+  width: auto;
+  max-width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 30px rgba(90, 40, 10, 0.22));
+  transition: scale 0.9s var(--ease-default);
+}
+
+.kidsStage:hover .kidsPack {
+  scale: 1.04;
+}
+
+.kidsChips {
+  position: absolute;
+  left: 1.1rem;
+  top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.kidsChip {
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--deep);
+}
+
+.kidsSave {
+  position: absolute;
+  right: 1.1rem;
+  top: 1.1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: var(--tint);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.kidsInfo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2.2vw, 1.9rem);
+}
+
+.kidsName {
+  margin: 0;
+  font-family: var(--font-display-kids);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.05;
+}
+
+.kidsName a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.kidsMeta {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  color: var(--kids-ink-muted);
+}
+
+.kidsDesc {
+  margin: 0.75rem 0 0;
+  max-width: 26rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--kids-ink-muted);
+}
+
+.kidsBuy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.kidsPrice {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.kidsPrice s {
+  margin-left: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--kids-ink-muted);
+}
+
+.kidsAdd {
+  padding: 0.85rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--deep);
+  color: #fff;
+  font: 600 0.88rem var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.4s var(--ease-default), background 0.4s;
+}
+
+.kidsAdd:hover {
+  transform: translateY(-2px);
+  background: var(--tint);
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #e9a23b;
+  font-weight: 600;
+}
+
+.ratingCount {
+  color: var(--kids-ink-muted);
+  font-weight: 400;
+}
+
+/* Adults world ------------------------------------------------------- */
+
+.adultsWorld {
+  padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem);
+  background: var(--adults-paper);
+  color: var(--adults-ink);
+  font-family: var(--font-body-adults);
+}
+
+.adultsHead {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem 3rem;
+  max-width: 82rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4.5rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--adults-line);
+}
+
+.adultsEyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--adults-ink-muted);
+}
+
+.adultsTitle {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.adultsLede {
+  margin: 0;
+  max-width: 24rem;
+  justify-self: end;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--adults-ink-muted);
+}
+
+.adultsIndex {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.adultItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.adultNo {
+  margin-bottom: 0.9rem;
+  font-family: var(--font-display-adults);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--adults-ink-muted);
+}
+
+.adultStage {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.4rem;
+  background: var(--wash);
+  overflow: hidden;
+}
+
+/* The room photograph waits underneath; hover/focus brings it in. */
+.adultRoom {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  scale: 1.08;
+  transition:
+    opacity 1s var(--ease-adults),
+    scale 1.4s var(--ease-adults-out);
+}
+
+.adultPack {
+  position: absolute;
+  /* Centred without translate — GSAP owns this layer's transform. */
+  inset: 4% 17% 0;
+  margin: auto;
+  width: 66%;
+  height: auto;
+  filter: drop-shadow(0 24px 24px rgba(40, 25, 15, 0.2));
+  transition:
+    opacity 0.8s var(--ease-adults),
+    scale 1s var(--ease-adults-out);
+}
+
+.adultStage:hover .adultRoom,
+.adultStage:focus-visible .adultRoom {
+  opacity: 1;
+  scale: 1;
+}
+
+.adultStage:hover .adultPack,
+.adultStage:focus-visible .adultPack {
+  opacity: 0;
+  scale: 0.92;
+}
+
+.adultInfo {
+  padding-top: 1.1rem;
+}
+
+.adultName {
+  margin: 0;
+  font-family: var(--font-display-adults);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  letter-spacing: -0.02em;
+}
+
+.adultName a {
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.6s var(--ease-adults);
+}
+
+.adultName a:hover {
+  background-size: 100% 1px;
+}
+
+.adultMeta {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--adults-ink-muted);
+}
+
+.adultBenefits {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--adults-line);
+}
+
+.adultBenefits li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--adults-line);
+  font-size: 0.78rem;
+  color: var(--adults-ink-muted);
+}
+
+.adultBuy {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.adultPrice {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--adults-ink);
+}
+
+.adultAdd {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: auto;
+  border: 1px solid var(--adults-ink);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--adults-ink);
+  cursor: pointer;
+  transition: background 0.4s var(--ease-adults), color 0.4s var(--ease-adults);
+}
+
+.adultAdd:hover {
+  background: var(--adults-ink);
+  color: var(--adults-paper);
+}
+
+/* Trust --------------------------------------------------------------- */
+
+.trust {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 5rem);
+  background: #fbf7f1;
+  text-align: center;
+  color: var(--kids-ink);
+}
+
+.trustItem svg {
+  color: var(--kids-accent-orange);
+}
+
+.trustTitle {
+  margin: 0.8rem 0 0.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.trustNote {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--kids-ink-muted);
+}
+
+/* Responsive ------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .adultsIndex {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .doors {
+    grid-template-columns: 1fr;
+  }
+
+  .door {
+    min-height: 14rem;
+  }
+
+  .kidsHead,
+  .adultsHead {
+    grid-template-columns: 1fr;
+  }
+
+  .adultsLede {
+    justify-self: start;
+  }
+
+  .kidsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .kidsInfo {
+    grid-template-columns: 1fr;
+  }
+
+  .kidsBuy {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .trust {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
+
+  /* No hover on touch: show pack, room photo stays out of the way. */
+  .adultsIndex {
+    gap: 1rem;
+    row-gap: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doorPack,
+  .kidsPack,
+  .adultRoom,
+  .adultPack {
+    transition: none;
+  }
+}

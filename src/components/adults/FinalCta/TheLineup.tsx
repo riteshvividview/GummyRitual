@@ -1,3 +1,4 @@
+import { useCart } from "../../../state/CartContext";
 import { useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../../animations/gsap";
@@ -29,6 +30,12 @@ const LINEUP_ALTS = ["Super Essentials, Skin & Hair, Gut Health and Women's Dail
 export function TheLineup() {
   const sectionRef = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
+  const { add, addMany } = useCart();
+  // One product when selected, otherwise the whole lineup (the bundle).
+  const addSelection = () =>
+    selected !== null
+      ? add({ productId: spots[selected].product, packSize: 1, subscribe: false, quantity: 1 })
+      : addMany(spots.map((s) => ({ productId: s.product, packSize: 1, subscribe: false, quantity: 1 })));
   const uid = useId().replace(/:/g, "");
   const isMobile = useIsMobile();
   const reduced = useReducedMotion();
@@ -211,7 +218,7 @@ export function TheLineup() {
               <button type="button" className={styles.secondary} onClick={onShop}>
                 {adultFinalCtaContent.primaryCta}
               </button>
-              <button type="button" className={styles.primary}>
+              <button type="button" className={styles.primary} onClick={addSelection}>
                 {adultFinalCtaContent.addLabel}
               </button>
             </div>

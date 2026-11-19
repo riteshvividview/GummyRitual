@@ -1,3 +1,4 @@
+import { useCart } from "../../state/CartContext";
 import { useRef } from "react";
 import { ShoppingCart, Star } from "lucide-react";
 import { gsap } from "../../animations/gsap/gsapConfig";
@@ -46,6 +47,7 @@ interface ProductCardProps {
  * cursor-parallax in WhyGummyRituals.tsx).
  */
 export function ProductCard({ product, isActive, onSelect, cardRef }: ProductCardProps) {
+  const { add: addToBag } = useCart();
   const imageUrl = getProductImage(product.image);
   const innerRef = useRef<HTMLDivElement>(null);
   const hoverTweenRef = useRef<{ y: (v: number) => void; scale: (v: number) => void } | null>(null);
@@ -144,7 +146,10 @@ export function ProductCard({ product, isActive, onSelect, cardRef }: ProductCar
           <button
             type="button"
             className={styles.addToCart}
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation();
+              addToBag({ productId: product.id, packSize: 1, subscribe: false, quantity: 1 });
+            }}
           >
             <ShoppingCart size={16} strokeWidth={2.25} />
             Add to Cart

@@ -20,7 +20,7 @@ import { ingredientsContent } from "./ingredientsContent";
 // Our Gummies (section 02) — direct imports, same files OurGummies.tsx
 // already imports; Vite dedupes identical asset imports to the same URL,
 // so this costs nothing extra and leaves that component untouched.
-import ourGummiesSectionImage from "../assets/homepage/02-our-gummies/images/home-page-second-section.png";
+import ourGummiesSectionImage from "../assets/homepage/02-our-gummies/images/our-gummies-scene.png";
 import leafFeature from "../assets/homepage/02-our-gummies/images/leaf-feature-img.png";
 import strawberryFeature from "../assets/homepage/02-our-gummies/images/strawberry-feature-img.png";
 import bearFeature from "../assets/homepage/02-our-gummies/images/orange-bear-feature-img.png";
@@ -37,7 +37,7 @@ import shapeImage from "../assets/homepage/06-taste-texture/images/shape-bear-im
 import ingredientsBearImage from "../assets/homepage/06-taste-texture/images/ingredients-bear-image.png";
 
 // Footer
-import footerBackground from "../assets/footer/footer-background-image.png";
+import footerBackground from "../assets/footer/footer-kids.png";
 
 const featuredCollectionImages = [
   STAND_IMAGE_FILENAME,

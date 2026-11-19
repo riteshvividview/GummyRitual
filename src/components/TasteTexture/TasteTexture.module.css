@@ -90,6 +90,8 @@
 
 .cardRow {
   position: relative;
+  /* Lets each card's depth canvas size itself to the row, not the card. */
+  container-type: inline-size;
   z-index: 1;
   display: flex;
   align-items: stretch;
@@ -106,7 +108,8 @@
 .card {
   flex: 1 1 0%;
   min-width: 0;
-  transition: flex-grow 0.6s var(--ease-default);
+  /* Slow, symmetric ease so neighbours open and close as one fluid motion. */
+  transition: flex-grow 0.65s cubic-bezier(0.65, 0, 0.25, 1);
 }
 
 .cardActive {
@@ -134,7 +137,13 @@
 .cardImage {
   position: absolute;
   inset: 0;
-  width: 100%;
+  /* Fixed at the open card's width and centred, so opening/closing a card
+     only reveals more or less of it. A canvas that resizes every frame
+     gets cleared and re-uploaded each frame — that was the stutter and
+     the black flashes. 2.6 / 5.6 of the row ≈ 47cqw. */
+  left: 50%;
+  width: 47cqw;
+  translate: -50% 0;
   height: 100%;
   object-fit: cover;
   /* Fades in on load (JS toggles the plain global "img-fade-loaded" class
@@ -144,7 +153,7 @@
      `transition` rule would replace it outright instead of adding to it. */
   opacity: 0;
   transition:
-    transform 0.6s var(--ease-default),
+    transform 0.8s cubic-bezier(0.65, 0, 0.25, 1),
     opacity 0.4s ease;
 }
 
@@ -275,12 +284,22 @@
     flex: none;
     height: 4.5rem;
     transition:
-      height 0.5s var(--ease-default),
+      height 0.6s cubic-bezier(0.65, 0, 0.25, 1),
       flex-grow 0.5s var(--ease-default);
   }
 
   .cardActive {
     height: 16rem;
+  }
+
+  /* Stacked cards grow in height instead — same idea: fixed at the open
+     height, centred, so the canvas never resizes mid-animation. */
+  .cardImage {
+    left: 0;
+    width: 100%;
+    top: 50%;
+    height: 16rem;
+    translate: 0 -50%;
   }
 
   .cardTop {
@@ -298,5 +317,35 @@
   .cardImage,
   .stageBackground {
     transition: none;
+  }
+}
+
+/* Card content eases in once the card has mostly opened, instead of
+   popping in at full width on the first frame. */
+.cardDescription,
+.cardCta {
+  animation: cardContentIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.cardCta {
+  animation-delay: 0.32s;
+}
+
+.cardExpandMark {
+  animation: cardContentIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+@keyframes cardContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardDescription,
+  .cardCta,
+  .cardExpandMark {
+    animation: none;
   }
 }

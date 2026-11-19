@@ -1,7 +1,7 @@
 .footer {
   position: relative;
   width: 100%;
-  /* Matches footer-background-image.png's own 1983x793 pixel dimensions —
+  /* Matches footer-kids.png's own 1983x793 pixel dimensions —
      keeping this ratio at every viewport width is what keeps the overlaid
      text aligned with the bear/pouches baked into the image itself. */
   aspect-ratio: 1983 / 793;

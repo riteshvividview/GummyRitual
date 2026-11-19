@@ -19,6 +19,27 @@ export interface FrameLoader {
   ready(): Promise<void>;
   /** Loads the remaining frames in the background without blocking the UI thread. */
   preloadRemaining(onProgress?: (loadedCount: number, total: number) => void): void;
+  /** Resolves once preloadRemaining has fetched every frame. */
+  whenDone(): Promise<void>;
+}
+
+/**
+ * Coarse-to-fine fetch order: every 8th frame first, then every 4th, 2nd,
+ * then the rest. A few frames in, scrubbing already covers the whole
+ * timeline (nearestLoaded fills the gaps) and just gets smoother as the
+ * in-between frames arrive — instead of only the first second working.
+ */
+export function coarseToFineOrder(total: number): number[] {
+  const seen = new Set<number>([0]);
+  const order: number[] = [];
+  for (const step of [8, 4, 2, 1])
+    for (let i = 0; i < total; i += step)
+      if (!seen.has(i)) {
+        seen.add(i);
+        order.push(i);
+      }
+  if (!seen.has(total - 1)) order.push(total - 1);
+  return order;
 }
 
 /** How many frames preloadRemaining fetches concurrently per idle slice —
@@ -37,6 +58,8 @@ export function createFrameLoader(urls: string[]): FrameLoader {
   const images: (HTMLImageElement | undefined)[] = new Array(urls.length);
   const loaded = new Array<boolean>(urls.length).fill(false);
   let preloadStarted = false;
+  let resolveDone!: () => void;
+  const done = new Promise<void>((r) => (resolveDone = r));
 
   function get(index: number): HTMLImageElement {
     const existing = images[index];
@@ -88,10 +111,14 @@ export function createFrameLoader(urls: string[]): FrameLoader {
     if (preloadStarted) return;
     preloadStarted = true;
 
-    let cursor = 1;
+    const order = coarseToFineOrder(urls.length);
+    let cursor = 0;
 
     const scheduleNext = () => {
-      if (cursor >= urls.length) return;
+      if (cursor >= order.length) {
+        resolveDone();
+        return;
+      }
       const ric = (window as Window & { requestIdleCallback?: (cb: () => void) => number })
         .requestIdleCallback;
       if (ric) ric(step);
@@ -99,11 +126,10 @@ export function createFrameLoader(urls: string[]): FrameLoader {
     };
 
     const step = () => {
-      if (cursor >= urls.length) return;
+      if (cursor >= order.length) return;
 
-      const batchEnd = Math.min(cursor + PRELOAD_BATCH_SIZE, urls.length);
-      const batchIndices: number[] = [];
-      for (let i = cursor; i < batchEnd; i++) batchIndices.push(i);
+      const batchEnd = Math.min(cursor + PRELOAD_BATCH_SIZE, order.length);
+      const batchIndices = order.slice(cursor, batchEnd);
       cursor = batchEnd;
 
       let settled = 0;
@@ -126,7 +152,15 @@ export function createFrameLoader(urls: string[]): FrameLoader {
     scheduleNext();
   }
 
-  return { total: urls.length, get, isLoaded, nearestLoaded, ready, preloadRemaining };
+  return {
+    total: urls.length,
+    get,
+    isLoaded,
+    nearestLoaded,
+    ready,
+    preloadRemaining,
+    whenDone: () => done,
+  };
 }
 
 const loaderCache = new Map<string, FrameLoader>();

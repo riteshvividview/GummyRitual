@@ -21,14 +21,14 @@ export const kidsHero = {
     ] satisfies HeadlineLine[],
   },
   description:
-    "Delicious, nutrition-packed gummies to support your child's growth, immunity, and focus.",
+    "Delicious, nutrition-packed gummies to support your child's growth, immunity and strong bones.",
   /** Product name shown per active hero frame sequence, keyed by the same
    * bear identifier used throughout (see benefits below). */
   productTitles: {
     orange: "Kids Multivitamin",
-    pink: "Kids Iron",
-    green: "Kids Focus",
-    blue: "Kids Calcium",
+    pink: "Kids Calcium",
+    green: "",
+    blue: "",
   },
   productCta: {
     addToCart: "Add to Cart",
@@ -40,14 +40,12 @@ export const kidsHero = {
    * productTitles. */
   productBenefits: {
     orange: ["Immunity", "Growth", "Energy", "Overall Health"],
-    pink: ["Iron Absorption", "Energy", "Immunity", "Red Blood Cells"],
-    green: ["Brain", "Focus", "Memory", "Mental Attention"],
-    blue: ["Bone Health", "Teeth Support", "Growth", "Muscle Function"],
+    pink: ["Bone Health", "Teeth Support", "Growth", "Muscle Function"],
+    green: [],
+    blue: [],
   },
   benefits: [
-    { label: "Immune Support", bear: "orange" as const },
-    { label: "Healthy Growth", bear: "pink" as const },
-    { label: "Better Focus", bear: "green" as const },
-    { label: "Active Lifestyle", bear: "blue" as const },
+    { label: "Daily Nutrition", bear: "orange" as const },
+    { label: "Strong Bones", bear: "pink" as const },
   ],
 };

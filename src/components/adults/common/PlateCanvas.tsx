@@ -89,7 +89,9 @@ export function PlateCanvas({
 
   // Cursor light (desktop pointers only — touch never gets a hover light).
   useEffect(() => {
-    if (!pointerLight || fallback) return;
+    // Track the pointer for the light and/or the depth parallax — a plate
+    // can have depth motion with no light (pointerLight 0).
+    if ((!pointerLight && !depthUrls?.length) || fallback) return;
     const canvas = canvasRef.current;
     if (!canvas || !window.matchMedia("(hover: hover)").matches) return;
     // Follow the cursor only while it is over this canvas; anywhere else

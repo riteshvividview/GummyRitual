@@ -20,7 +20,7 @@ function sortedFrameUrls(modules: Record<string, string>): string[] {
 }
 
 const rawModules = import.meta.glob(
-  "../../assets/homepage/03-benefits/videos/bg-for-benefits/*.png",
+  "../../assets/homepage/03-benefits/videos/bg-for-benefits/*.webp",
   { eager: true, query: "?url", import: "default" }
 ) as Record<string, string>;
 

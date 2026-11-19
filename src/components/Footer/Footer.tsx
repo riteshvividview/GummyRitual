@@ -3,13 +3,13 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animations/gsap/gsapConfig";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { footerContent } from "../../data/footerContent";
-import footerBackground from "../../assets/footer/footer-background-image.png";
+import footerBackground from "../../assets/footer/footer-kids.png";
 import logo from "../../assets/gummyrituallogo.png";
 import styles from "./Footer.module.css";
 
 /**
  * Site footer. The bear, product pouches, mini gummy bears and the
- * colorful wave background are all baked into footer-background-image.png
+ * colorful wave background are all baked into footer-kids.png
  * itself — this component only lays text content on top of it, matched
  * to the image's own 1983x793 proportions via aspect-ratio so everything
  * stays aligned at any viewport width.

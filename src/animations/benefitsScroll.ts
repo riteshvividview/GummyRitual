@@ -2,6 +2,17 @@ import { useEffect, useRef, type RefObject } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, gsap } from "./gsap/gsapConfig";
 import { getFrameLoader, type FrameLoader } from "./frameLoader";
+import { orangeBearFrameUrls, pinkBearFrameUrls } from "../components/Hero/FrameSequence";
+
+/** Benefits frames only start their background fetch once both hero
+ * sequences are in (or after 8s at most), so they never compete with the
+ * hero for bandwidth. Scrolling into the section still loads on demand. */
+function afterHeroFrames(): Promise<void> {
+  const hero = [orangeBearFrameUrls, pinkBearFrameUrls]
+    .filter((u) => u.length)
+    .map((u) => getFrameLoader(u).whenDone());
+  return Promise.race([Promise.all(hero).then(() => undefined), new Promise<void>((r) => setTimeout(r, 8000))]);
+}
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
 const MAX_DPR = 2;
@@ -51,7 +62,13 @@ export function useBenefitsFrameSequence({
     if (frameUrls.length === 0 || prefersReducedMotion) return;
     const loader = getFrameLoader(frameUrls);
     loaderRef.current = loader;
-    loader.preloadRemaining();
+    let cancelled = false;
+    afterHeroFrames().then(() => {
+      if (!cancelled) loader.preloadRemaining();
+    });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlsKey, prefersReducedMotion]);
 

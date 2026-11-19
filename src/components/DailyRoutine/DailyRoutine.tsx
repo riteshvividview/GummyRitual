@@ -6,6 +6,8 @@ import { useCursorParallax } from "../../animations/cursor/useCursorParallax";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { dailyRoutineContent } from "../../data/dailyRoutineContent";
 import backgroundImage from "../../assets/homepage/05-daily-routine/images/Day to Night Gummy Dreamscape bg image.png";
+import backgroundDepth from "../../assets/homepage/05-daily-routine/images/Day to Night Gummy Dreamscape bg image-depth.webp";
+import { PlateCanvas } from "../adults/common/PlateCanvas";
 import styles from "./DailyRoutine.module.css";
 
 const momentIcon: Record<string, LucideIcon> = { sun: Sun, moon: Moon };
@@ -25,7 +27,7 @@ function capitalize(value: string) {
 export function DailyRoutine() {
   const sectionRef = useRef<HTMLElement>(null);
   const photoAreaRef = useRef<HTMLDivElement>(null);
-  const bgImageRef = useRef<HTMLImageElement>(null);
+  const bgImageRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
   const morningCardRef = useCursorParallax<HTMLDivElement>(photoAreaRef, {
@@ -81,15 +83,17 @@ export function DailyRoutine() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.photoArea} ref={photoAreaRef}>
-        <img
-          ref={bgImageRef}
-          src={backgroundImage}
-          alt=""
-          aria-hidden="true"
-          className={`${styles.bgImage} img-fade`}
-          loading="lazy"
-          onLoad={(event) => event.currentTarget.classList.add("img-fade-loaded")}
-        />
+        <div ref={bgImageRef} className={styles.bgImage} aria-hidden="true">
+          <PlateCanvas
+            urls={[backgroundImage]}
+            depthUrls={[backgroundDepth]}
+            alts={[""]}
+            transition="depthFocus"
+            parallax={0.025}
+            pointerLight={0.2}
+            grain={0.02}
+          />
+        </div>
         <div className={styles.scrimLeft} aria-hidden="true" />
 
         <div className={styles.copyBlock}>

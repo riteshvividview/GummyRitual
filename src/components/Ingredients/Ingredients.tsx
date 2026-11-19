@@ -5,7 +5,8 @@ import { gsap } from "../../animations/gsap/gsapConfig";
 import { useCursorParallax } from "../../animations/cursor/useCursorParallax";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { ingredientsContent } from "../../data/ingredientsContent";
-import { getIngredientImage } from "./ingredientImages";
+import { getIngredientDepth, getIngredientImage } from "./ingredientImages";
+import { PlateCanvas, type PlateCanvasHandle } from "../adults/common/PlateCanvas";
 import orangeBear from "../../assets/homepage/01-hero/images/orange-bear.png";
 import pinkBear from "../../assets/homepage/01-hero/images/pink-bear.png";
 import greenBear from "../../assets/homepage/01-hero/images/green-bear.png";
@@ -20,6 +21,12 @@ const mascotImage: Record<string, string> = {
 };
 
 const BG_TRANSITION_DURATION = 0.9;
+// All scene plates, in ingredient order, with their depth maps — rendered
+// by the WebGL depth canvas (cursor parallax + depth crossfade).
+const PLATES = ingredientsContent.ingredients.map((i) => getIngredientImage(i.background) ?? "");
+const DEPTHS = ingredientsContent.ingredients.map((i) => getIngredientDepth(i.background) ?? "");
+const ALTS = ingredientsContent.ingredients.map(() => "");
+
 const CONTENT_FADE_OUT_MS = 260;
 const CONTENT_FADE_IN_MS = 520;
 
@@ -32,9 +39,9 @@ const CONTENT_FADE_IN_MS = 520;
 export function Ingredients() {
   const sectionRef = useRef<HTMLElement>(null);
   const photoAreaRef = useRef<HTMLDivElement>(null);
-  const layerRefs = useRef<[HTMLImageElement | null, HTMLImageElement | null]>([null, null]);
-  const frontLayerRef = useRef<0 | 1>(0);
-  const isFirstRunRef = useRef(true);
+  const plateRef = useRef<PlateCanvasHandle>(null);
+  const shownRef = useRef(0);
+  const mixRef = useRef({ v: 0 });
   const isAnimatingRef = useRef(false);
 
   const infoCardRef = useRef<HTMLDivElement>(null);
@@ -118,44 +125,26 @@ export function Ingredients() {
   }
 
   useEffect(() => {
-    const backgroundUrl = getIngredientImage(active.background);
-    if (!backgroundUrl) return;
-
-    const front = frontLayerRef.current;
-    const back = front === 0 ? 1 : 0;
-    const frontEl = layerRefs.current[front];
-    const backEl = layerRefs.current[back];
-    if (!frontEl || !backEl) return;
-
-    if (isFirstRunRef.current) {
-      isFirstRunRef.current = false;
-      gsap.set(frontEl, { opacity: 1 });
-      frontEl.src = backgroundUrl;
-      return;
-    }
-
-    backEl.src = backgroundUrl;
-
+    const from = shownRef.current;
+    const to = activeIndex;
+    if (from === to) return;
+    shownRef.current = to;
+    const plate = plateRef.current;
+    if (!plate) return;
     if (prefersReducedMotion) {
-      gsap.set(backEl, { opacity: 1, zIndex: 2 });
-      gsap.set(frontEl, { opacity: 0, zIndex: 1 });
-      frontLayerRef.current = back;
+      plate.setState(to, to, 0);
       return;
     }
-
-    gsap.set(backEl, { opacity: 0, zIndex: 2 });
-    const tl = gsap.timeline({
-      onComplete: () => {
-        frontLayerRef.current = back;
-      },
+    const m = mixRef.current;
+    gsap.killTweensOf(m);
+    m.v = 0;
+    gsap.to(m, {
+      v: 1,
+      duration: BG_TRANSITION_DURATION * 1.4,
+      ease: "power2.inOut",
+      onUpdate: () => plate.setState(from, to, m.v),
     });
-    tl.to(backEl, { opacity: 1, duration: BG_TRANSITION_DURATION, ease: "power2.inOut" }).to(
-      frontEl,
-      { opacity: 0, duration: BG_TRANSITION_DURATION, ease: "power2.inOut" },
-      "<"
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeIndex]);
+  }, [activeIndex, prefersReducedMotion]);
 
   useGSAP(
     () => {
@@ -180,19 +169,15 @@ export function Ingredients() {
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.photoArea} ref={photoAreaRef}>
         <div className={styles.backgroundLayer} aria-hidden="true">
-          <img
-            ref={(el) => {
-              layerRefs.current[0] = el;
-            }}
-            alt=""
-            className={styles.bgImage}
-          />
-          <img
-            ref={(el) => {
-              layerRefs.current[1] = el;
-            }}
-            alt=""
-            className={styles.bgImage}
+          <PlateCanvas
+            ref={plateRef}
+            urls={PLATES}
+            depthUrls={DEPTHS}
+            alts={ALTS}
+            transition="depthFocus"
+            parallax={0.03}
+            pointerLight={0.25}
+            grain={0.02}
           />
         </div>
         <div className={styles.scrimLeft} aria-hidden="true" />

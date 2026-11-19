@@ -45,8 +45,6 @@ export const footerContent = {
       links: [
         { label: "Kids Multivitamin", href: "#" },
         { label: "Kids Calcium", href: "#" },
-        { label: "Kids Focus", href: "#" },
-        { label: "Kids Iron", href: "#" },
         { label: "All Products", href: "#" },
       ],
     },

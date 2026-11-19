@@ -2,10 +2,11 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Heart, ShieldPlus, TrendingUp, Zap, type LucideIcon } from "lucide-react";
 import { gsap } from "../../animations/gsap/gsapConfig";
-import { useCursorParallax } from "../../animations/cursor/useCursorParallax";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { ourGummies } from "../../data/ourGummiesContent";
-import sectionImage from "../../assets/homepage/02-our-gummies/images/home-page-second-section.png";
+import sectionImage from "../../assets/homepage/02-our-gummies/images/our-gummies-scene.png";
+import sectionDepth from "../../assets/homepage/02-our-gummies/images/our-gummies-scene-depth.webp";
+import { PlateCanvas } from "../adults/common/PlateCanvas";
 import leafFeature from "../../assets/homepage/02-our-gummies/images/leaf-feature-img.png";
 import strawberryFeature from "../../assets/homepage/02-our-gummies/images/strawberry-feature-img.png";
 import bearFeature from "../../assets/homepage/02-our-gummies/images/orange-bear-feature-img.png";
@@ -33,10 +34,6 @@ export function OurGummies() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const backgroundImageRef = useCursorParallax<HTMLImageElement>(contentRef, {
-    strength: 0.012,
-    maxOffset: 10,
-  });
 
   useGSAP(
     () => {
@@ -105,14 +102,20 @@ export function OurGummies() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.content} ref={contentRef}>
-        <img
-          src={sectionImage}
-          alt=""
-          className={`${styles.backgroundImage} img-fade`}
-          ref={backgroundImageRef}
-          loading="lazy"
-          onLoad={(event) => event.currentTarget.classList.add("img-fade-loaded")}
-        />
+        {/* Depth-only parallax: the scene holds still, near/far layers
+            shift against each other with the cursor. No cursor light. */}
+        <div className={styles.backgroundImage} aria-hidden="true">
+          <PlateCanvas
+            urls={[sectionImage]}
+            depthUrls={[sectionDepth]}
+            alts={[""]}
+            transition="depthFocus"
+            focus={[0, 0.5]}
+            parallax={0.025}
+            pointerLight={0}
+            grain={0}
+          />
+        </div>
         <div className={styles.scrimLeft} aria-hidden="true" />
         <div className={styles.copyColumn}>
           <span className={`${styles.eyebrow} ${styles.revealUp}`}>{ourGummies.eyebrow}</span>

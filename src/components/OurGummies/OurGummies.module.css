@@ -45,7 +45,7 @@
      negative space (and pushing the pouches further right, out from under
      the copy) means zooming in from that same left anchor rather than
      shifting position any further. */
-  transform: scale(1.25);
+  transform: scale(1.04);
   /* Anchored a bit inside the left edge (not flush at 0%) — a pure left
      anchor has zero overscan on that side, so any rightward cursor-
      parallax pan immediately exposed a gap there. This keeps the same

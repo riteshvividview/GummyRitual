@@ -21,18 +21,26 @@ function fontsReady(): Promise<void> {
   return fonts.ready.then(() => undefined).catch(() => undefined);
 }
 
-/** Resolves once the hero's default (frame 0) image has loaded or errored
- * — reuses FrameSequence.ts's own cache via getFrameLoader().get(0), so
- * KidsHero/HeroCanvas later reuse this exact decoded Image instead of
- * loading it a second time. */
+/** Resolves once the hero's key frames (every 8th, ~16 frames) have
+ * loaded or errored. With these in, the scroll scrub already spans the
+ * whole hero animation the moment the page is revealed — the frames in
+ * between stream in after (coarse-to-fine, see frameLoader.ts). Reuses the
+ * shared loader cache, so the hero never fetches these twice. */
 function heroFirstFrameReady(): Promise<void> {
   if (orangeBearFrameUrls.length === 0) return Promise.resolve();
-  const img = getFrameLoader(orangeBearFrameUrls).get(0);
-  if (img.complete) return Promise.resolve();
-  return new Promise((resolve) => {
-    img.addEventListener("load", () => resolve(), { once: true });
-    img.addEventListener("error", () => resolve(), { once: true });
-  });
+  const loader = getFrameLoader(orangeBearFrameUrls);
+  const keys: number[] = [];
+  for (let i = 0; i < loader.total; i += 8) keys.push(i);
+  return Promise.all(
+    keys.map((i) => {
+      const img = loader.get(i);
+      if (img.complete) return undefined;
+      return new Promise<void>((resolve) => {
+        img.addEventListener("load", () => resolve(), { once: true });
+        img.addEventListener("error", () => resolve(), { once: true });
+      });
+    })
+  ).then(() => undefined);
 }
 
 /**

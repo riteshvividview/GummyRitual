@@ -1,7 +1,12 @@
 import { useEffect, useRef, type RefObject } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, gsap } from "./gsap/gsapConfig";
-import { getFrameLoader, type FrameLoader } from "../components/Hero/FrameSequence";
+import {
+  getFrameLoader,
+  orangeBearFrameUrls,
+  pinkBearFrameUrls,
+  type FrameLoader,
+} from "../components/Hero/FrameSequence";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { useIsMobile, useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -279,7 +284,14 @@ export function useHeroFrameSequence({
 
     const loader = getFrameLoader(activeUrls);
     loaderRef.current = loader;
-    if (!prefersReducedMotion) loader.preloadRemaining();
+    if (!prefersReducedMotion) {
+      loader.preloadRemaining();
+      // Once this sequence is in, warm the other product's sequence so
+      // switching benefit is instant (preloadRemaining is idempotent).
+      loader.whenDone().then(() =>
+        [orangeBearFrameUrls, pinkBearFrameUrls].forEach((u) => u.length && getFrameLoader(u).preloadRemaining())
+      );
+    }
 
     const targetFrame = prefersReducedMotion
       ? Math.floor(loader.total * 0.4)

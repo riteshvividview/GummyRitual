@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ArrowRight, Brain, Heart, ShieldPlus, TrendingUp, Zap, type LucideIcon } from "lucide-react";
+import { ArrowRight, Bone, Brain, Heart, ShieldPlus, TrendingUp, Zap, type LucideIcon } from "lucide-react";
 import { gsap } from "../../animations/gsap/gsapConfig";
 import { useBenefitsFrameSequence } from "../../animations/benefitsScroll";
 import { useCursorParallax } from "../../animations/cursor/useCursorParallax";
@@ -14,6 +14,7 @@ const iconMap: Record<string, LucideIcon> = {
   shieldPlus: ShieldPlus,
   trendingUp: TrendingUp,
   brain: Brain,
+  bone: Bone,
   zap: Zap,
   heart: Heart,
 };

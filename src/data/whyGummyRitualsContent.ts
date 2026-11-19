@@ -12,7 +12,7 @@ export interface BenefitPill {
   label: string;
   description: string;
   /** Keys into the iconMap in WhyGummyRituals.tsx (lucide-react). */
-  icon: "shieldPlus" | "trendingUp" | "brain" | "zap" | "heart";
+  icon: "shieldPlus" | "trendingUp" | "brain" | "bone" | "zap" | "heart";
   tint: "orange" | "blue" | "green" | "pink" | "neutral";
 }
 
@@ -27,7 +27,7 @@ export const whyGummyRituals = {
     ] satisfies HeadlineLine[],
   },
   description:
-    "Thoughtfully crafted with essential nutrients to support your child's growth, immunity, focus and everyday well-being.",
+    "Thoughtfully crafted with essential nutrients to support your child's growth, immunity, strong bones and everyday well-being.",
   cta: "Discover the Benefits",
   benefits: [
     {
@@ -43,9 +43,9 @@ export const whyGummyRituals = {
       tint: "blue",
     },
     {
-      label: "Focus",
-      description: "Supports learning, memory and concentration.",
-      icon: "brain",
+      label: "Bones & Teeth",
+      description: "Calcium for strong bones and healthy smiles.",
+      icon: "bone",
       tint: "green",
     },
     {

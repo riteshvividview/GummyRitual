@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kids Visual Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f3eee6; --paper:#fbf8f3; --ink:#2b2420; --muted:#7a6f66; --line:#ddd3c6;
+    --calcium:#f4c3d0; --multi:#f5c49a;
+    --accent:#3c2f28; --code:#efe8dd; --new:#b5562f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722; --new:#e58a62;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1916; --paper:#24201c; --ink:#efe7dc; --muted:#a89c90; --line:#3a332d; --accent:#e9dccb; --code:#2c2722; --new:#e58a62;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.65 Jost,system-ui,sans-serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:56px 16px 120px}
+  .eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:var(--muted);font-weight:400}
+  h1,h2,h3{font-family:Gloock,Georgia,serif;font-weight:400;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(44px,8vw,88px);line-height:.98;margin:14px 0 22px}
+  h2{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 14px}
+  h3{font-size:22px;margin:0 0 6px}
+  p{margin:0 0 12px;max-width:68ch}
+  .lead{font-size:18px;color:var(--muted)}
+  hr{border:0;border-top:1px solid var(--line);margin:64px 0}
+  .swatches{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+  .swatches span{flex:1 1 140px;padding:28px 12px 10px;border-radius:4px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2b2420}
+  .swatches span.dark{color:#e8f4f1}
+  nav.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 24px;margin:28px 0}
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
+  nav.toc a span{color:var(--muted);margin-right:10px;font-size:12px;letter-spacing:.2em}
+  nav.toc a i{font-style:normal;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-left:8px;color:var(--new)}
+  nav.toc a i.keep{color:var(--muted)}
+  .concept{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;margin:18px 0}
+  .concept b{font-weight:500}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:3px 10px;color:var(--muted)}
+  .asset{border-top:1px solid var(--line);padding:22px 0}
+  .asset-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+  .fname{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:500;word-break:break-all}
+  .kind{font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:var(--accent);color:var(--bg)}
+  .kind.video{background:#6d5a8a;color:#fff}
+  .kind.png{background:#5d7a62;color:#fff}
+  .spec{font-size:13px;color:var(--muted);margin:6px 0 10px}
+  .replaces{font-size:13px;margin:4px 0 8px;color:var(--new)}
+  .prompt{position:relative;background:var(--code);border-radius:6px;padding:16px;font:400 14px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-wrap:break-word}
+  .copy{position:absolute;top:8px;right:8px;font:500 11px Jost,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 10px;cursor:pointer}
+  .prompt .label{display:block;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  ul{padding-left:20px} li{margin:4px 0}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .path{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--muted)}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+  .badge{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;border-radius:99px;padding:3px 10px;margin-left:12px;vertical-align:middle;font-family:Jost,sans-serif}
+  .badge.new{background:var(--new);color:#fff}
+  .badge.keep{border:1px solid var(--line);color:var(--muted)}
+  .tablewrap{overflow-x:auto;margin:14px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  td code{word-break:break-all}
+  .unchanged{opacity:.6}
+  .unchanged:hover{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow">Gummy Rituals — Kids Experience · Visual Brief · new packaging</div>
+<h1>Two pouches.<br/>Same happy gummies.</h1>
+<p class="lead">The Kids range is now two products, with new pouches. This brief replaces only the images and videos that show packaging. The gummy bears, fruit, ingredients, kids and scenes stay exactly as they are. Everything that isn't replaced gets a depth map instead, for the 3D cursor effect.</p>
+
+<div class="swatches">
+  <span style="background:var(--calcium)">Kids Calcium · Strawberry · pink bear</span>
+  <span style="background:var(--multi)">Kids Multivitamin · Mixed Fruit · orange elephant</span>
+</div>
+
+<h2>What changes</h2>
+<div class="concept">
+  <p><b>The range: 4 products → 2.</b> Kids Focus and Kids Iron are gone.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Product</th><th>Pouch</th><th>Mascot</th><th>Flavour</th><th>On-pack benefits</th></tr>
+    <tr><td><b>Kids Calcium</b></td><td>White, soft pink lower third</td><td>Pink bear</td><td>Strawberry</td><td>Bone health · Teeth support · Muscle function</td></tr>
+    <tr><td><b>Kids Multivitamin</b></td><td>White, peach-orange lower third</td><td>Orange elephant</td><td>Mixed fruit</td><td>Immunity · Growth · Energy · Overall health</td></tr>
+  </table></div>
+  <p><b>Watch the mascots.</b> They have swapped. Calcium used to be a blue elephant and is now a <b>pink bear</b>. Multivitamin used to be a brown bear and is now an <b>orange elephant</b>. Every prompt below says so, because generators like to copy the old artwork.</p>
+  <p><b>Gummies stay the same.</b> Keep the same glossy gummy bears in every scene: red and pink ones near Calcium (strawberry), orange and yellow ones near Multivitamin (mixed fruit).</p>
+  <p><b>Already done in code:</b></p>
+  <ul>
+    <li>Product data and the carousel are down to two products.</li>
+    <li>The hero has two benefit buttons: Daily Nutrition (Multivitamin) and Strong Bones (Calcium).</li>
+    <li>On-pack benefits are updated.</li>
+    <li>"Focus" in Why Gummy Rituals is replaced with "Bones &amp; Teeth".</li>
+    <li>The footer shop links list the two products.</li>
+  </ul>
+  <p><b>Placeholders until your new files arrive:</b></p>
+  <ul>
+    <li>The carousel uses clean cutouts of your two pack mockups.</li>
+    <li>The hero uses the old pink and orange videos.</li>
+  </ul>
+</div>
+
+<h2>How to work: edit, don't regenerate</h2>
+<div class="concept">
+  <p>Every replacement starts from the <b>existing</b> image or frame, with the <b>new pack mockup</b> attached. Ask the tool to swap only the pouch. The background, light, gummies and fruit stay as they are, so the result still matches the rest of the page.</p>
+  <p><b>All references are already collected for you</b> in <span class="path">Organize-kids-section/refs/</span>. File names in the "Attach" lines below refer to that folder.</p>
+  <p><b>For the videos</b>, first make the start frame and the end frame as image edits, then generate the video <b>from those two frames</b> (first-frame and last-frame mode in Veo, Kling or Runway). That's the only reliable way to keep the label sharp and the scene identical.</p>
+</div>
+
+<h2>Files to make: 8 images + 3 videos</h2>
+<div class="concept">
+  <div class="tablewrap"><table>
+    <tr><th>Section</th><th>Name your file</th><th>Replaces</th></tr>
+    <tr><td>01 Hero</td><td><code>hero-calcium-first.png</code> · <code>hero-calcium-last.png</code> → <code>hero-calcium.mp4</code></td><td>pink and blue bear sequences</td></tr>
+    <tr><td></td><td><code>hero-multivitamin-first.png</code> · <code>hero-multivitamin-last.png</code> → <code>hero-multivitamin.mp4</code></td><td>orange and green bear sequences</td></tr>
+    <tr><td>Featured carousel</td><td><code>featured-calcium.png</code> · <code>featured-multivitamin.png</code></td><td>the 4 styled pouch PNGs</td></tr>
+    <tr><td>02 Our Gummies</td><td><code>our-gummies-scene.png</code></td><td>home-page-second-section.png</td></tr>
+    <tr><td>03 Benefits</td><td><code>benefits-first.png</code> · <code>benefits-last.png</code> → <code>benefits-bg.mp4</code></td><td>bg-for-benefits (240 frames)</td></tr>
+    <tr><td>Footer</td><td><code>footer-kids.png</code></td><td>footer-background-image.png</td></tr>
+  </table></div>
+  <p>Drop everything into <span class="path">Organize-kids-section/new/</span> and ask Claude to organise it. Claude splits the videos into frame sequences and builds the depth maps.</p>
+</div>
+
+<nav class="toc">
+  <a href="#s1"><span>01</span>Hero videos<i>New</i></a>
+  <a href="#s1a"><span>01a</span>Featured carousel<i>New</i></a>
+  <a href="#s2"><span>02</span>Our Gummies<i>New</i></a>
+  <a href="#s3"><span>03</span>Benefits video<i>New</i></a>
+  <a href="#s4"><span>04–06</span>Ingredients · Routine · Texture<i class="keep">Depth only</i></a>
+  <a href="#sf"><span>—</span>Footer<i>New</i></a>
+</nav>
+
+<!-- ===================== 01 HERO ===================== -->
+<hr id="s1"/>
+<div class="eyebrow">Section 01 · Hero</div>
+<h2>Pouch reveal, two videos<span class="badge new">New</span></h2>
+<div class="concept">
+  <p><b>Concept (unchanged):</b> the scroll drives a video. It opens on one pouch, tilted on a soft seamless backdrop, and ends in a burst of gummy bears, fruit and splashes around curved plinths. There are now two videos instead of four:</p>
+  <ul>
+    <li><b>Calcium</b> reuses the pink world (strawberries, red and pink bears).</li>
+    <li><b>Multivitamin</b> reuses the orange world (oranges, berries, orange and yellow bears).</li>
+  </ul>
+  <div class="meta"><span class="tag">4 frame edits</span><span class="tag">2 videos</span><span class="tag">16:9 · 5 s</span></div>
+</div>
+<p class="path">src/assets/homepage/01-hero/videos/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-calcium-first.png</span><span class="kind">image edit</span></div>
+<div class="spec">16:9, 1920 × 1080 (or higher) · <b>Attach:</b> 1 <span class="path">ref-hero-calcium-first.png</span> (the scene) · 2 <span class="path">ref-pack-calcium.jpg</span> (the new pouch)</div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Replace only the pouch with the Kids Calcium pouch from image 2: same white stand-up pouch with a soft pink lower third, "The Gummy Ritual" logo in blue, "Kids Calcium" in pink, the pink bear mascot peeking over the pink band, "Strawberry Flavour", "30 Gummies" and "Ages 3+" badges. Keep the pouch at exactly the same position, size, tilt and angle as in image 1, with the same soft studio lighting and shadow on the floor. Keep the pink seamless background, the floor and everything else exactly as in image 1. Print and text on the pouch must match image 2 exactly and stay sharp and readable. No rabbit, no "Kids Iron", no extra objects.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-calcium-last.png</span><span class="kind">image edit</span></div>
+<div class="spec">16:9, 1920 × 1080 · <b>Attach:</b> 1 <span class="path">ref-hero-calcium-last.png</span> · 2 <span class="path">ref-pack-calcium.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Replace only the pouch in the centre of the burst with the Kids Calcium pouch from image 2 (white pouch, soft pink lower third, blue "The Gummy Ritual" logo, pink "Kids Calcium" title, pink bear mascot, "Strawberry Flavour"). Keep its position, size and tilt as in image 1. Keep every flying gummy bear, strawberry slice, splash, bubble and the pink curved plinths exactly as they are. The pouch print must match image 2 and stay readable. No rabbit, no "Kids Iron".<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-calcium.mp4</span><span class="kind video">video</span></div>
+<div class="spec">16:9 · 1920 × 1080 · 24 fps · 5 s · no audio · <b>First frame:</b> <span class="path">hero-calcium-first.png</span> · <b>Last frame:</b> <span class="path">hero-calcium-last.png</span> · <b>Optional style ref:</b> the old pink video, if your tool accepts a video reference</div>
+<div class="prompt"><span class="label">Video prompt</span>16:9, 5 seconds, 24 fps, no audio. Cinematic 3D product commercial for kids. The camera starts on the Kids Calcium pouch standing tilted on a soft pink seamless studio floor, then pushes in smoothly and slightly upward while the pouch top opens and glossy translucent red and pink gummy bears, fresh strawberries and a few blueberries burst out of it in slow motion with juicy splashes and bubbles. The camera keeps moving through the burst and pulls back to reveal pink curved plinths and the pouch in the centre of a joyful explosion of gummy bears and strawberry slices, ending exactly on the last frame. Soft bright studio light, premium and playful, smooth continuous camera motion with no cuts. The pouch label stays the same as in the first frame: Kids Calcium, pink bear mascot, Strawberry Flavour. No text overlays, no people, no other packaging.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-multivitamin-first.png</span><span class="kind">image edit</span></div>
+<div class="spec">16:9, 1920 × 1080 · <b>Attach:</b> 1 <span class="path">ref-hero-multivitamin-first.png</span> · 2 <span class="path">ref-pack-multivitamin.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Replace only the pouch with the Kids Multivitamin pouch from image 2: same white stand-up pouch with a soft peach-orange lower third, "The Gummy Ritual" logo in blue, "Kids Multivitamin" in orange, the orange baby elephant mascot peeking over the band, "Mixed Fruit Flavour", "30 Gummies" and "Ages 3+" badges. Keep the pouch at exactly the same position, size, tilt and angle as in image 1, with the same soft light and floor shadow. Keep the peach seamless background and everything else exactly as in image 1. The pouch print must match image 2 exactly and stay sharp. No teddy bear mascot, no extra objects.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-multivitamin-last.png</span><span class="kind">image edit</span></div>
+<div class="spec">16:9, 1920 × 1080 · <b>Attach:</b> 1 <span class="path">ref-hero-multivitamin-last.png</span> · 2 <span class="path">ref-pack-multivitamin.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Replace only the pouch in the centre of the burst with the Kids Multivitamin pouch from image 2 (white pouch, peach-orange lower third, blue "The Gummy Ritual" logo, orange "Kids Multivitamin" title, orange elephant mascot, "Mixed Fruit Flavour"). Keep its position, size and tilt as in image 1. Keep every flying gummy bear, orange slice, strawberry, blueberry, splash, bubble and the orange curved plinths exactly as they are. The pouch print must match image 2. No teddy bear mascot.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">hero-multivitamin.mp4</span><span class="kind video">video</span></div>
+<div class="spec">16:9 · 1920 × 1080 · 24 fps · 5 s · no audio · <b>First frame:</b> <span class="path">hero-multivitamin-first.png</span> · <b>Last frame:</b> <span class="path">hero-multivitamin-last.png</span></div>
+<div class="prompt"><span class="label">Video prompt</span>16:9, 5 seconds, 24 fps, no audio. Cinematic 3D product commercial for kids. The camera starts on the Kids Multivitamin pouch standing tilted on a soft peach seamless studio floor, then pushes in smoothly and slightly upward while the pouch top opens and glossy translucent orange, yellow and red gummy bears, orange slices, strawberries and blueberries burst out in slow motion with juicy splashes and bubbles. The camera keeps moving through the burst and pulls back to reveal orange curved plinths and the pouch in the centre of a joyful explosion of gummy bears and fruit, ending exactly on the last frame. Soft bright studio light, premium and playful, smooth continuous camera motion with no cuts. The pouch label stays the same as in the first frame: Kids Multivitamin, orange elephant mascot, Mixed Fruit Flavour. No text overlays, no people, no other packaging.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 01a FEATURED ===================== -->
+<hr id="s1a"/>
+<div class="eyebrow">Section 01a · Featured Collection</div>
+<h2>Carousel pouches<span class="badge new">New</span></h2>
+<div class="concept">
+  <p><b>Concept (unchanged):</b> each product stands front-on with its fruit and gummy bears gathered around its base, cut out on transparency. The coloured wave backgrounds behind them stay as they are.</p>
+  <div class="meta"><span class="tag">2 transparent PNGs</span><span class="tag">~1:1</span></div>
+</div>
+<p class="path">src/assets/homepage/01a-featured-collection/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">featured-calcium.png</span><span class="kind png">transparent PNG</span></div>
+<div class="spec">1:1 · 2048 × 2048 · transparent background (generate on pure white, then remove the background) · <b>Attach:</b> 1 <span class="path">ref-pack-calcium.jpg</span> (the pouch) · 2 <span class="path">ref-featured-style-strawberry.png</span> (composition and style)</div>
+<div class="prompt"><span class="label">Prompt</span>Product shot on a pure white background. The Kids Calcium stand-up pouch from image 1 stands upright, front facing the camera, in the centre, its print matching image 1 exactly: blue "The Gummy Ritual" logo, pink "Kids Calcium" title, "Bone Health • Teeth Support • Muscle Function", the pink bear mascot, "Strawberry Flavour", "30 Gummies" and "Ages 3+". Arrange it like image 2: two fresh glossy strawberries with green leaves at the left and right of the base, and a few glossy translucent red gummy bears clustered at the foot of the pouch on both sides, overlapping its lower corners. Soft bright studio light, gentle contact shadow, premium and playful, photoreal 3D render. Use image 2 only for layout and style; take the pouch only from image 1. No rabbit, no "Kids Iron", no text other than the pouch print.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">featured-multivitamin.png</span><span class="kind png">transparent PNG</span></div>
+<div class="spec">1:1 · 2048 × 2048 · transparent background · <b>Attach:</b> 1 <span class="path">ref-pack-multivitamin.jpg</span> · 2 <span class="path">ref-featured-style-orange.png</span></div>
+<div class="prompt"><span class="label">Prompt</span>Product shot on a pure white background. The Kids Multivitamin stand-up pouch from image 1 stands upright, front facing the camera, in the centre, its print matching image 1 exactly: blue "The Gummy Ritual" logo, orange "Kids Multivitamin" title, "Daily Nutritional Support", "Immunity • Growth • Energy • Overall Health", the orange baby elephant mascot, "Mixed Fruit Flavour", "30 Gummies" and "Ages 3+". Arrange it like image 2: a halved orange and an orange slice with a green leaf at the left and right of the base, and a few glossy translucent orange and yellow gummy bears clustered at the foot of the pouch on both sides, overlapping its lower corners. Soft bright studio light, gentle contact shadow, premium and playful, photoreal 3D render. Use image 2 only for layout and style; take the pouch only from image 1. No teddy bear mascot, no text other than the pouch print.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 02 OUR GUMMIES ===================== -->
+<hr id="s2"/>
+<div class="eyebrow">Section 02 · Our Gummies</div>
+<h2>The range on the plinths<span class="badge new">New</span></h2>
+<div class="concept">
+  <p><b>Concept (unchanged):</b> the sunny arched room with cream plinths, fruit and gummy bears, with the left 40% kept clear for the headline. Now there are two pouches, slightly larger, filling the space the four used to.</p>
+  <div class="meta"><span class="tag">1 image edit</span><span class="tag">16:9</span><span class="tag">+ depth map</span></div>
+</div>
+<p class="path">src/assets/homepage/02-our-gummies/images/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">our-gummies-scene.png</span><span class="kind">image edit</span></div>
+<div class="replaces">Replaces home-page-second-section.png</div>
+<div class="spec">16:9 · 2560 × 1440 · left 40% of the frame stays empty · <b>Attach:</b> 1 <span class="path">ref-our-gummies-scene.png</span> (the scene) · 2 <span class="path">ref-pack-multivitamin.jpg</span> · 3 <span class="path">ref-pack-calcium.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Remove all four existing pouches and place exactly two stand-up pouches on the cream plinths in the right half of the frame: the Kids Multivitamin pouch from image 2 on the left plinth, slightly in front, and the Kids Calcium pouch from image 3 on the right plinth, slightly behind and taller. Both face the camera, are about 1.4 times the size of the old pouches, and their print matches the references exactly (orange elephant on Multivitamin, pink bear on Calcium, blue logo on both). Rebalance the props so the scene still looks full: orange slices, blueberries and orange and yellow gummy bears around the Multivitamin pouch; strawberries and red and pink gummy bears around the Calcium pouch. Keep the arched window, warm sunlight, cream curved surfaces, colours and soft glow exactly as in image 1, and keep the left 40% of the frame clear and soft. No green or blue pouches, no lion, no rabbit, no apples.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 03 BENEFITS ===================== -->
+<hr id="s3"/>
+<div class="eyebrow">Section 03 · Why Gummy Rituals</div>
+<h2>Benefits background video<span class="badge new">New</span></h2>
+<div class="concept">
+  <p><b>Concept (unchanged):</b> a girl in a sunny arched room reaches up to a rain of colourful gummy bears, with a pouch in the bottom-left corner. Only that pouch changes, to <b>Kids Multivitamin</b>, since mixed fruit suits the rainbow of bears.</p>
+  <div class="meta"><span class="tag">2 frame edits</span><span class="tag">1 video</span><span class="tag">16:9 · 10 s</span></div>
+</div>
+<p class="path">src/assets/homepage/03-benefits/videos/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">benefits-first.png</span> · <span class="fname">benefits-last.png</span><span class="kind">image edit ×2</span></div>
+<div class="spec">16:9 · 1920 × 1080 · <b>Attach:</b> 1 <span class="path">ref-benefits-first.png</span> (or <span class="path">ref-benefits-last.png</span> for the second one) · 2 <span class="path">ref-pack-multivitamin.jpg</span></div>
+<div class="prompt"><span class="label">Prompt (use the same one for both frames)</span>Edit image 1. Replace only the pouch in the bottom-left corner with the Kids Multivitamin pouch from image 2: white pouch with a peach-orange lower third, blue "The Gummy Ritual" logo, orange "Kids Multivitamin" title and the orange elephant mascot. Keep its position, size, angle, blur and lighting exactly as the old pouch, partly cropped by the frame edge the same way. Keep the girl, every floating gummy bear, the leaves, the arched windows, the sky and the light exactly as in image 1. No teddy bear mascot.<button class="copy">Copy</button></div></div>
+
+<div class="asset"><div class="asset-head"><span class="fname">benefits-bg.mp4</span><span class="kind video">video</span></div>
+<div class="spec">16:9 · 1920 × 1080 · 24 fps · 10 s · no audio · <b>First frame:</b> <span class="path">benefits-first.png</span> · <b>Last frame:</b> <span class="path">benefits-last.png</span></div>
+<div class="prompt"><span class="label">Video prompt</span>16:9, 10 seconds, 24 fps, no audio. A happy little girl sits in a bright, sunny arched room by large windows overlooking the sea, smiling and reaching up as colourful glossy gummy bears (red, orange, yellow, green) and a few green leaves float gently down and drift around her in slow motion. Very slow, smooth camera push-in. The Kids Multivitamin pouch stays in the bottom-left corner, softly out of focus, without changing. Warm golden sunlight, dreamy and playful, premium 3D-meets-photo look, no cuts. Start exactly on the first frame and end exactly on the last frame. No text, no other packaging.<button class="copy">Copy</button></div></div>
+
+<!-- ===================== 04–06 UNCHANGED ===================== -->
+<hr id="s4"/>
+<div class="unchanged">
+<div class="eyebrow">Sections 04 · 05 · 06 and the carousel backgrounds</div>
+<h2>No new images, just depth<span class="badge keep">Depth only</span></h2>
+<div class="concept">
+  <p>None of these show packaging, so they stay exactly as they are. Claude generates a depth map for each one, so they get the same subtle 3D cursor parallax as the Adults site:</p>
+  <ul>
+    <li><b>04 Ingredients:</b> the six bear scenes (Antioxidant, Crystal, Real Fruits, Vitamins, Sugar-Free, Botanical).</li>
+    <li><b>05 Daily Routine:</b> the day-to-night dreamscape.</li>
+    <li><b>06 Taste &amp; Texture:</b> the background, plus the Chewy bite, Ingredients, Shape and Texture cards.</li>
+    <li><b>Carousel backgrounds:</b> bg-pink and bg-orange. bg-blue and bg-green are no longer used.</li>
+    <li><b>Hero gummy bears and the 02 icons:</b> no change and no depth, since they're small cutouts.</li>
+  </ul>
+  <p>Nothing to generate here.</p>
+</div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<hr id="sf"/>
+<div class="eyebrow">Footer</div>
+<h2>Two pouches on the waves<span class="badge new">New</span></h2>
+<div class="concept">
+  <p><b>Concept (unchanged):</b> the winking teddy on the left, pastel waves and the pouches on the right. The teddy is the footer's own character, not a pack mascot, so it stays. Only the four pouches become two.</p>
+  <div class="meta"><span class="tag">1 image edit</span><span class="tag">1983 × 793</span><span class="tag">+ depth map</span></div>
+</div>
+<p class="path">src/assets/footer/</p>
+
+<div class="asset"><div class="asset-head"><span class="fname">footer-kids.png</span><span class="kind">image edit</span></div>
+<div class="replaces">Replaces footer-background-image.png</div>
+<div class="spec">2.5:1 · 3966 × 1586 (2× the current 1983 × 793). Keep the top 45% and the middle third clear for the links. <b>Attach:</b> 1 <span class="path">ref-footer.png</span> · 2 <span class="path">ref-pack-multivitamin.jpg</span> · 3 <span class="path">ref-pack-calcium.jpg</span></div>
+<div class="prompt"><span class="label">Prompt</span>Edit image 1. Replace the four pouches on the right with exactly two stand-up pouches standing on the pastel waves in the same spot: the Kids Multivitamin pouch from image 2 on the left, and the Kids Calcium pouch from image 3 on the right, slightly overlapping, both a little larger than the old pouches and leaning gently like the originals. Their print matches the references exactly (orange elephant on Multivitamin, pink bear on Calcium, blue logo). Keep the glossy gummy bears at their feet, recoloured to orange and yellow in front of Multivitamin and red and pink in front of Calcium. Keep the winking teddy on the left, the pastel waves, the sky shapes, the colours and the soft light exactly as in image 1, and keep the top and the middle of the image clear. No blue or green pouches, no lion, no rabbit.<button class="copy">Copy</button></div></div>
+
+<hr/>
+<h2>Checklist</h2>
+<div class="concept">
+<ul>
+  <li><b>01 Hero:</b> 4 frame edits, then 2 videos <span class="badge new">New</span></li>
+  <li><b>01a Featured:</b> 2 transparent pouch shots <span class="badge new">New</span></li>
+  <li><b>02 Our Gummies:</b> 1 scene edit <span class="badge new">New</span></li>
+  <li><b>03 Benefits:</b> 2 frame edits, then 1 video <span class="badge new">New</span></li>
+  <li><b>04 · 05 · 06:</b> no change (depth maps by Claude)</li>
+  <li><b>Footer:</b> 1 scene edit <span class="badge new">New</span></li>
+</ul>
+<p><b>Total:</b> 8 images and 3 videos. Make the frame edits before their videos.</p>
+<p><b>Then:</b> drop everything into <span class="path">Organize-kids-section/new/</span> with the names above.</p>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.parentElement.cloneNode(true);t.querySelectorAll('.copy,.label').forEach(function(n){n.remove()});
+    var s=t.textContent.trim();
+    try{navigator.clipboard.writeText(s).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1400)})}catch(e){}
+  });
+});
+</script>
+</body>
+</html>

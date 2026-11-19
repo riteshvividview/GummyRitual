@@ -6,8 +6,6 @@ import { BenefitPanel, SectionIndicator } from "./HeroDecor";
 import {
   orangeBearFrameUrls,
   pinkBearFrameUrls,
-  greenBearFrameUrls,
-  blueBearFrameUrls,
   KIDS_HERO_FRAME_ASPECT,
 } from "./FrameSequence";
 import { useHeroFrameSequence } from "../../animations/heroScroll";
@@ -30,17 +28,17 @@ type HeroSequence = "orange" | "pink" | "green" | "blue";
  * toggle, so clicking a benefit always shows its sequence regardless of
  * what's active now. */
 const benefitSequence: Record<string, HeroSequence> = {
-  "Immune Support": "orange",
-  "Healthy Growth": "pink",
-  "Better Focus": "green",
-  "Active Lifestyle": "blue",
+  "Daily Nutrition": "orange",
+  "Strong Bones": "pink",
 };
 
 const sequenceFrameUrls: Record<HeroSequence, string[]> = {
   orange: orangeBearFrameUrls,
   pink: pinkBearFrameUrls,
-  green: greenBearFrameUrls,
-  blue: blueBearFrameUrls,
+  // Unused since the range went to two products — kept only so the
+  // legacy theme keys still type-check.
+  green: orangeBearFrameUrls,
+  blue: pinkBearFrameUrls,
 };
 
 const sequenceThemeClass: Record<HeroSequence, string> = {

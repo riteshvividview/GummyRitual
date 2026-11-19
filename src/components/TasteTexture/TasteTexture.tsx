@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, Plus } from "lucide-react";
 import { gsap } from "../../animations/gsap/gsapConfig";
@@ -10,7 +10,20 @@ import textureImage from "../../assets/homepage/06-taste-texture/images/texture-
 import chewyBiteImage from "../../assets/homepage/06-taste-texture/images/chewy-bite-image.png";
 import shapeImage from "../../assets/homepage/06-taste-texture/images/shape-bear-image.png";
 import ingredientsImage from "../../assets/homepage/06-taste-texture/images/ingredients-bear-image.png";
+import backgroundDepth from "../../assets/homepage/06-taste-texture/images/bg-image-depth.webp";
+import textureDepth from "../../assets/homepage/06-taste-texture/images/texture-bear-image-depth.webp";
+import chewyBiteDepth from "../../assets/homepage/06-taste-texture/images/chewy-bite-image-depth.webp";
+import shapeDepth from "../../assets/homepage/06-taste-texture/images/shape-bear-image-depth.webp";
+import ingredientsDepth from "../../assets/homepage/06-taste-texture/images/ingredients-bear-image-depth.webp";
+import { PlateCanvas } from "../adults/common/PlateCanvas";
 import styles from "./TasteTexture.module.css";
+
+const cardDepthMap: Record<TextureCard["image"], string> = {
+  texture: textureDepth,
+  chewyBite: chewyBiteDepth,
+  shape: shapeDepth,
+  ingredients: ingredientsDepth,
+};
 
 const cardImageMap: Record<TextureCard["image"], string> = {
   texture: textureImage,
@@ -31,7 +44,7 @@ export function TasteTexture() {
   const prefersReducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(tasteTextureContent.defaultActiveId);
 
-  const bgImageRef = useCursorParallax<HTMLImageElement>(stageRef, {
+  const bgImageRef = useCursorParallax<HTMLDivElement>(stageRef, {
     strength: 0.01,
     maxOffset: 14,
   });
@@ -67,6 +80,16 @@ export function TasteTexture() {
     { scope: sectionRef, dependencies: [prefersReducedMotion] }
   );
 
+  // Hover intent: sweeping the cursor across the row shouldn't open every
+  // card it passes — only the one it settles on.
+  const hoverTimer = useRef<number | undefined>(undefined);
+  const cancelHover = () => window.clearTimeout(hoverTimer.current);
+  const hoverTo = (id: string) => {
+    cancelHover();
+    hoverTimer.current = window.setTimeout(() => setActiveId(id), 90);
+  };
+  useEffect(() => cancelHover, []);
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, id: string) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -77,15 +100,17 @@ export function TasteTexture() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.stage} ref={stageRef}>
-        <img
-          ref={bgImageRef}
-          src={backgroundImage}
-          alt=""
-          aria-hidden="true"
-          className={`${styles.stageBackground} img-fade`}
-          loading="lazy"
-          onLoad={(event) => event.currentTarget.classList.add("img-fade-loaded")}
-        />
+        <div ref={bgImageRef} className={styles.stageBackground} aria-hidden="true">
+          <PlateCanvas
+            urls={[backgroundImage]}
+            depthUrls={[backgroundDepth]}
+            alts={[""]}
+            transition="depthFocus"
+            parallax={0.025}
+            pointerLight={0.2}
+            grain={0.02}
+          />
+        </div>
         <div className={styles.stageScrim} aria-hidden="true" />
 
         <div className={styles.copyBlock}>
@@ -112,18 +137,23 @@ export function TasteTexture() {
                   tabIndex={0}
                   aria-pressed={isActive}
                   aria-label={card.label}
-                  onMouseEnter={() => setActiveId(card.id)}
+                  onMouseEnter={() => hoverTo(card.id)}
+                  onMouseLeave={cancelHover}
                   onFocus={() => setActiveId(card.id)}
                   onClick={() => setActiveId(card.id)}
                   onKeyDown={(event) => handleKeyDown(event, card.id)}
                 >
-                  <img
-                    src={cardImageMap[card.image]}
-                    alt=""
-                    className={styles.cardImage}
-                    loading="lazy"
-                    onLoad={(event) => event.currentTarget.classList.add("img-fade-loaded")}
-                  />
+                  <div className={`${styles.cardImage} img-fade-loaded`}>
+                    <PlateCanvas
+                      urls={[cardImageMap[card.image]]}
+                      depthUrls={[cardDepthMap[card.image]]}
+                      alts={[""]}
+                      transition="depthFocus"
+                      parallax={0.035}
+                      pointerLight={0.3}
+                      grain={0.02}
+                    />
+                  </div>
                   <div className={styles.cardScrim} aria-hidden="true" />
 
                   <div className={styles.cardTop}>
